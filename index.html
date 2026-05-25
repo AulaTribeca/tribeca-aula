@@ -29,7 +29,8 @@
         <p class="eyebrow">Acceso de prueba</p>
         <h2 id="loginTitle">Entrar al aula</h2>
         <p>
-          Esta es una maqueta inicial. De momento, el acceso es simulado y no guarda datos reales.
+          Esta versión simula el acceso personalizado de cada alumno. Cada usuario ve solo su curso,
+          sus materias asignadas y su espacio de apoyo personalizado.
         </p>
       </div>
 
@@ -40,7 +41,7 @@
           id="username"
           name="username"
           autocomplete="username"
-          placeholder="Ejemplo: alumno_001"
+          placeholder="Ejemplo: alumno_1eso"
           required
         />
 
@@ -50,15 +51,17 @@
           id="password"
           name="password"
           autocomplete="current-password"
-          placeholder="Contraseña de prueba"
+          placeholder="Contraseña"
           required
         />
 
         <button type="submit" class="primary-button">Entrar</button>
 
         <p class="form-help">
-          Puedes escribir cualquier usuario y contraseña para probar la maqueta.
+          Usuarios de prueba: alumno_5p, alumno_1eso, alumno_4eso, alumno_2bach. Contraseña: 1234.
         </p>
+
+        <p id="loginError" class="login-error" role="alert"></p>
       </form>
     </section>
 
@@ -67,6 +70,7 @@
         <div>
           <p class="eyebrow">Panel del alumno</p>
           <h2 id="dashboardTitle">Bienvenido/a, <span id="studentName">alumno/a</span></h2>
+          <p id="studentCourse" class="student-meta"></p>
         </div>
 
         <button type="button" id="logoutButton" class="secondary-button">Salir</button>
@@ -74,13 +78,8 @@
 
       <section class="grid" aria-label="Resumen del progreso">
         <article class="card">
-          <h3>Mis materias</h3>
-          <ul class="clean-list">
-            <li>Xeografía e Historia</li>
-            <li>Lingua Galega</li>
-            <li>Matemáticas</li>
-            <li>Inglés</li>
-          </ul>
+          <h3>Mi curso</h3>
+          <p id="courseCardText">Curso no cargado.</p>
         </article>
 
         <article class="card">
@@ -99,10 +98,26 @@
         </article>
       </section>
 
-      <section class="panel" aria-labelledby="activityTitle">
-        <p class="eyebrow">Actividad autocorregible</p>
-        <h2 id="activityTitle">Repaso: la colonización y los viajes atlánticos</h2>
+      <section class="panel" aria-labelledby="subjectsTitle">
+        <p class="eyebrow">Materias asignadas</p>
+        <h2 id="subjectsTitle">Mis materias</h2>
         <p>
+          Selecciona una materia para ver los contenidos, recursos y actividades disponibles.
+        </p>
+
+        <div id="subjectsContainer" class="subjects-grid"></div>
+      </section>
+
+      <section id="subjectDetail" class="panel hidden" aria-labelledby="subjectDetailTitle">
+        <p class="eyebrow">Espacio de materia</p>
+        <h2 id="subjectDetailTitle">Materia</h2>
+        <div id="subjectDetailBody"></div>
+      </section>
+
+      <section id="activityPanel" class="panel hidden" aria-labelledby="activityTitle">
+        <p class="eyebrow">Actividad autocorregible</p>
+        <h2 id="activityTitle">Actividad de ejemplo</h2>
+        <p id="activityIntro">
           Responde a las preguntas. Al terminar recibirás feedback inmediato.
         </p>
 
@@ -160,34 +175,11 @@
 
         <div id="quizFeedback" class="feedback" role="status" aria-live="polite"></div>
       </section>
-
-      <section class="panel" aria-labelledby="chatbotTitle">
-        <p class="eyebrow">Chatbot cerrado</p>
-        <h2 id="chatbotTitle">Habla con Cristóbal Colón</h2>
-        <p>
-          Elige una pregunta. Este chatbot no usa inteligencia artificial generativa: responde con información preparada y revisada.
-        </p>
-
-        <div class="chatbot" aria-live="polite">
-          <div id="chatWindow" class="chat-window">
-            <p class="bot-message">
-              Soy Cristóbal Colón en una simulación educativa. Puedes preguntarme por el viaje, las naves o las consecuencias históricas.
-            </p>
-          </div>
-
-          <div class="chat-options" aria-label="Preguntas disponibles">
-            <button type="button" data-question="viaje">¿Por qué hiciste el viaje?</button>
-            <button type="button" data-question="naves">¿Qué naves usaste?</button>
-            <button type="button" data-question="critica">¿Por qué hoy se estudia con mirada crítica?</button>
-            <button type="button" data-question="glosario">¿Qué significa colonización?</button>
-          </div>
-        </div>
-      </section>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Tribeca Aula, maqueta inicial de uso educativo interno.</p>
+    <p>Tribeca Aula, prototipo educativo interno.</p>
   </footer>
 
   <script src="script.js"></script>
