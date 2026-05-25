@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tribeca Aula</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">Entorno educativo interno</p>
+      <h1>Tribeca Aula</h1>
+    </div>
+
+    <nav class="accessibility-tools" aria-label="Herramientas de accesibilidad">
+      <button type="button" id="btnTextSize">Aumentar texto</button>
+      <button type="button" id="btnContrast">Alto contraste</button>
+      <button type="button" id="btnDyslexia">Modo lectura</button>
+    </nav>
+  </header>
+
+  <main id="contenido-principal">
+    <section id="loginSection" class="panel login-panel" aria-labelledby="loginTitle">
+      <div>
+        <p class="eyebrow">Acceso de prueba</p>
+        <h2 id="loginTitle">Entrar al aula</h2>
+        <p>
+          Esta es una maqueta inicial. De momento, el acceso es simulado y no guarda datos reales.
+        </p>
+      </div>
+
+      <form id="loginForm" class="form-card">
+        <label for="username">Nombre de usuario</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          autocomplete="username"
+          placeholder="Ejemplo: alumno_001"
+          required
+        />
+
+        <label for="password">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          autocomplete="current-password"
+          placeholder="Contraseña de prueba"
+          required
+        />
+
+        <button type="submit" class="primary-button">Entrar</button>
+
+        <p class="form-help">
+          Puedes escribir cualquier usuario y contraseña para probar la maqueta.
+        </p>
+      </form>
+    </section>
+
+    <section id="dashboardSection" class="dashboard hidden" aria-labelledby="dashboardTitle">
+      <div class="dashboard-header">
+        <div>
+          <p class="eyebrow">Panel del alumno</p>
+          <h2 id="dashboardTitle">Bienvenido/a, <span id="studentName">alumno/a</span></h2>
+        </div>
+
+        <button type="button" id="logoutButton" class="secondary-button">Salir</button>
+      </div>
+
+      <section class="grid" aria-label="Resumen del progreso">
+        <article class="card">
+          <h3>Mis materias</h3>
+          <ul class="clean-list">
+            <li>Xeografía e Historia</li>
+            <li>Lingua Galega</li>
+            <li>Matemáticas</li>
+            <li>Inglés</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Mi progreso</h3>
+          <p id="progressText">Todavía no has completado actividades.</p>
+          <div class="progress-bar" aria-label="Progreso de actividades">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Mis insignias</h3>
+          <div id="badgesContainer" class="badges">
+            <p class="empty-state">Aún no hay insignias conseguidas.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel" aria-labelledby="activityTitle">
+        <p class="eyebrow">Actividad autocorregible</p>
+        <h2 id="activityTitle">Repaso: la colonización y los viajes atlánticos</h2>
+        <p>
+          Responde a las preguntas. Al terminar recibirás feedback inmediato.
+        </p>
+
+        <form id="quizForm" class="quiz">
+          <fieldset>
+            <legend>1. ¿Cuál fue uno de los objetivos principales del viaje de 1492?</legend>
+            <label>
+              <input type="radio" name="q1" value="a" />
+              Llegar a Asia por una ruta occidental.
+            </label>
+            <label>
+              <input type="radio" name="q1" value="b" />
+              Fundar Roma.
+            </label>
+            <label>
+              <input type="radio" name="q1" value="c" />
+              Descubrir Australia.
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>2. ¿Por qué es importante estudiar este proceso con mirada crítica?</legend>
+            <label>
+              <input type="radio" name="q2" value="a" />
+              Porque solo tuvo consecuencias comerciales.
+            </label>
+            <label>
+              <input type="radio" name="q2" value="b" />
+              Porque implicó encuentros, conflictos, conquista, explotación y cambios culturales profundos.
+            </label>
+            <label>
+              <input type="radio" name="q2" value="c" />
+              Porque no afectó a las poblaciones indígenas.
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>3. ¿Qué nombre recibían las tres naves más conocidas del primer viaje?</legend>
+            <label>
+              <input type="radio" name="q3" value="a" />
+              Victoria, Trinidad y Concepción.
+            </label>
+            <label>
+              <input type="radio" name="q3" value="b" />
+              Niña, Pinta y Santa María.
+            </label>
+            <label>
+              <input type="radio" name="q3" value="c" />
+              Lusitania, Iberia y Galicia.
+            </label>
+          </fieldset>
+
+          <button type="submit" class="primary-button">Corregir actividad</button>
+        </form>
+
+        <div id="quizFeedback" class="feedback" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="chatbotTitle">
+        <p class="eyebrow">Chatbot cerrado</p>
+        <h2 id="chatbotTitle">Habla con Cristóbal Colón</h2>
+        <p>
+          Elige una pregunta. Este chatbot no usa inteligencia artificial generativa: responde con información preparada y revisada.
+        </p>
+
+        <div class="chatbot" aria-live="polite">
+          <div id="chatWindow" class="chat-window">
+            <p class="bot-message">
+              Soy Cristóbal Colón en una simulación educativa. Puedes preguntarme por el viaje, las naves o las consecuencias históricas.
+            </p>
+          </div>
+
+          <div class="chat-options" aria-label="Preguntas disponibles">
+            <button type="button" data-question="viaje">¿Por qué hiciste el viaje?</button>
+            <button type="button" data-question="naves">¿Qué naves usaste?</button>
+            <button type="button" data-question="critica">¿Por qué hoy se estudia con mirada crítica?</button>
+            <button type="button" data-question="glosario">¿Qué significa colonización?</button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Tribeca Aula, maqueta inicial de uso educativo interno.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
