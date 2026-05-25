@@ -26,11 +26,10 @@
   <main id="contenido-principal">
     <section id="loginSection" class="panel login-panel" aria-labelledby="loginTitle">
       <div>
-        <p class="eyebrow">Acceso de prueba</p>
+        <p class="eyebrow">Acceso conectado a Supabase</p>
         <h2 id="loginTitle">Entrar al aula</h2>
         <p>
-          Esta versión simula el acceso personalizado de cada alumno. Cada usuario ve solo su curso,
-          sus materias asignadas y su espacio de apoyo personalizado.
+          Esta versión ya consulta el perfil, el curso, las materias y las actividades desde Supabase.
         </p>
       </div>
 
@@ -41,7 +40,7 @@
           id="username"
           name="username"
           autocomplete="username"
-          placeholder="Ejemplo: alumno_1eso"
+          placeholder="Ejemplo: demo_1eso_full"
           required
         />
 
@@ -55,13 +54,11 @@
           required
         />
 
-        <button type="submit" class="primary-button">Entrar</button>
+        <button type="submit" class="primary-button" id="loginButton">Entrar</button>
 
         <p class="form-help">
-  Usuarios de prueba: demo_5p_english, demo_5p_full, demo_6p_full, demo_1eso_full,
-  demo_2eso_full, demo_4eso_full, demo_4eso_math, demo_4eso_english,
-  demo_1bach_full, demo_1bach_math, demo_pdc. Contraseña: 1234.
-</p>
+          Usuario de prueba conectado a Supabase: demo_1eso_full.
+        </p>
 
         <p id="loginError" class="login-error" role="alert"></p>
       </form>
@@ -98,11 +95,12 @@
             <p class="empty-state">Aún no hay insignias conseguidas.</p>
           </div>
         </article>
+
+        <article class="card">
+          <h3>Mi forma de trabajo</h3>
+          <p id="learningSettingsText">Ajustes no cargados.</p>
+        </article>
       </section>
-      <article class="card">
-  <h3>Mi forma de trabajo</h3>
-  <p id="learningSettingsText">Ajustes no cargados.</p>
-</article>
 
       <section class="panel" aria-labelledby="subjectsTitle">
         <p class="eyebrow">Materias asignadas</p>
@@ -122,62 +120,12 @@
 
       <section id="activityPanel" class="panel hidden" aria-labelledby="activityTitle">
         <p class="eyebrow">Actividad autocorregible</p>
-        <h2 id="activityTitle">Actividad de ejemplo</h2>
+        <h2 id="activityTitle">Actividad</h2>
         <p id="activityIntro">
           Responde a las preguntas. Al terminar recibirás feedback inmediato.
         </p>
 
-        <form id="quizForm" class="quiz">
-          <fieldset>
-            <legend>1. ¿Cuál fue uno de los objetivos principales del viaje de 1492?</legend>
-            <label>
-              <input type="radio" name="q1" value="a" />
-              Llegar a Asia por una ruta occidental.
-            </label>
-            <label>
-              <input type="radio" name="q1" value="b" />
-              Fundar Roma.
-            </label>
-            <label>
-              <input type="radio" name="q1" value="c" />
-              Descubrir Australia.
-            </label>
-          </fieldset>
-
-          <fieldset>
-            <legend>2. ¿Por qué es importante estudiar este proceso con mirada crítica?</legend>
-            <label>
-              <input type="radio" name="q2" value="a" />
-              Porque solo tuvo consecuencias comerciales.
-            </label>
-            <label>
-              <input type="radio" name="q2" value="b" />
-              Porque implicó encuentros, conflictos, conquista, explotación y cambios culturales profundos.
-            </label>
-            <label>
-              <input type="radio" name="q2" value="c" />
-              Porque no afectó a las poblaciones indígenas.
-            </label>
-          </fieldset>
-
-          <fieldset>
-            <legend>3. ¿Qué nombre recibían las tres naves más conocidas del primer viaje?</legend>
-            <label>
-              <input type="radio" name="q3" value="a" />
-              Victoria, Trinidad y Concepción.
-            </label>
-            <label>
-              <input type="radio" name="q3" value="b" />
-              Niña, Pinta y Santa María.
-            </label>
-            <label>
-              <input type="radio" name="q3" value="c" />
-              Lusitania, Iberia y Galicia.
-            </label>
-          </fieldset>
-
-          <button type="submit" class="primary-button">Corregir actividad</button>
-        </form>
+        <form id="quizForm" class="quiz"></form>
 
         <div id="quizFeedback" class="feedback" role="status" aria-live="polite"></div>
       </section>
@@ -188,6 +136,7 @@
     <p>Tribeca Aula, prototipo educativo interno.</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
 </html>

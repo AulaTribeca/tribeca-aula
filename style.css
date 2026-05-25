@@ -291,18 +291,98 @@ button {
   color: var(--muted);
 }
 
-.detail-layout {
+.subject-description {
+  max-width: 850px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.tabs {
+  margin-top: 1.5rem;
+}
+
+.tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.tab-button.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.tab-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 1.25rem;
+}
+
+.material-list {
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
-.resource-list {
+.material-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-2);
+  padding: 1rem;
+}
+
+.material-item h3 {
+  margin: 0.4rem 0;
+}
+
+.material-item p {
   margin-bottom: 0;
-  padding-left: 1.25rem;
+  color: var(--muted);
 }
 
-.resource-list li {
-  margin-bottom: 0.35rem;
+.status-pill {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.status-pill.available {
+  background: rgba(47, 111, 78, 0.12);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.status-pill.pending {
+  background: rgba(138, 90, 0, 0.12);
+  color: var(--warning);
+  border: 1px solid var(--warning);
+}
+
+.empty-panel {
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  padding: 1rem;
+  background: var(--surface-2);
+}
+
+.empty-panel p {
+  margin-bottom: 0;
+  color: var(--muted);
 }
 
 .quiz {
@@ -364,5 +444,15 @@ fieldset label {
 
   .login-panel {
     min-height: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .material-item {
+    display: block;
+  }
+
+  .material-item button {
+    margin-top: 1rem;
   }
 }
