@@ -41,7 +41,6 @@ let currentActivities = [];
 let currentResults = [];
 let currentBadges = [];
 let currentActivity = null;
-let localBadges = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
   const { data } = await supabaseClient.auth.getSession();
@@ -97,7 +96,6 @@ logoutButton.addEventListener("click", async function () {
   currentResults = [];
   currentBadges = [];
   currentActivity = null;
-  localBadges = [];
 
   loginForm.reset();
   loginError.textContent = "";
@@ -122,7 +120,6 @@ async function loadStudentData(userId) {
   currentActivities = await fetchActivities(currentSubjects);
   currentResults = await fetchResults(userId);
   currentBadges = await fetchBadges(userId);
-  localBadges = [];
 
   renderDashboard();
 
@@ -568,7 +565,6 @@ quizForm.addEventListener("submit", async function (event) {
   if (completed) {
     quizFeedback.className = "feedback success";
     quizFeedback.textContent = `Resultado: ${score}/${total}. Buen trabajo. Has demostrado una comprensión adecuada de las ideas principales.`;
-    addLocalBadge("Primera actividad completada");
   } else {
     quizFeedback.className = "feedback warning";
     quizFeedback.textContent = `Resultado: ${score}/${total}. Conviene repasar el contenido y repetir la actividad.`;
@@ -576,6 +572,11 @@ quizForm.addEventListener("submit", async function (event) {
 
   await saveActivityResult(currentActivity.id, score, total, completed);
   currentResults = await fetchResults(currentStudent.id);
+
+  if (completed) {
+    await awardFirstActivityBadge();
+    currentBadges = await fetchBadges(currentStudent.id);
+  }
 
   renderBadges();
   updateProgress();
@@ -612,23 +613,23 @@ async function saveActivityResult(activityId, score, maxScore, completed) {
   }
 }
 
-function addLocalBadge(badgeName) {
-  if (!localBadges.includes(badgeName) && !currentBadges.includes(badgeName)) {
-    localBadges.push(badgeName);
+async function awardFirstActivityBadge() {
+  const { error } = await supabaseClient.rpc("award_first_activity_badge");
+
+  if (error) {
+    console.error("Error concediendo insignia:", error);
   }
 }
 
 function renderBadges() {
   badgesContainer.innerHTML = "";
 
-  const allBadges = [...currentBadges, ...localBadges];
-
-  if (allBadges.length === 0) {
+  if (currentBadges.length === 0) {
     badgesContainer.innerHTML = '<p class="empty-state">Aún no hay insignias conseguidas.</p>';
     return;
   }
 
-  allBadges.forEach(function (badgeName) {
+  currentBadges.forEach(function (badgeName) {
     const badge = document.createElement("span");
     badge.className = "badge";
     badge.textContent = badgeName;
