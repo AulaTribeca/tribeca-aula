@@ -1,7 +1,20 @@
 const students = {
-  alumno_5p: {
+  demo_5p_english: {
     password: "1234",
-    name: "Alumno 5.º Primaria",
+    name: "Demo 5.º Primaria, English",
+    course: "5.º Primaria",
+    level: "Educación Primaria",
+    subjects: ["English", "Apoyo personalizado"],
+    learningSettings: [
+      "Panel reducido",
+      "Acceso directo a la materia activa",
+      "Actividades breves con feedback inmediato"
+    ]
+  },
+
+  demo_5p_full: {
+    password: "1234",
+    name: "Demo 5.º Primaria",
     course: "5.º Primaria",
     level: "Educación Primaria",
     subjects: [
@@ -12,12 +25,38 @@ const students = {
       "Ciencias de la Naturaleza",
       "English",
       "Apoyo personalizado"
+    ],
+    learningSettings: [
+      "Panel completo de Primaria",
+      "Organización por materias",
+      "Apoyo en planificación semanal"
     ]
   },
 
-  alumno_1eso: {
+  demo_6p_full: {
     password: "1234",
-    name: "Alumno 1.º ESO",
+    name: "Demo 6.º Primaria",
+    course: "6.º Primaria",
+    level: "Educación Primaria",
+    subjects: [
+      "Matemáticas",
+      "Lengua Castellana y Literatura",
+      "Lingua Galega",
+      "Ciencias Sociales",
+      "Ciencias de la Naturaleza",
+      "English",
+      "Apoyo personalizado"
+    ],
+    learningSettings: [
+      "Instrucciones divididas en pasos",
+      "Actividades cortas",
+      "Refuerzo de autorregulación y control de errores"
+    ]
+  },
+
+  demo_1eso_full: {
+    password: "1234",
+    name: "Demo 1.º ESO",
     course: "1.º ESO",
     level: "Educación Secundaria Obligatoria",
     subjects: [
@@ -28,13 +67,42 @@ const students = {
       "Français",
       "Geografía e Historia",
       "Biología y Geología",
+      "Tecnología y Digitalización",
       "Apoyo personalizado"
+    ],
+    learningSettings: [
+      "Panel completo de 1.º ESO",
+      "Recursos por materia",
+      "Actividades con recuperación activa"
     ]
   },
 
-  alumno_4eso: {
+  demo_2eso_full: {
     password: "1234",
-    name: "Alumno 4.º ESO",
+    name: "Demo 2.º ESO",
+    course: "2.º ESO",
+    level: "Educación Secundaria Obligatoria",
+    subjects: [
+      "Matemáticas",
+      "Lengua Castellana y Literatura",
+      "Lingua Galega e Literatura",
+      "English",
+      "Français",
+      "Geografía e Historia",
+      "Física y Química",
+      "Tecnología y Digitalización",
+      "Apoyo personalizado"
+    ],
+    learningSettings: [
+      "Panel completo de 2.º ESO",
+      "Instrucciones claras",
+      "Feedback inmediato y actividades graduadas"
+    ]
+  },
+
+  demo_4eso_full: {
+    password: "1234",
+    name: "Demo 4.º ESO",
     course: "4.º ESO",
     level: "Educación Secundaria Obligatoria",
     subjects: [
@@ -47,22 +115,90 @@ const students = {
       "Física y Química",
       "Biología y Geología",
       "Apoyo personalizado"
+    ],
+    learningSettings: [
+      "Panel completo de 4.º ESO",
+      "Preparación de exámenes",
+      "Práctica por dificultad progresiva"
     ]
   },
 
-  alumno_2bach: {
+  demo_4eso_math: {
     password: "1234",
-    name: "Alumno 2.º Bachillerato",
-    course: "2.º Bachillerato",
+    name: "Demo 4.º ESO, Matemáticas",
+    course: "4.º ESO",
+    level: "Educación Secundaria Obligatoria",
+    subjects: ["Matemáticas", "Matemáticas B", "Apoyo personalizado"],
+    learningSettings: [
+      "Panel reducido",
+      "Prioridad en Matemáticas",
+      "Práctica de procedimientos y errores frecuentes"
+    ]
+  },
+
+  demo_4eso_english: {
+    password: "1234",
+    name: "Demo 4.º ESO, English",
+    course: "4.º ESO",
+    level: "Educación Secundaria Obligatoria",
+    subjects: ["English", "Apoyo personalizado"],
+    learningSettings: [
+      "Panel reducido",
+      "Prioridad en English",
+      "Vocabulario, gramática y writing"
+    ]
+  },
+
+  demo_1bach_full: {
+    password: "1234",
+    name: "Demo 1.º Bachillerato",
+    course: "1.º Bachillerato",
     level: "Bachillerato",
     subjects: [
-      "Lengua Castellana y Literatura II",
+      "Lengua Castellana y Literatura I",
       "Lingua Galega e Literatura",
       "English",
-      "Historia de España",
-      "Historia de la Filosofía",
-      "Matemáticas Aplicadas a las Ciencias Sociales II",
+      "Filosofía",
+      "Matemáticas I",
       "Apoyo personalizado"
+    ],
+    learningSettings: [
+      "Panel de Bachillerato",
+      "Preparación de pruebas largas",
+      "Organización semanal y práctica de examen"
+    ]
+  },
+
+  demo_1bach_math: {
+    password: "1234",
+    name: "Demo 1.º Bachillerato, Matemáticas",
+    course: "1.º Bachillerato",
+    level: "Bachillerato",
+    subjects: ["Matemáticas I", "Matemáticas Aplicadas a las Ciencias Sociales I", "Apoyo personalizado"],
+    learningSettings: [
+      "Panel reducido",
+      "Prioridad en Matemáticas",
+      "Problemas guiados y práctica tipo examen"
+    ]
+  },
+
+  demo_pdc: {
+    password: "1234",
+    name: "Demo ESO PDC",
+    course: "ESO PDC",
+    level: "Educación Secundaria Obligatoria",
+    subjects: [
+      "Ámbito Lingüístico y Social",
+      "Ámbito Científico-Tecnológico",
+      "English",
+      "Apoyo personalizado"
+    ],
+    learningSettings: [
+      "Modo baja carga",
+      "Instrucciones paso a paso",
+      "Actividades breves",
+      "Refuerzo motivacional",
+      "Sin temporizador obligatorio"
     ]
   }
 };
@@ -116,6 +252,38 @@ const subjectContent = {
     hasDemoQuiz: false
   },
 
+  "Matemáticas I": {
+    description:
+      "Espacio de 1.º de Bachillerato para funciones, álgebra, trigonometría, geometría y resolución de problemas.",
+    resources: [
+      "Formulario de procedimientos",
+      "Problemas tipo examen",
+      "Ejercicios resueltos paso a paso"
+    ],
+    activities: [
+      "Práctica de procedimientos",
+      "Problemas guiados",
+      "Simulación breve de examen"
+    ],
+    hasDemoQuiz: false
+  },
+
+  "Matemáticas Aplicadas a las Ciencias Sociales I": {
+    description:
+      "Espacio de 1.º de Bachillerato para funciones, estadística, probabilidad, aritmética y resolución de problemas aplicados.",
+    resources: [
+      "Formulario básico",
+      "Problemas aplicados",
+      "Ejercicios resueltos"
+    ],
+    activities: [
+      "Práctica autocorregible",
+      "Problemas guiados",
+      "Revisión de errores frecuentes"
+    ],
+    hasDemoQuiz: false
+  },
+
   "Lengua Castellana y Literatura": {
     description:
       "Espacio para comprensión lectora, gramática, ortografía, literatura y producción escrita.",
@@ -132,18 +300,18 @@ const subjectContent = {
     hasDemoQuiz: false
   },
 
-  "Lengua Castellana y Literatura II": {
+  "Lengua Castellana y Literatura I": {
     description:
-      "Espacio de Bachillerato para comentario de texto, literatura, lengua y preparación de pruebas.",
+      "Espacio de 1.º de Bachillerato para comentario de texto, gramática, literatura y producción escrita académica.",
     resources: [
-      "Esquemas de literatura",
       "Modelos de comentario",
+      "Esquemas de literatura",
       "Prácticas de lengua"
     ],
     activities: [
       "Comentario guiado",
       "Test de literatura",
-      "Revisión de respuesta larga"
+      "Revisión de respuesta escrita"
     ],
     hasDemoQuiz: false
   },
@@ -264,6 +432,22 @@ const subjectContent = {
     hasDemoQuiz: false
   },
 
+  "Tecnología y Digitalización": {
+    description:
+      "Espacio para competencias digitales, pensamiento computacional, tecnología básica y proyectos guiados.",
+    resources: [
+      "Guías paso a paso",
+      "Actividades digitales",
+      "Retos de pensamiento lógico"
+    ],
+    activities: [
+      "Actividad de conceptos",
+      "Práctica guiada",
+      "Proyecto breve"
+    ],
+    hasDemoQuiz: false
+  },
+
   "Ciencias Sociales": {
     description:
       "Espacio para geografía, historia, mapas, vocabulario y comprensión de procesos sociales.",
@@ -296,50 +480,50 @@ const subjectContent = {
     hasDemoQuiz: false
   },
 
-  "Historia de España": {
+  "Filosofía": {
     description:
-      "Espacio para repaso cronológico, conceptos históricos, temas de desarrollo y preparación de pruebas.",
+      "Espacio para conceptos filosóficos, argumentación, comentario de texto y preparación de pruebas.",
     resources: [
-      "Ejes cronológicos",
-      "Respuestas modelo",
-      "Esquemas de temas"
-    ],
-    activities: [
-      "Test de cronología",
-      "Pregunta de desarrollo guiada",
-      "Repaso de conceptos"
-    ],
-    hasDemoQuiz: false
-  },
-
-  "Historia de la Filosofía": {
-    description:
-      "Espacio para autores, textos, conceptos filosóficos y preparación de comentarios.",
-    resources: [
-      "Fichas de autores",
       "Glosario filosófico",
+      "Esquemas de autores y problemas",
       "Modelos de comentario"
     ],
     activities: [
-      "Test de autores",
+      "Test de conceptos",
       "Comentario guiado",
-      "Comparación de conceptos"
+      "Comparación de ideas"
     ],
     hasDemoQuiz: false
   },
 
-  "Matemáticas Aplicadas a las Ciencias Sociales II": {
+  "Ámbito Lingüístico y Social": {
     description:
-      "Espacio para funciones, estadística, probabilidad, matrices y preparación de pruebas de Bachillerato.",
+      "Espacio integrado para comprensión lectora, escritura, lengua, literatura, geografía e historia, con actividades breves y guiadas.",
     resources: [
-      "Formulario",
-      "Problemas tipo",
-      "Ejercicios resueltos"
+      "Lecturas graduadas",
+      "Esquemas visuales",
+      "Preguntas cortas de repaso"
     ],
     activities: [
-      "Problemas guiados",
-      "Test de procedimientos",
-      "Revisión de errores"
+      "Comprensión guiada",
+      "Repaso de vocabulario",
+      "Actividad de escritura breve"
+    ],
+    hasDemoQuiz: false
+  },
+
+  "Ámbito Científico-Tecnológico": {
+    description:
+      "Espacio integrado para matemáticas, ciencias y tecnología, con práctica paso a paso y reducción de carga cuando sea necesario.",
+    resources: [
+      "Ejercicios graduados",
+      "Problemas resueltos",
+      "Vídeos breves de procedimientos"
+    ],
+    activities: [
+      "Práctica paso a paso",
+      "Test corto",
+      "Revisión de errores frecuentes"
     ],
     hasDemoQuiz: false
   }
@@ -353,6 +537,8 @@ const dashboardSection = document.getElementById("dashboardSection");
 const studentName = document.getElementById("studentName");
 const studentCourse = document.getElementById("studentCourse");
 const courseCardText = document.getElementById("courseCardText");
+const learningSettingsText = document.getElementById("learningSettingsText");
+
 const subjectsContainer = document.getElementById("subjectsContainer");
 const subjectDetail = document.getElementById("subjectDetail");
 const subjectDetailTitle = document.getElementById("subjectDetailTitle");
@@ -391,7 +577,7 @@ loginForm.addEventListener("submit", function (event) {
   const student = students[username];
 
   if (!student || student.password !== password) {
-    loginError.textContent = "Usuario o contraseña incorrectos. Prueba con alumno_1eso y contraseña 1234.";
+    loginError.textContent = "Usuario o contraseña incorrectos. Prueba con demo_1eso_full y contraseña 1234.";
     return;
   }
 
@@ -418,6 +604,10 @@ function renderDashboard() {
   studentName.textContent = currentStudent.name;
   studentCourse.textContent = `${currentStudent.level}, ${currentStudent.course}`;
   courseCardText.textContent = currentStudent.course;
+
+  if (learningSettingsText) {
+    learningSettingsText.textContent = currentStudent.learningSettings.join(". ") + ".";
+  }
 
   renderSubjects();
   renderBadges();
