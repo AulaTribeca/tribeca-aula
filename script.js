@@ -78,6 +78,12 @@ const i18n = {
     postTypeWorksheet: "Boletín",
     postTypeTest: "Test interactivo",
     postTypeVideoClass: "Videoclase",
+    postTypeVideo: "Vídeo",
+    postTypeGame: "Juego",
+    postTypeChallenge: "Desafío",
+    units: "Unidades",
+    noUnits: "Esta materia todavía no tiene unidades didácticas.",
+    withoutUnit: "Sin unidad didáctica",
     text: "Texto",
     keyIdeas: "Instrucciones o ideas clave, opcional, una por línea",
     linkMeetTest: "Enlace externo, Meet o test interactivo",
@@ -213,6 +219,12 @@ const i18n = {
     postTypeWorksheet: "Boletín",
     postTypeTest: "Test interactivo",
     postTypeVideoClass: "Videoclase",
+    postTypeVideo: "Vídeo",
+    postTypeGame: "Juego",
+    postTypeChallenge: "Desafío",
+    units: "Unidades",
+    noUnits: "Esta materia todavía no tiene unidades didácticas.",
+    withoutUnit: "Sin unidad didáctica",
     text: "Texto",
     keyIdeas: "Instrucións ou ideas clave, opcional, unha por liña",
     linkMeetTest: "Ligazón externa, Meet ou test interactivo",
@@ -796,6 +808,11 @@ const contentBody = document.getElementById("contentBody");
 const teacherPostForm = document.getElementById("teacherPostForm");
 const teacherSubject = document.getElementById("teacherSubject");
 const teacherPostType = document.getElementById("teacherPostType");
+const teacherUnitMode = document.getElementById("teacherUnitMode");
+const teacherUnitExisting = document.getElementById("teacherUnitExisting");
+const teacherUnitNew = document.getElementById("teacherUnitNew");
+const teacherUnitExistingControls = document.querySelectorAll(".unit-existing-control");
+const teacherUnitNewControls = document.querySelectorAll(".unit-new-control");
 const teacherTitle = document.getElementById("teacherTitle");
 const teacherBody = document.getElementById("teacherBody");
 const teacherKeyPoints = document.getElementById("teacherKeyPoints");
@@ -803,6 +820,18 @@ const teacherUrl = document.getElementById("teacherUrl");
 const teacherFile = document.getElementById("teacherFile");
 const teacherStudentsList = document.getElementById("teacherStudentsList");
 const teacherPostMessage = document.getElementById("teacherPostMessage");
+const postTemplateSelect = document.getElementById("postTemplateSelect");
+const savePostTemplateButton = document.getElementById("savePostTemplateButton");
+const teacherGroupsList = document.getElementById("teacherGroupsList");
+const selectAllStudentsButton = document.getElementById("selectAllStudentsButton");
+const clearAllStudentsButton = document.getElementById("clearAllStudentsButton");
+const teacherMetricStudents = document.getElementById("teacherMetricStudents");
+const teacherMetricPosts = document.getElementById("teacherMetricPosts");
+const teacherMetricGroups = document.getElementById("teacherMetricGroups");
+const teacherMetricUnread = document.getElementById("teacherMetricUnread");
+const teacherGroupSummary = document.getElementById("teacherGroupSummary");
+const recentActivityList = document.getElementById("recentActivityList");
+const teacherChatOverview = document.getElementById("teacherChatOverview");
 
 const coverSubjectSelect = document.getElementById("coverSubjectSelect");
 const coverImageFile = document.getElementById("coverImageFile");
@@ -845,9 +874,12 @@ const quickUnreadBadge = document.getElementById("quickUnreadBadge");
 const quickUpcomingBadge = document.getElementById("quickUpcomingBadge");
 const quickUpcomingLink = document.getElementById("quickUpcomingLink");
 const markMessagesReadButton = document.getElementById("markMessagesReadButton");
+const openUnreadMessagesButton = document.getElementById("openUnreadMessagesButton");
+const markMessagesReadTopButton = document.getElementById("markMessagesReadTopButton");
 const messageInboxTab = document.getElementById("messageInboxTab");
 const messageSentTab = document.getElementById("messageSentTab");
 const messageComposeTab = document.getElementById("messageComposeTab");
+const deleteSelectedInboxMessagesButton = document.getElementById("deleteSelectedInboxMessagesButton");
 
 const chatContact = document.getElementById("chatContact");
 const chatMessages = document.getElementById("chatMessages");
@@ -862,6 +894,7 @@ const nudgeButton = document.getElementById("nudgeButton");
 const emojiButtons = document.querySelectorAll(".emoji-button");
 const streakToast = document.getElementById("streakToast");
 const streakToastText = document.getElementById("streakToastText");
+const backToTopButton = document.getElementById("backToTopButton");
 
 const railPrevMonth = document.getElementById("railPrevMonth");
 const railNextMonth = document.getElementById("railNextMonth");
@@ -874,18 +907,24 @@ let currentSubjects = [];
 let currentPosts = [];
 let currentEvents = [];
 let currentBadgeAwards = [];
+let currentUnits = [];
 
 let teacherSubjects = [];
 let teacherStudents = [];
 let teacherPosts = [];
 let teacherEvents = [];
 let teacherBadges = [];
+let teacherUnits = [];
+let postTemplates = [];
+let studentGroups = [];
+let recentActivity = [];
 
 let contacts = [];
 let messages = [];
 let presence = [];
 let unreadCount = 0;
 let currentMessageView = "inbox";
+let openedMailMessageId = "";
 let selectedCalendarDay = null;
 let realtimeChannel = null;
 let openChatIds = [];
@@ -1074,6 +1113,11 @@ async function loadUserData(userId) {
   }
 
   await loadCommunication();
+  if (currentProfile && currentProfile.role === "teacher") {
+    renderTeacherOverview();
+    renderTeacherChatOverview();
+  }
+  await recordActivityEvent("login", {});
   communicationSection.classList.remove("hidden");
   startRefreshTimer();
   applyI18n();
@@ -1122,6 +1166,7 @@ async function loadStudentPanel() {
   currentSubjects = await fetchStudentSubjects(currentProfile.id);
   currentSubjects = await addSignedCoverUrls(currentSubjects);
   currentPosts = await fetchStudentPosts();
+  currentUnits = await fetchUnitsForSubjects(currentSubjects.map(subject => subject.id));
   currentEvents = await fetchStudentEvents();
   currentBadgeAwards = await fetchStudentBadgeAwards(currentProfile.id);
   currentStreak = await fetchCurrentStreak();
@@ -1134,14 +1179,23 @@ async function loadTeacherPanel() {
   teacherSubjects = await addSignedCoverUrls(teacherSubjects);
   teacherStudents = await fetchAllStudents();
   teacherPosts = await fetchAllPosts();
+  teacherUnits = await fetchUnitsForSubjects(teacherSubjects.map(subject => subject.id));
+  postTemplates = await fetchPostTemplates();
+  studentGroups = await fetchStudentGroups();
+  recentActivity = await fetchRecentActivity();
   teacherEvents = await fetchAllEvents();
   teacherBadges = await fetchAllBadges();
 
   renderTeacherSubjects();
   renderTeacherStudents();
   renderTeacherBadges();
+  renderTeacherPostTemplates();
+  renderTeacherGroups();
+  renderTeacherOverview();
   renderTeacherPosts();
   renderTeacherCalendar();
+  renderRecentActivity();
+  renderTeacherChatOverview();
 }
 
 async function fetchStudentSubjects(userId) {
@@ -1158,10 +1212,50 @@ async function fetchStudentSubjects(userId) {
   return data.map(item => item.subjects).filter(Boolean).sort(sortSubjects);
 }
 
+async function fetchUnitsForSubjects(subjectIds) {
+  if (!subjectIds || subjectIds.length === 0) {
+    return [];
+  }
+
+  const { data, error } = await supabaseClient
+    .from("subject_units")
+    .select("id, subject_id, title, description, sort_order, created_at")
+    .in("subject_id", subjectIds)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    console.error("Error cargando unidades didácticas:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function fetchUnitsForSubject(subjectId) {
+  if (!subjectId) {
+    return [];
+  }
+
+  const { data, error } = await supabaseClient
+    .from("subject_units")
+    .select("id, subject_id, title, description, sort_order, created_at")
+    .eq("subject_id", subjectId)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    console.error("Error cargando unidades de la asignatura:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
 async function fetchStudentPosts() {
   const { data, error } = await supabaseClient
     .from("posts")
-    .select("id, subject_id, title, body, post_type, content, due_at, created_at, subjects(name, code, icon)")
+    .select("id, subject_id, unit_id, title, body, post_type, content, due_at, created_at, subjects(name, code, icon), subject_units(title, sort_order)")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -1233,7 +1327,7 @@ async function fetchAllStudents() {
 async function fetchAllPosts() {
   const { data, error } = await supabaseClient
     .from("posts")
-    .select("id, subject_id, title, body, post_type, content, due_at, created_at, subjects(name, icon)")
+    .select("id, subject_id, unit_id, title, body, post_type, content, due_at, created_at, subjects(name, icon), subject_units(title, sort_order)")
     .order("created_at", { ascending: false })
     .limit(80);
 
@@ -1268,6 +1362,55 @@ async function fetchAllBadges() {
 
   if (error) {
     console.error("Error cargando insignias:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+
+async function fetchPostTemplates() {
+  const { data, error } = await supabaseClient
+    .from("post_templates")
+    .select("id, name, post_type, title, body, key_points, default_url, created_at")
+    .order("name", { ascending: true });
+
+  if (error) {
+    console.error("Error cargando plantillas:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function fetchStudentGroups() {
+  const { data, error } = await supabaseClient
+    .from("student_groups")
+    .select("id, code, name, description, student_group_members(profile_id)")
+    .order("name", { ascending: true });
+
+  if (error) {
+    console.error("Error cargando grupos:", error);
+    return [];
+  }
+
+  return (data || []).map(function (group) {
+    return {
+      ...group,
+      memberIds: (group.student_group_members || []).map(member => member.profile_id)
+    };
+  });
+}
+
+async function fetchRecentActivity() {
+  const { data, error } = await supabaseClient
+    .from("activity_events")
+    .select("id, profile_id, action_type, post_id, subject_id, event_id, metadata, created_at, profiles(display_name, nickname, username), posts(title, post_type), subjects(name)")
+    .order("created_at", { ascending: false })
+    .limit(80);
+
+  if (error) {
+    console.error("Error cargando actividad reciente:", error);
     return [];
   }
 
@@ -1367,6 +1510,7 @@ function renderSubjects() {
 
   currentSubjects.forEach(function (subject) {
     const subjectPosts = currentPosts.filter(post => post.subject_id === subject.id);
+    const subjectUnits = currentUnits.filter(unit => unit.subject_id === subject.id);
     const card = document.createElement("article");
     card.className = "subject-card";
 
@@ -1381,7 +1525,7 @@ function renderSubjects() {
       </div>
       <div class="subject-card-body">
         <h3>${escapeHtml(subject.name)}</h3>
-        <p>${escapeHtml(t("assignedPosts", { count: subjectPosts.length }))}</p>
+        <p>${escapeHtml(t("assignedPosts", { count: subjectPosts.length }))} · ${subjectUnits.length} unidad(es)</p>
         <button type="button" class="secondary-button open-subject-button" data-subject-id="${subject.id}">
           ${escapeHtml(t("openSubject"))}
         </button>
@@ -1419,33 +1563,68 @@ function renderStudentWall() {
 function openSubject(subject) {
   const subjectPosts = currentPosts.filter(post => post.subject_id === subject.id);
   const subjectEvents = currentEvents.filter(event => event.subject_id === subject.id);
+  const subjectUnits = currentUnits.filter(unit => unit.subject_id === subject.id);
 
-  const titleTarget = subjectModalTitle || subjectDetailTitle;
-  const bodyTarget = subjectModalBody || subjectDetailBody;
-
-  titleTarget.textContent = `${subject.icon || "📘"} ${subject.name}`;
+  subjectDetail.classList.add("hidden");
   contentPanel.classList.add("hidden");
+  subjectModal.classList.remove("subject-is-fullscreen");
+  subjectModalTitle.textContent = `${subject.icon || "📘"} ${subject.name}`;
+
+  renderSubjectContent(subject, subjectPosts, subjectEvents, subjectUnits, subjectModalBody, false);
+  subjectModal.classList.remove("hidden");
+}
+
+function openSubjectFullscreen(subject) {
+  const subjectPosts = currentPosts.filter(post => post.subject_id === subject.id);
+  const subjectEvents = currentEvents.filter(event => event.subject_id === subject.id);
+  const subjectUnits = currentUnits.filter(unit => unit.subject_id === subject.id);
+
+  subjectModal.classList.add("subject-is-fullscreen");
+  subjectModalTitle.textContent = `${subject.icon || "📘"} ${subject.name}`;
+  renderSubjectContent(subject, subjectPosts, subjectEvents, subjectUnits, subjectModalBody, true);
+  subjectModal.classList.remove("hidden");
+}
+
+function renderSubjectContent(subject, subjectPosts, subjectEvents, subjectUnits, bodyTarget, fullscreenMode) {
+  const panelId = fullscreenMode ? "subjectFullscreenTabPanel" : "subjectInlineTabPanel";
 
   bodyTarget.innerHTML = `
-    <p class="subject-description">${escapeHtml(subject.description || "")}</p>
+    <div class="subject-open-header">
+      <p class="subject-description">${escapeHtml(subject.description || "")}</p>
+      ${fullscreenMode ? "" : `
+        <button type="button" class="secondary-button subject-fullscreen-open-button">
+          Abrir en ventana completa
+        </button>
+      `}
+    </div>
 
     <div class="tabs" aria-label="Secciones de la asignatura">
       <div class="tab-list" role="tablist" aria-label="Contenido de ${escapeHtml(subject.name)}">
-        <button type="button" class="tab-button active" role="tab" aria-selected="true" data-tab="wall">${escapeHtml(t("timelineWall"))}</button>
+        <button type="button" class="tab-button active" role="tab" aria-selected="true" data-tab="units">${escapeHtml(t("units"))}</button>
+        <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="wall">${escapeHtml(t("timelineWall"))}</button>
         <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="notes">${escapeHtml(t("postTypeNotes"))}</button>
         <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="tests">${escapeHtml(t("postTypeTest"))}</button>
         <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="worksheets">${escapeHtml(t("postTypeWorksheet"))}</button>
-        <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="video">${escapeHtml(t("postTypeVideoClass"))}</button>
+        <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="video_class">${escapeHtml(t("postTypeVideoClass"))}</button>
+        <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="videos">${escapeHtml(t("postTypeVideo"))}</button>
+        <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="games">${escapeHtml(t("postTypeGame"))}</button>
+        <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="challenges">${escapeHtml(t("postTypeChallenge"))}</button>
         <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="calendar">${escapeHtml(t("calendar"))}</button>
       </div>
 
-      <div id="modalTabPanel" class="tab-panel" role="tabpanel"></div>
+      <div id="${panelId}" class="tab-panel" role="tabpanel"></div>
     </div>
   `;
 
-  const container = bodyTarget;
-  const tabButtons = container.querySelectorAll(".tab-button");
-  const tabPanel = container.querySelector("#modalTabPanel");
+  const fullscreenButton = bodyTarget.querySelector(".subject-fullscreen-open-button");
+  if (fullscreenButton) {
+    fullscreenButton.addEventListener("click", function () {
+      openSubjectFullscreen(subject);
+    });
+  }
+
+  const tabButtons = bodyTarget.querySelectorAll(".tab-button");
+  const tabPanel = bodyTarget.querySelector(`#${panelId}`);
 
   tabButtons.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -1458,33 +1637,35 @@ function openSubject(subject) {
       button.setAttribute("aria-selected", "true");
       contentPanel.classList.add("hidden");
 
-      renderSubjectTab(button.dataset.tab, subjectPosts, subjectEvents, tabPanel);
+      renderSubjectTab(button.dataset.tab, subjectPosts, subjectEvents, subjectUnits, tabPanel);
     });
   });
 
-  renderSubjectTab("wall", subjectPosts, subjectEvents, tabPanel);
-
-  if (subjectModal) {
-    subjectModal.classList.remove("hidden");
-  } else {
-    subjectDetail.classList.remove("hidden");
-    subjectDetail.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  renderSubjectTab("units", subjectPosts, subjectEvents, subjectUnits, tabPanel);
 }
 
 if (closeSubjectModal) {
   closeSubjectModal.addEventListener("click", function () {
     subjectModal.classList.add("hidden");
+    subjectModal.classList.remove("subject-is-fullscreen");
   });
 }
 
-function renderSubjectTab(tabName, subjectPosts, subjectEvents, tabPanel) {
+function renderSubjectTab(tabName, subjectPosts, subjectEvents, subjectUnits, tabPanel) {
   const filterMap = {
     notes: "notes",
     tests: "interactive_test",
     worksheets: "worksheet",
-    video: "video_class"
+    video_class: "video_class",
+    videos: "video",
+    games: "game",
+    challenges: "challenge"
   };
+
+  if (tabName === "units") {
+    renderSubjectUnits(subjectUnits, subjectPosts, tabPanel);
+    return;
+  }
 
   if (tabName === "wall") {
     renderPostList(subjectPosts, tabPanel, t("noPosts"), false);
@@ -1503,6 +1684,54 @@ function renderSubjectTab(tabName, subjectPosts, subjectEvents, tabPanel) {
 
   if (tabName === "calendar") {
     renderCalendarList(subjectEvents, tabPanel, t("noDates"));
+  }
+}
+
+function renderSubjectUnits(subjectUnits, subjectPosts, container) {
+  if (!subjectUnits || subjectUnits.length === 0) {
+    renderPostList(subjectPosts, container, t("noUnits"), false);
+    return;
+  }
+
+  const unassignedPosts = subjectPosts.filter(post => !post.unit_id);
+  let html = `<div class="unit-list">`;
+
+  subjectUnits.forEach(function (unit) {
+    const posts = subjectPosts.filter(post => post.unit_id === unit.id);
+    html += `
+      <section class="unit-card">
+        <div class="unit-card-header">
+          <h3>${escapeHtml(unit.title)}</h3>
+          <span>${posts.length} publicación(es)</span>
+        </div>
+        <div class="feed-list unit-feed" data-unit-id="${unit.id}"></div>
+      </section>
+    `;
+  });
+
+  if (unassignedPosts.length > 0) {
+    html += `
+      <section class="unit-card">
+        <div class="unit-card-header">
+          <h3>${escapeHtml(t("withoutUnit"))}</h3>
+          <span>${unassignedPosts.length} publicación(es)</span>
+        </div>
+        <div class="feed-list unit-feed" data-unit-id="without-unit"></div>
+      </section>
+    `;
+  }
+
+  html += `</div>`;
+  container.innerHTML = html;
+
+  subjectUnits.forEach(function (unit) {
+    const target = container.querySelector(`[data-unit-id="${unit.id}"]`);
+    renderPostList(subjectPosts.filter(post => post.unit_id === unit.id), target, t("noContentSection"), false);
+  });
+
+  if (unassignedPosts.length > 0) {
+    const target = container.querySelector('[data-unit-id="without-unit"]');
+    renderPostList(unassignedPosts, target, t("noContentSection"), false);
   }
 }
 
@@ -1540,6 +1769,7 @@ function renderPostList(posts, container, emptyMessage, teacherMode) {
 function createPostCard(post, teacherMode) {
   const subjectIcon = post.subjects && post.subjects.icon ? post.subjects.icon : "📘";
   const subjectName = post.subjects && post.subjects.name ? post.subjects.name : t("subject");
+  const unitName = post.subject_units && post.subject_units.title ? post.subject_units.title : "";
   const date = formatDate(post.created_at);
 
   return `
@@ -1548,6 +1778,7 @@ function createPostCard(post, teacherMode) {
         ${teacherMode ? `<input type="checkbox" class="post-select-checkbox" value="${post.id}" aria-label="Seleccionar publicación" />` : ""}
         <span class="post-type">${escapeHtml(readablePostType(post.post_type))}</span>
         <span class="post-subject">${escapeHtml(subjectIcon)} ${escapeHtml(subjectName)}</span>
+        ${unitName ? `<span class="post-unit">Unidad: ${escapeHtml(unitName)}</span>` : ""}
         <span class="post-date">${escapeHtml(date)}</span>
       </div>
       <h3>${escapeHtml(post.title)}</h3>
@@ -1562,6 +1793,7 @@ function createPostCard(post, teacherMode) {
   `;
 }
 async function openPost(post) {
+  const subjectWindowOpen = subjectModal && !subjectModal.classList.contains("hidden") && subjectModalBody;
   contentTitle.textContent = post.title;
 
   const content = post.content || {};
@@ -1633,6 +1865,19 @@ async function openPost(post) {
           ${escapeHtml(t("enterVideoClass"))}
         </a>
       `;
+    } else if (["video", "game", "challenge"].includes(post.post_type)) {
+      const embedUrl = post.post_type === "video" ? getYoutubeEmbedUrl(content.url) : "";
+
+      if (embedUrl) {
+        html += `<iframe class="video-frame" src="${escapeHtml(embedUrl)}" title="${escapeHtml(post.title)}" allowfullscreen></iframe>`;
+      }
+
+      const linkLabel = post.post_type === "game" ? "Abrir juego" : post.post_type === "challenge" ? "Abrir desafío" : "Abrir vídeo";
+      html += `
+        <a class="external-link" href="${escapeHtml(content.url)}" target="_blank" rel="noopener noreferrer">
+          ${escapeHtml(linkLabel)}
+        </a>
+      `;
     } else {
       const embedUrl = getYoutubeEmbedUrl(content.url);
 
@@ -1652,16 +1897,39 @@ async function openPost(post) {
 
   html += `</div>`;
 
-  contentBody.innerHTML = html;
-  contentBody.querySelectorAll(".complete-test-button").forEach(function (button) {
+  let targetBody = contentBody;
+
+  if (subjectWindowOpen) {
+    let modalPostPanel = subjectModalBody.querySelector("#subjectPostPanel");
+
+    if (!modalPostPanel) {
+      modalPostPanel = document.createElement("section");
+      modalPostPanel.id = "subjectPostPanel";
+      modalPostPanel.className = "subject-post-panel";
+      subjectModalBody.appendChild(modalPostPanel);
+    }
+
+    modalPostPanel.innerHTML = `<h3>${escapeHtml(post.title)}</h3>${html}`;
+    targetBody = modalPostPanel;
+    modalPostPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else {
+    contentBody.innerHTML = html;
+    contentPanel.classList.remove("hidden");
+    contentPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  targetBody.querySelectorAll(".complete-test-button").forEach(function (button) {
     button.addEventListener("click", async function () {
       await completeInteractiveTest(button.dataset.postId);
     });
   });
-  contentPanel.classList.remove("hidden");
-  contentPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 
   if (currentProfile && currentProfile.role !== "teacher") {
+    await recordActivityEvent("post_view", {
+      postId: post.id,
+      subjectId: post.subject_id,
+      metadata: { title: post.title, post_type: post.post_type }
+    });
     await registerLearningAction("post_view");
   }
 }
@@ -1681,6 +1949,7 @@ async function completeInteractiveTest(postId) {
     return;
   }
 
+  await recordActivityEvent("interactive_test_completed", { postId });
   await registerLearningAction("interactive_test_completed");
   currentBadgeAwards = await fetchStudentBadgeAwards(currentProfile.id);
   renderBadges();
@@ -1711,6 +1980,7 @@ async function deletePost(postId) {
   }
 
   teacherPosts = await fetchAllPosts();
+  renderTeacherOverview();
   renderTeacherPosts();
 }
 
@@ -1834,8 +2104,15 @@ function renderMonthCalendar(events, gridElement, titleElement, selectedDate, co
       hasImportant ? "has-important" : ""
     ].filter(Boolean).join(" ");
 
+    const dayTooltip = createDayTooltip(dayEvents);
+
     html += `
-      <button type="button" class="${classes}" data-day="${formatDateKey(day)}" aria-label="Ver eventos del ${formatDateKey(day)}">
+      <button
+        type="button"
+        class="${classes}"
+        data-day="${formatDateKey(day)}"
+        title="${escapeAttribute(dayTooltip)}"
+        aria-label="${escapeAttribute(dayTooltip || `Ver eventos del ${formatDateKey(day)}`)}">
         <span class="month-number">${day.getDate()}</span>
         ${visibleEvents.map(event => compact
           ? `<span class="month-event ${calendarEventClass(event)}" title="${escapeAttribute(event.title)}"></span>`
@@ -2037,6 +2314,7 @@ studentEventForm.addEventListener("submit", async function (event) {
 
   studentEventForm.reset();
   await reloadCalendarData();
+  await recordActivityEvent("calendar_event", { subjectId: studentEventSubject.value, metadata: { title: studentEventTitle.value.trim() } });
   await registerLearningAction("calendar_event");
   showMessage(studentEventMessage, "Evento personal añadido.", "success");
 });
@@ -2070,6 +2348,9 @@ if (dayEventForm) {
     }
 
     await reloadCalendarData();
+    if (currentProfile && currentProfile.role !== "teacher") {
+      await recordActivityEvent("calendar_event", { subjectId: dayEventSubject.value, metadata: { title: dayEventTitleInput.value.trim() } });
+    }
     const sourceEvents = currentProfile && currentProfile.role === "teacher" ? teacherEvents : currentEvents;
     openDayModal(selectedCalendarDay, sourceEvents);
     await registerLearningAction("calendar_event");
@@ -2087,6 +2368,85 @@ function renderTeacherSubjects() {
   if (dayEventSubject) {
     dayEventSubject.innerHTML = options;
   }
+
+  updateTeacherUnitControls();
+}
+
+
+async function updateTeacherUnitControls() {
+  if (!teacherSubject || !teacherUnitExisting || !teacherUnitMode) {
+    return;
+  }
+
+  const selectedSubjectId = teacherSubject.value;
+  const units = await fetchUnitsForSubject(selectedSubjectId);
+  teacherUnits = [
+    ...teacherUnits.filter(unit => unit.subject_id !== selectedSubjectId),
+    ...units
+  ];
+
+  teacherUnitExisting.innerHTML = units.length > 0
+    ? units.map(unit => `<option value="${unit.id}">${escapeHtml(unit.title)}</option>`).join("")
+    : `<option value="">No hay unidades creadas</option>`;
+
+  const mode = teacherUnitMode.value;
+  teacherUnitExistingControls.forEach(control => control.classList.toggle("hidden", mode !== "existing"));
+  teacherUnitNewControls.forEach(control => control.classList.toggle("hidden", mode !== "new"));
+
+  if (mode === "existing" && units.length === 0) {
+    teacherUnitMode.value = "new";
+    teacherUnitExistingControls.forEach(control => control.classList.add("hidden"));
+    teacherUnitNewControls.forEach(control => control.classList.remove("hidden"));
+  }
+}
+
+async function resolveTeacherUnitId() {
+  if (!teacherUnitMode || teacherUnitMode.value === "none") {
+    return null;
+  }
+
+  if (teacherUnitMode.value === "existing") {
+    return teacherUnitExisting.value || null;
+  }
+
+  const title = teacherUnitNew.value.trim();
+
+  if (!title) {
+    showMessage(teacherPostMessage, "Escribe el nombre de la nueva unidad didáctica.", "warning");
+    return false;
+  }
+
+  const subjectId = teacherSubject.value;
+  const existingUnits = await fetchUnitsForSubject(subjectId);
+  const nextSortOrder = existingUnits.length + 1;
+
+  const { data, error } = await supabaseClient
+    .from("subject_units")
+    .insert({
+      subject_id: subjectId,
+      title,
+      sort_order: nextSortOrder,
+      created_by: currentUserId
+    })
+    .select("id")
+    .single();
+
+  if (error) {
+    console.error(error);
+    showMessage(teacherPostMessage, "No se pudo crear la unidad didáctica.", "warning");
+    return false;
+  }
+
+  teacherUnits = await fetchUnitsForSubjects(teacherSubjects.map(subject => subject.id));
+  return data.id;
+}
+
+if (teacherSubject) {
+  teacherSubject.addEventListener("change", updateTeacherUnitControls);
+}
+
+if (teacherUnitMode) {
+  teacherUnitMode.addEventListener("change", updateTeacherUnitControls);
 }
 
 function renderTeacherStudents() {
@@ -2120,6 +2480,145 @@ function createStudentCheckboxes(students) {
   }).join("");
 }
 
+
+function renderTeacherPostTemplates() {
+  if (!postTemplateSelect) {
+    return;
+  }
+
+  postTemplateSelect.innerHTML = `<option value="">Sin plantilla</option>` + postTemplates.map(function (template) {
+    return `<option value="${template.id}">${escapeHtml(template.name)}</option>`;
+  }).join("");
+}
+
+function renderTeacherGroups() {
+  if (!teacherGroupsList) {
+    return;
+  }
+
+  if (!studentGroups || studentGroups.length === 0) {
+    teacherGroupsList.innerHTML = `<p class="empty-state">No hay grupos creados todavía.</p>`;
+  } else {
+    teacherGroupsList.innerHTML = studentGroups.map(function (group) {
+      return `
+        <label class="checkbox-card">
+          <input type="checkbox" value="${group.id}" />
+          <span>
+            ${escapeHtml(group.name)}
+            <small>${group.memberIds.length} alumno(s)</small>
+          </span>
+        </label>
+      `;
+    }).join("");
+  }
+
+  if (teacherGroupSummary) {
+    teacherGroupSummary.innerHTML = studentGroups.map(function (group) {
+      const names = group.memberIds
+        .map(id => teacherStudents.find(student => student.id === id))
+        .filter(Boolean)
+        .map(student => student.nickname || student.display_name)
+        .slice(0, 8);
+      return `
+        <article class="group-summary-card">
+          <h3>${escapeHtml(group.name)}</h3>
+          <p class="activity-meta">${group.memberIds.length} alumno(s)</p>
+          <p>${escapeHtml(names.join(", ") || "Sin miembros asignados.")}${group.memberIds.length > 8 ? "..." : ""}</p>
+        </article>
+      `;
+    }).join("") || `<div class="empty-panel"><p>No hay grupos creados.</p></div>`;
+  }
+}
+
+function renderTeacherOverview() {
+  if (teacherMetricStudents) teacherMetricStudents.textContent = String(teacherStudents.length);
+  if (teacherMetricPosts) teacherMetricPosts.textContent = String(teacherPosts.length);
+  if (teacherMetricGroups) teacherMetricGroups.textContent = String(studentGroups.length);
+  if (teacherMetricUnread) teacherMetricUnread.textContent = String(messages.filter(message => message.message_type === "mail" && message.recipient_id === currentUserId && !message.is_read).length);
+}
+
+function renderRecentActivity() {
+  if (!recentActivityList) {
+    return;
+  }
+
+  if (!recentActivity || recentActivity.length === 0) {
+    recentActivityList.innerHTML = `<div class="empty-panel"><p>Todavía no hay actividad registrada.</p></div>`;
+    return;
+  }
+
+  recentActivityList.innerHTML = recentActivity.map(function (item) {
+    const profileName = item.profiles ? (item.profiles.nickname || item.profiles.display_name || item.profiles.username) : "Usuario";
+    const postTitle = item.posts ? item.posts.title : "";
+    const subjectName = item.subjects ? item.subjects.name : "";
+    return `
+      <article class="activity-card">
+        <h3>${escapeHtml(profileName)} · ${escapeHtml(readableActivityType(item.action_type))}</h3>
+        <p class="activity-meta">${escapeHtml(formatDateTime(item.created_at))}</p>
+        <p>${postTitle ? `Publicación: ${escapeHtml(postTitle)}` : ""}${subjectName ? ` · Materia: ${escapeHtml(subjectName)}` : ""}</p>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderTeacherChatOverview() {
+  if (!teacherChatOverview || !currentProfile || currentProfile.role !== "teacher") {
+    return;
+  }
+
+  const chatMessagesOnly = messages
+    .filter(message => ["chat", "nudge"].includes(message.message_type))
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+  if (chatMessagesOnly.length === 0) {
+    teacherChatOverview.innerHTML = `<div class="empty-panel"><p>No hay chats activos todavía.</p></div>`;
+    return;
+  }
+
+  const conversations = new Map();
+
+  chatMessagesOnly.forEach(function (message) {
+    const otherId = message.sender_id === currentUserId ? message.recipient_id : message.sender_id;
+    const key = [message.sender_id, message.recipient_id].sort().join("|");
+    if (!conversations.has(key)) {
+      conversations.set(key, { otherId, messages: [] });
+    }
+    conversations.get(key).messages.push(message);
+  });
+
+  teacherChatOverview.innerHTML = Array.from(conversations.values()).slice(0, 12).map(function (conversation) {
+    const latest = conversation.messages[0];
+    return `
+      <article class="chat-overview-card">
+        <h3><span class="status-dot ${presenceClass(conversation.otherId)}"></span>${escapeHtml(getProfileName(conversation.otherId))}</h3>
+        <p class="chat-meta">Último mensaje: ${escapeHtml(formatDateTime(latest.created_at))}</p>
+        <div class="chat-overview-messages">
+          ${conversation.messages.slice(0, 6).reverse().map(function (message) {
+            return `
+              <div class="chat-overview-line">
+                <strong>${escapeHtml(getProfileName(message.sender_id))}:</strong>
+                ${escapeHtml(message.message_type === "nudge" ? "👋 Toque" : message.body)}
+              </div>
+            `;
+          }).join("")}
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function readableActivityType(type) {
+  const labels = {
+    login: "entrada al aula",
+    post_view: "consulta de publicación",
+    calendar_event: "evento añadido",
+    interactive_test_completed: "test completado",
+    message_sent: "mensaje enviado"
+  };
+
+  return labels[type] || type || "actividad";
+}
+
 function renderTeacherBadges() {
   teacherBadge.innerHTML = teacherBadges.map(function (badge) {
     return `<option value="${badge.id}">${escapeHtml(badge.emoji)} ${escapeHtml(badge.name)}</option>`;
@@ -2130,10 +2629,101 @@ function renderTeacherPosts() {
   renderPostList(teacherPosts, teacherPostsList, "Aún no se han creado publicaciones.", true);
 }
 
+
+function getTeacherSelectedStudentIds() {
+  const directIds = getCheckedStudentIds(teacherStudentsList);
+  const groupIds = teacherGroupsList
+    ? Array.from(teacherGroupsList.querySelectorAll("input[type='checkbox']:checked")).map(input => input.value)
+    : [];
+
+  const groupMemberIds = studentGroups
+    .filter(group => groupIds.includes(group.id))
+    .flatMap(group => group.memberIds);
+
+  return Array.from(new Set([...directIds, ...groupMemberIds]));
+}
+
+function applySelectedGroupsToStudents() {
+  const selectedIds = getTeacherSelectedStudentIds();
+  teacherStudentsList.querySelectorAll("input[type='checkbox']").forEach(function (input) {
+    input.checked = selectedIds.includes(input.value);
+  });
+}
+
+
+if (postTemplateSelect) {
+  postTemplateSelect.addEventListener("change", function () {
+    const template = postTemplates.find(item => item.id === postTemplateSelect.value);
+    if (!template) {
+      return;
+    }
+    teacherPostType.value = template.post_type || "announcement";
+    teacherTitle.value = template.title || template.name || "";
+    teacherBody.value = template.body || "";
+    teacherKeyPoints.value = Array.isArray(template.key_points) ? template.key_points.join("\n") : "";
+    teacherUrl.value = template.default_url || "";
+  });
+}
+
+if (savePostTemplateButton) {
+  savePostTemplateButton.addEventListener("click", async function () {
+    const name = prompt("Nombre de la plantilla:", teacherTitle.value.trim() || "Nueva plantilla");
+    if (!name) {
+      return;
+    }
+
+    const keyPoints = teacherKeyPoints.value
+      .split("\n")
+      .map(line => line.trim())
+      .filter(Boolean);
+
+    const { error } = await supabaseClient
+      .from("post_templates")
+      .insert({
+        name: name.trim(),
+        post_type: teacherPostType.value,
+        title: teacherTitle.value.trim(),
+        body: teacherBody.value.trim(),
+        key_points: keyPoints,
+        default_url: teacherUrl.value.trim(),
+        created_by: currentUserId
+      });
+
+    if (error) {
+      console.error(error);
+      showMessage(teacherPostMessage, "No se pudo guardar la plantilla.", "warning");
+      return;
+    }
+
+    postTemplates = await fetchPostTemplates();
+    renderTeacherPostTemplates();
+    showMessage(teacherPostMessage, "Plantilla guardada.", "success");
+  });
+}
+
+if (teacherGroupsList) {
+  teacherGroupsList.addEventListener("change", applySelectedGroupsToStudents);
+}
+
+if (selectAllStudentsButton) {
+  selectAllStudentsButton.addEventListener("click", function () {
+    teacherStudentsList.querySelectorAll("input[type='checkbox']").forEach(input => { input.checked = true; });
+  });
+}
+
+if (clearAllStudentsButton) {
+  clearAllStudentsButton.addEventListener("click", function () {
+    if (teacherGroupsList) {
+      teacherGroupsList.querySelectorAll("input[type='checkbox']").forEach(input => { input.checked = false; });
+    }
+    teacherStudentsList.querySelectorAll("input[type='checkbox']").forEach(input => { input.checked = false; });
+  });
+}
+
 teacherPostForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
-  const selectedStudentIds = getCheckedStudentIds(teacherStudentsList);
+  const selectedStudentIds = getTeacherSelectedStudentIds();
 
   if (selectedStudentIds.length === 0) {
     showMessage(teacherPostMessage, "Selecciona al menos un alumno o alumna.", "warning");
@@ -2143,8 +2733,14 @@ teacherPostForm.addEventListener("submit", async function (event) {
   const postType = teacherPostType.value;
   const url = teacherUrl.value.trim();
 
-  if ((postType === "interactive_test" || postType === "video_class") && !url) {
+  if (["interactive_test", "video_class", "video", "game"].includes(postType) && !url) {
     showMessage(teacherPostMessage, "Para este tipo de publicación debes pegar un enlace.", "warning");
+    return;
+  }
+
+  const unitId = await resolveTeacherUnitId();
+
+  if (unitId === false) {
     return;
   }
 
@@ -2172,6 +2768,7 @@ teacherPostForm.addEventListener("submit", async function (event) {
     .from("posts")
     .insert({
       subject_id: teacherSubject.value,
+      unit_id: unitId,
       created_by: currentUserId,
       title: teacherTitle.value.trim(),
       body: teacherBody.value.trim(),
@@ -2206,6 +2803,8 @@ teacherPostForm.addEventListener("submit", async function (event) {
   }
 
   teacherPostForm.reset();
+  updateTeacherUnitControls();
+  teacherUnits = await fetchUnitsForSubjects(teacherSubjects.map(subject => subject.id));
   teacherPosts = await fetchAllPosts();
   renderTeacherPosts();
 
@@ -2464,7 +3063,7 @@ async function fetchContacts() {
 async function fetchMessages() {
   const { data, error } = await supabaseClient
     .from("messages")
-    .select("id, sender_id, recipient_id, message_type, subject, body, is_read, reply_to, reaction_emoji, created_at")
+    .select("id, sender_id, recipient_id, message_type, subject, body, is_read, reply_to, reaction_emoji, sender_deleted_at, recipient_deleted_at, created_at")
     .order("created_at", { ascending: false })
     .limit(180);
 
@@ -2493,6 +3092,7 @@ function countUnreadMail() {
   return messages.filter(message =>
     message.message_type === "mail"
     && message.recipient_id === currentUserId
+    && !message.recipient_deleted_at
     && !message.is_read
   ).length;
 }
@@ -2525,6 +3125,13 @@ function updateUnreadBadges() {
       messageUnreadNotice.classList.add("hidden");
     }
   }
+
+  [openUnreadMessagesButton, markMessagesReadTopButton].forEach(function (button) {
+    if (!button) {
+      return;
+    }
+    button.classList.toggle("hidden", unreadCount === 0);
+  });
 }
 
 function renderContactSelectors() {
@@ -2538,6 +3145,7 @@ function renderContactSelectors() {
 
 function setMessageView(view) {
   currentMessageView = view;
+  openedMailMessageId = "";
 
   [messageInboxTab, messageSentTab, messageComposeTab].forEach(function (button) {
     if (button) {
@@ -2554,58 +3162,286 @@ function setMessageView(view) {
   }
 
   if (markMessagesReadButton) {
-    markMessagesReadButton.classList.toggle("hidden", view !== "inbox");
+    markMessagesReadButton.classList.add("hidden");
   }
 
   renderMessages();
 }
 
 function renderMessages() {
-  let mail = messages.filter(message => message.message_type === "mail");
+  const inboxMessages = messages.filter(message =>
+    message.message_type === "mail"
+    && message.recipient_id === currentUserId
+    && !message.recipient_deleted_at
+  );
 
-  if (currentMessageView === "inbox") {
-    mail = mail.filter(message => message.recipient_id === currentUserId);
-  } else if (currentMessageView === "sent") {
-    mail = mail.filter(message => message.sender_id === currentUserId);
-  } else {
+  const sentMessages = messages.filter(message =>
+    message.message_type === "mail"
+    && message.sender_id === currentUserId
+    && !message.sender_deleted_at
+  );
+
+  const unreadInboxCount = inboxMessages.filter(message => !message.is_read).length;
+
+  if (messageInboxTab) {
+    messageInboxTab.innerHTML = `Recibidos <span class="folder-count">${inboxMessages.length}</span>${unreadInboxCount ? `<span class="folder-unread">${unreadInboxCount}</span>` : ""}`;
+  }
+
+  if (messageSentTab) {
+    messageSentTab.innerHTML = `Enviados <span class="folder-count">${sentMessages.length}</span>`;
+  }
+
+  if (messageComposeTab) {
+    messageComposeTab.textContent = "Redactar";
+  }
+
+  if (currentMessageView === "compose") {
     messageList.innerHTML = `
-      <div class="empty-panel">
-        <h3>Redactar mensaje</h3>
-        <p>Usa el formulario superior para enviar un mensaje. El alumnado solo puede escribir a la profesora.</p>
+      <div class="gmail-empty compose-helper-card">
+        <h3>Nuevo mensaje</h3>
+        <p>Escribe el destinatario, el asunto y el contenido. El alumnado solo puede enviar mensajes a la profesora.</p>
       </div>
     `;
+    if (deleteSelectedInboxMessagesButton) deleteSelectedInboxMessagesButton.classList.add("hidden");
     return;
   }
 
-  mail = mail.slice(0, 30);
+  let mail = currentMessageView === "sent" ? sentMessages : inboxMessages;
+  mail = mail.slice(0, 60);
+
+  const viewTitle = currentMessageView === "sent" ? "Enviados" : "Recibidos";
+  const viewCount = mail.length;
+  const selectedTools = currentMessageView === "inbox" ? `
+    <div class="gmail-toolbar-right">
+      <span>${unreadInboxCount} sin leer</span>
+    </div>
+  ` : `
+    <div class="gmail-toolbar-right">
+      <span>${viewCount} enviado(s)</span>
+    </div>
+  `;
 
   if (mail.length === 0) {
     messageList.innerHTML = `
-      <div class="empty-panel">
+      <div class="gmail-topbar">
+        <div>
+          <strong>${escapeHtml(viewTitle)}</strong>
+          <small>${viewCount} mensaje(s)</small>
+        </div>
+        ${selectedTools}
+      </div>
+      <div class="gmail-empty">
         <h3>${escapeHtml(t("messages"))}</h3>
         <p>${escapeHtml(t("noMessages"))}</p>
       </div>
     `;
+    if (deleteSelectedInboxMessagesButton) deleteSelectedInboxMessagesButton.classList.toggle("hidden", currentMessageView !== "inbox");
     return;
   }
 
-  messageList.innerHTML = mail.map(function (message) {
-    const sender = getProfileName(message.sender_id);
-    const recipient = getProfileName(message.recipient_id);
-    const unread = message.recipient_id === currentUserId && !message.is_read;
-
-    return `
-      <article class="post-card ${unread ? "unread-message" : ""}">
-        <div class="post-topline">
-          <span class="post-type">${escapeHtml(t("messages"))}${unread ? " · NUEVO" : ""}</span>
-          <span class="post-date">${escapeHtml(formatDateTime(message.created_at))}</span>
+  const openedMessage = openedMailMessageId ? messages.find(item => item.id === openedMailMessageId) : null;
+  const openedHtml = openedMessage ? `
+    <article class="gmail-message-detail">
+      <div class="gmail-message-head">
+        <div>
+          <strong>${escapeHtml(openedMessage.subject || t("subjectLabel"))}</strong>
+          <small>${escapeHtml(formatDateTime(openedMessage.created_at))}</small>
         </div>
-        <h3>${escapeHtml(message.subject || t("subjectLabel"))}</h3>
-        <p><strong>De:</strong> ${escapeHtml(sender)} · <strong>Para:</strong> ${escapeHtml(recipient)}</p>
-        <p>${escapeHtml(message.body)}</p>
-      </article>
-    `;
-  }).join("");
+        <button type="button" id="closeOpenedMailButton" class="secondary-button">Cerrar</button>
+      </div>
+      <div class="gmail-message-meta">
+        <span><strong>De:</strong> ${escapeHtml(getProfileName(openedMessage.sender_id))}</span>
+        <span><strong>Para:</strong> ${escapeHtml(getProfileName(openedMessage.recipient_id))}</span>
+      </div>
+      <p class="gmail-message-body-full">${escapeHtml(openedMessage.body)}</p>
+    </article>
+  ` : "";
+
+  messageList.innerHTML = `
+    <div class="gmail-topbar">
+      <div>
+        <strong>${escapeHtml(viewTitle)}</strong>
+        <small>${viewCount} mensaje(s)</small>
+      </div>
+      ${selectedTools}
+    </div>
+    ${openedHtml}
+    <div class="gmail-list" role="list">
+      ${mail.map(function (message) {
+        const sender = getProfileName(message.sender_id);
+        const recipient = getProfileName(message.recipient_id);
+        const unread = message.recipient_id === currentUserId && !message.is_read;
+        const person = currentMessageView === "sent" ? recipient : sender;
+        const initials = getInitials(person);
+
+        return `
+          <article class="gmail-message-row ${unread ? "unread-message" : ""}" data-message-id="${message.id}" role="listitem" tabindex="0">
+            ${currentMessageView === "inbox" ? `<input type="checkbox" class="gmail-message-select" value="${message.id}" aria-label="Seleccionar mensaje" />` : ""}
+            <div class="gmail-avatar" aria-hidden="true">${escapeHtml(initials)}</div>
+            <div class="gmail-message-main">
+              <div class="gmail-message-head">
+                <strong>${escapeHtml(person)}</strong>
+                <span>${escapeHtml(formatDateTime(message.created_at))}</span>
+              </div>
+              <h3>${escapeHtml(message.subject || t("subjectLabel"))}</h3>
+              <p>${escapeHtml(shorten(message.body, 190))}</p>
+              <small>${currentMessageView === "sent" ? "Para" : "De"}: ${escapeHtml(person)}</small>
+            </div>
+            <div class="gmail-message-actions">
+              ${unread ? `<span class="new-pill">Nuevo</span>` : ""}
+              <button type="button" class="open-message-button" data-message-id="${message.id}">${unread ? "Abrir" : "Ver"}</button>
+              ${currentMessageView === "inbox" ? `<button type="button" class="delete-message-button" data-message-id="${message.id}">Eliminar</button>` : ""}
+            </div>
+          </article>
+        `;
+      }).join("")}
+    </div>
+  `;
+
+  const closeOpenedMailButton = document.getElementById("closeOpenedMailButton");
+  if (closeOpenedMailButton) {
+    closeOpenedMailButton.addEventListener("click", function () {
+      openedMailMessageId = "";
+      renderMessages();
+    });
+  }
+
+  messageList.querySelectorAll(".open-message-button").forEach(function (button) {
+    button.addEventListener("click", async function (event) {
+      event.stopPropagation();
+      await openMailMessage(button.dataset.messageId);
+    });
+  });
+
+  messageList.querySelectorAll(".gmail-message-row").forEach(function (row) {
+    row.addEventListener("click", async function (event) {
+      if (event.target.closest("button") || event.target.closest("input")) {
+        return;
+      }
+      await openMailMessage(row.dataset.messageId);
+    });
+
+    row.addEventListener("keydown", async function (event) {
+      if (event.key === "Enter") {
+        await openMailMessage(row.dataset.messageId);
+      }
+    });
+  });
+
+  messageList.querySelectorAll(".delete-message-button").forEach(function (button) {
+    button.addEventListener("click", async function (event) {
+      event.stopPropagation();
+      await deleteReceivedMessage(button.dataset.messageId);
+    });
+  });
+
+  if (deleteSelectedInboxMessagesButton) {
+    deleteSelectedInboxMessagesButton.classList.toggle("hidden", currentMessageView !== "inbox");
+  }
+}
+
+function getInitials(name) {
+  return String(name || "U")
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(part => part[0])
+    .join("")
+    .toUpperCase();
+}
+
+async function openMailMessage(messageId) {
+  const message = messages.find(item => item.id === messageId);
+
+  if (!message) {
+    return;
+  }
+
+  if (message.recipient_id === currentUserId && !message.is_read) {
+    await supabaseClient
+      .from("messages")
+      .update({ is_read: true })
+      .eq("id", messageId);
+
+    messages = await fetchMessages();
+    unreadCount = countUnreadMail();
+    updateUnreadBadges();
+  }
+
+  openedMailMessageId = messageId;
+  renderMessages();
+}
+
+
+async function deleteReceivedMessage(messageId) {
+  const message = messages.find(item => item.id === messageId);
+
+  if (!message || message.recipient_id !== currentUserId) {
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("messages")
+    .update({ recipient_deleted_at: new Date().toISOString(), is_read: true })
+    .eq("id", messageId);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  messages = await fetchMessages();
+  unreadCount = countUnreadMail();
+  renderMessages();
+  updateUnreadBadges();
+}
+
+async function deleteSelectedInboxMessages() {
+  const ids = Array.from(messageList.querySelectorAll(".gmail-message-select:checked")).map(input => input.value);
+
+  if (ids.length === 0) {
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("messages")
+    .update({ recipient_deleted_at: new Date().toISOString(), is_read: true })
+    .in("id", ids);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  messages = await fetchMessages();
+  unreadCount = countUnreadMail();
+  renderMessages();
+  updateUnreadBadges();
+}
+
+async function markUnreadMailAsRead() {
+  const unreadIds = messages
+    .filter(message => message.message_type === "mail" && message.recipient_id === currentUserId && !message.recipient_deleted_at && !message.is_read)
+    .map(message => message.id);
+
+  if (unreadIds.length === 0) {
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("messages")
+    .update({ is_read: true })
+    .in("id", unreadIds);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  messages = await fetchMessages();
+  unreadCount = countUnreadMail();
+  setMessageView("inbox");
+  updateUnreadBadges();
 }
 
 function renderChatTabs() {
@@ -2770,6 +3606,7 @@ messageForm.addEventListener("submit", async function (event) {
     return;
   }
 
+  await recordActivityEvent("message_sent", {});
   messageForm.reset();
   messages = await fetchMessages();
   unreadCount = countUnreadMail();
@@ -2779,31 +3616,30 @@ messageForm.addEventListener("submit", async function (event) {
   showMessage(messageStatus, t("sentMessage"), "success");
 });
 
-markMessagesReadButton.addEventListener("click", async function () {
-  const unreadIds = messages
-    .filter(message => message.message_type === "mail" && message.recipient_id === currentUserId && !message.is_read)
-    .map(message => message.id);
+if (markMessagesReadButton) {
+  markMessagesReadButton.addEventListener("click", async function () {
+    await markUnreadMailAsRead();
+    showMessage(messageStatus, t("readMarked"), "success");
+  });
+}
 
-  if (unreadIds.length === 0) {
-    return;
-  }
+if (markMessagesReadTopButton) {
+  markMessagesReadTopButton.addEventListener("click", async function () {
+    await markUnreadMailAsRead();
+  });
+}
 
-  const { error } = await supabaseClient
-    .from("messages")
-    .update({ is_read: true })
-    .in("id", unreadIds);
+if (deleteSelectedInboxMessagesButton) {
+  deleteSelectedInboxMessagesButton.addEventListener("click", deleteSelectedInboxMessages);
+}
 
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  messages = await fetchMessages();
-  unreadCount = countUnreadMail();
-  renderMessages();
-  updateUnreadBadges();
-  showMessage(messageStatus, t("readMarked"), "success");
-});
+if (openUnreadMessagesButton) {
+  openUnreadMessagesButton.addEventListener("click", async function () {
+    setMessageView("inbox");
+    communicationSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    await markUnreadMailAsRead();
+  });
+}
 
 openChatTabsButton.addEventListener("click", function () {
   const selectedIds = Array.from(chatContact.selectedOptions).map(option => option.value);
@@ -2977,6 +3813,10 @@ function setupRealtimeSubscriptions() {
       renderChatTabs();
       renderChat();
       updateUnreadBadges();
+      if (currentProfile && currentProfile.role === "teacher") {
+        renderTeacherOverview();
+        renderTeacherChatOverview();
+      }
     })
     .on("postgres_changes", { event: "*", schema: "public", table: "user_presence" }, async function () {
       const newPresence = await fetchPresence();
@@ -2984,6 +3824,9 @@ function setupRealtimeSubscriptions() {
       presence = newPresence;
       renderContactSelectors();
       renderChatTabs();
+      if (currentProfile && currentProfile.role === "teacher") {
+        renderTeacherChatOverview();
+      }
     })
     .subscribe();
 }
@@ -3012,6 +3855,12 @@ function startRefreshTimer() {
     renderChatTabs();
     renderChat();
     updateUnreadBadges();
+    if (currentProfile && currentProfile.role === "teacher") {
+      recentActivity = await fetchRecentActivity();
+      renderTeacherOverview();
+      renderRecentActivity();
+      renderTeacherChatOverview();
+    }
   }, 30000);
 }
 
@@ -3289,7 +4138,10 @@ function readablePostType(type) {
     notes: t("postTypeNotes"),
     worksheet: t("postTypeWorksheet"),
     interactive_test: t("postTypeTest"),
-    video_class: t("postTypeVideoClass")
+    video_class: t("postTypeVideoClass"),
+    video: t("postTypeVideo"),
+    game: t("postTypeGame"),
+    challenge: t("postTypeChallenge")
   };
 
   return labels[type] || t("postTypeAnnouncement");
@@ -3401,6 +4253,51 @@ function calendarEventClass(event) {
   return classes.join(" ");
 }
 
+function createDayTooltip(dayEvents) {
+  if (!dayEvents || dayEvents.length === 0) {
+    return "Sin eventos";
+  }
+
+  return dayEvents
+    .map(event => `${formatTimeOnly(event.starts_at)} · ${event.title}`)
+    .join("\n");
+}
+
+function formatTimeOnly(value) {
+  if (!value) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("es-ES", {
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(new Date(value));
+}
+
+
+async function recordActivityEvent(actionType, details = {}) {
+  if (!currentUserId || !currentProfile || currentProfile.role === "teacher") {
+    return;
+  }
+
+  const payload = {
+    profile_id: currentUserId,
+    action_type: actionType,
+    post_id: details.postId || null,
+    subject_id: details.subjectId || null,
+    event_id: details.eventId || null,
+    metadata: details.metadata || {}
+  };
+
+  const { error } = await supabaseClient
+    .from("activity_events")
+    .insert(payload);
+
+  if (error) {
+    console.warn("No se pudo registrar actividad detallada:", error);
+  }
+}
+
 async function fetchCurrentStreak() {
   const { data, error } = await supabaseClient.rpc("get_learning_streak");
 
@@ -3467,8 +4364,35 @@ function showLoginError(message) {
 }
 
 function showMessage(element, message, type) {
+  if (!element) {
+    return;
+  }
+
   element.className = type === "success" ? "feedback success" : "feedback warning";
   element.textContent = message;
+
+  if (element.dataset.clearTimer) {
+    clearTimeout(Number(element.dataset.clearTimer));
+  }
+
+  const timer = setTimeout(function () {
+    element.textContent = "";
+    element.className = "feedback";
+    delete element.dataset.clearTimer;
+  }, 5200);
+
+  element.dataset.clearTimer = String(timer);
+}
+
+
+if (backToTopButton) {
+  window.addEventListener("scroll", function () {
+    backToTopButton.classList.toggle("hidden", window.scrollY < 650);
+  });
+
+  backToTopButton.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 }
 
 function escapeHtml(value) {

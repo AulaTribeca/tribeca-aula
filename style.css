@@ -1298,3 +1298,681 @@ button {
   border-radius: 16px;
   background: var(--surface-2);
 }
+
+/* Ajustes finales: navegación fija, unidades, mensajes tipo Gmail y pantalla completa de materia */
+.quick-nav {
+  position: sticky;
+  top: 0.35rem;
+  z-index: 900;
+  backdrop-filter: blur(10px);
+}
+
+.quick-nav a:hover {
+  transform: translateY(-1px);
+  border-color: var(--primary);
+}
+
+.unit-assignment-box {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-2);
+  padding: 0.85rem;
+  margin-bottom: 0.8rem;
+}
+
+.post-unit {
+  color: var(--muted);
+  font-weight: 900;
+  font-size: 0.86rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.unit-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.unit-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-3);
+  padding: 1rem;
+}
+
+.unit-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.unit-card-header h3 {
+  margin-bottom: 0;
+}
+
+.unit-card-header span {
+  color: var(--muted);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.unit-feed {
+  margin-top: 0;
+}
+
+.subject-fullscreen-overlay {
+  padding: 0;
+  place-items: stretch;
+  background: var(--surface);
+}
+
+.subject-fullscreen-card {
+  width: 100vw;
+  height: 100vh;
+  max-height: none;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  overflow: auto;
+  padding: clamp(1rem, 2.5vw, 2rem);
+}
+
+.subject-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1002;
+}
+
+.subject-post-panel {
+  margin-top: 1.2rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-2);
+}
+
+.gmail-layout {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.gmail-sidebar {
+  display: grid;
+  gap: 0.5rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 0.75rem;
+  position: sticky;
+  top: 5rem;
+}
+
+.gmail-folder {
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid transparent;
+  text-align: left;
+  padding: 0.65rem 0.8rem;
+}
+
+.gmail-folder.active {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.dark-mode .gmail-folder.active {
+  color: #111111;
+}
+
+.gmail-folder.compose {
+  background: var(--accent);
+  color: #1f2933;
+}
+
+.gmail-content {
+  min-width: 0;
+}
+
+.message-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0.75rem 0;
+}
+
+.gmail-message-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.8rem;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 0.85rem 1rem;
+  box-shadow: var(--shadow);
+}
+
+.gmail-message-row.unread-message {
+  border-left: 6px solid var(--error);
+  background: color-mix(in srgb, var(--surface) 85%, #fff0f0 15%);
+}
+
+.gmail-message-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.gmail-message-head span,
+.gmail-message-main small {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.gmail-message-main h3,
+.gmail-message-main p {
+  margin-bottom: 0.25rem;
+}
+
+.gmail-message-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.new-pill {
+  display: inline-flex;
+  border-radius: 999px;
+  background: var(--error);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  padding: 0.25rem 0.55rem;
+}
+
+.gmail-message-detail {
+  border: 1px solid var(--primary);
+  border-radius: 18px;
+  background: var(--surface-2);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.gmail-empty {
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+  padding: 1rem;
+  background: var(--surface-2);
+}
+
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 950;
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: var(--shadow);
+}
+
+.dark-mode .back-to-top {
+  color: #111111;
+}
+
+@media (max-width: 900px) {
+  .gmail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .gmail-sidebar {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .gmail-message-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mejoras modo docente, grupos, plantillas y mensajes */
+.compact-panel {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1rem;
+  background: var(--surface-3);
+  margin-bottom: 0.75rem;
+}
+
+.compact-panel h3 {
+  margin-bottom: 0.5rem;
+}
+
+.assignment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0.6rem 0;
+}
+
+.group-grid .checkbox-card {
+  background: rgba(242, 200, 75, 0.12);
+}
+
+.teacher-dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.teacher-mini-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-2);
+  padding: 1rem;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.teacher-mini-card strong {
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.teacher-mini-card span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.group-summary-list,
+.activity-list,
+.chat-overview-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.group-summary-card,
+.activity-card,
+.chat-overview-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 0.95rem;
+}
+
+.group-summary-card h3,
+.activity-card h3,
+.chat-overview-card h3 {
+  margin-bottom: 0.25rem;
+}
+
+.activity-meta,
+.chat-meta {
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.chat-overview-messages {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.65rem;
+  max-height: 220px;
+  overflow: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 0.65rem;
+}
+
+.chat-overview-line {
+  border-radius: 12px;
+  background: var(--surface-2);
+  padding: 0.55rem 0.7rem;
+}
+
+.gmail-message-select {
+  margin-right: 0.55rem;
+}
+
+.delete-message-button {
+  background: var(--surface-2);
+  color: var(--error);
+  border: 1px solid var(--border);
+}
+
+@media (max-width: 900px) {
+  .teacher-dashboard-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .teacher-dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ajustes de publicación: mensajes más similares a un correo, materia inline con opción completa, y adaptación responsive */
+.subject-open-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.subject-open-header .subject-description {
+  margin-bottom: 0;
+}
+
+.subject-fullscreen-open-button {
+  white-space: nowrap;
+}
+
+.gmail-panel {
+  padding: clamp(1rem, 2.2vw, 1.6rem);
+}
+
+.message-helper {
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+
+.gmail-layout {
+  grid-template-columns: 190px minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.gmail-sidebar {
+  border-radius: 20px;
+  padding: 0.65rem;
+  background: var(--surface-3);
+}
+
+.gmail-folder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 14px;
+  padding: 0.72rem 0.85rem;
+}
+
+.folder-count,
+.folder-unread {
+  display: inline-flex;
+  min-width: 1.45rem;
+  height: 1.45rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.folder-count {
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+.folder-unread {
+  background: var(--error);
+  color: #ffffff;
+}
+
+.gmail-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-2);
+  margin-bottom: 0.8rem;
+}
+
+.gmail-topbar div {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.gmail-topbar small,
+.gmail-toolbar-right {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.gmail-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.gmail-message-row {
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.72rem 0.85rem;
+  box-shadow: none;
+}
+
+.gmail-message-row:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.gmail-avatar {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-weight: 900;
+  color: var(--primary-dark);
+}
+
+.gmail-message-detail {
+  border-left: 6px solid var(--primary);
+}
+
+.gmail-message-detail .gmail-message-head {
+  align-items: flex-start;
+}
+
+.gmail-message-detail small {
+  display: block;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+.gmail-message-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  color: var(--muted);
+  font-size: 0.93rem;
+  margin: 0.7rem 0;
+}
+
+.gmail-message-body-full {
+  white-space: pre-wrap;
+  margin-bottom: 0;
+}
+
+.compose-card {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1rem;
+  background: var(--surface-3);
+}
+
+.message-actions-row.gmail-actions-top {
+  justify-content: flex-start;
+}
+
+.back-to-top {
+  display: none !important;
+}
+
+.month-grid.mini .month-day[title]:hover {
+  outline: 3px solid rgba(242, 200, 75, 0.45);
+  outline-offset: -3px;
+}
+
+@media (max-width: 1180px) {
+  body.logged-in .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .right-rail {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .gmail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .gmail-sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .gmail-message-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .gmail-message-row .gmail-message-select {
+    grid-row: 1;
+  }
+
+  .gmail-avatar {
+    display: none;
+  }
+
+  .gmail-message-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+
+  .subject-open-header {
+    display: grid;
+  }
+}
+
+@media (max-width: 720px) {
+  .site-header,
+  .site-footer {
+    padding: 1rem;
+  }
+
+  .quick-nav {
+    position: sticky;
+    top: 0;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    border-radius: 0;
+    padding: 0.55rem 0.75rem;
+    margin-top: 0;
+  }
+
+  .quick-nav a {
+    white-space: nowrap;
+  }
+
+  .app-layout {
+    padding: 0.75rem;
+  }
+
+  .panel,
+  .rail-card {
+    border-radius: 16px;
+  }
+
+  .gmail-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .gmail-topbar {
+    display: grid;
+  }
+
+  .subject-fullscreen-card {
+    padding: 1rem;
+  }
+}
+
+
+/* Ajuste prepublicación: ventana de materia no maximizada por defecto y navegación compacta */
+.quick-nav {
+  width: max-content;
+  max-width: calc(100% - 2.5rem);
+  overflow-x: auto;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: flex-start;
+}
+
+.subject-window-overlay {
+  place-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.subject-window-overlay .subject-modal-card {
+  width: min(1080px, 94vw);
+  max-height: 88vh;
+  height: auto;
+  overflow: auto;
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+#subjectModal.subject-is-fullscreen {
+  padding: 0;
+  place-items: stretch;
+  background: var(--surface);
+}
+
+#subjectModal.subject-is-fullscreen .subject-modal-card {
+  width: 100vw;
+  height: 100vh;
+  max-height: none;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  padding: clamp(1rem, 2.5vw, 2rem);
+}
+
+#subjectModal.subject-is-fullscreen .subject-close {
+  position: fixed;
+}
+
+@media (max-width: 760px) {
+  .quick-nav {
+    width: calc(100% - 1rem);
+    max-width: calc(100% - 1rem);
+    border-radius: 999px;
+  }
+
+  .subject-window-overlay .subject-modal-card {
+    width: calc(100vw - 1rem);
+    max-height: 92vh;
+    border-radius: 18px;
+  }
+}

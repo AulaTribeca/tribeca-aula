@@ -28,11 +28,16 @@
       <label class="compact-control" for="fontSizeSelect">
         <span data-i18n="textSize">Texto</span>
         <select id="fontSizeSelect">
+          <option value="0.78">78%</option>
+          <option value="0.85">85%</option>
+          <option value="0.9">90%</option>
           <option value="0.94">94%</option>
           <option value="1">100%</option>
           <option value="1.08">108%</option>
           <option value="1.18">118%</option>
           <option value="1.3">130%</option>
+          <option value="1.45">145%</option>
+          <option value="1.6">160%</option>
         </select>
       </label>
 
@@ -268,8 +273,32 @@
             <h2 id="createPostTitle" data-i18n="newPost">Nueva publicación</h2>
 
             <form id="teacherPostForm" class="teacher-form">
+              <section class="teacher-toolbox compact-panel">
+                <h3>Plantillas</h3>
+                <label for="postTemplateSelect">Usar plantilla</label>
+                <select id="postTemplateSelect">
+                  <option value="">Sin plantilla</option>
+                </select>
+                <button type="button" id="savePostTemplateButton" class="secondary-button">Guardar publicación como plantilla</button>
+              </section>
+
               <label for="teacherSubject" data-i18n="subject">Asignatura</label>
               <select id="teacherSubject" required></select>
+
+              <div class="unit-assignment-box">
+                <label for="teacherUnitMode">Unidad didáctica</label>
+                <select id="teacherUnitMode">
+                  <option value="none">Sin unidad didáctica</option>
+                  <option value="existing">Agregar a una unidad existente</option>
+                  <option value="new">Nueva unidad didáctica</option>
+                </select>
+
+                <label for="teacherUnitExisting" class="unit-existing-control hidden">Unidad existente</label>
+                <select id="teacherUnitExisting" class="unit-existing-control hidden"></select>
+
+                <label for="teacherUnitNew" class="unit-new-control hidden">Nombre de la nueva unidad didáctica</label>
+                <input type="text" id="teacherUnitNew" class="unit-new-control hidden" placeholder="Ejemplo: Tema 2. Divisibilidad" />
+              </div>
 
               <label for="teacherPostType" data-i18n="type">Tipo</label>
               <select id="teacherPostType" required>
@@ -278,6 +307,9 @@
                 <option value="worksheet" data-i18n="postTypeWorksheet">Boletín</option>
                 <option value="interactive_test" data-i18n="postTypeTest">Test interactivo</option>
                 <option value="video_class" data-i18n="postTypeVideoClass">Videoclase</option>
+                <option value="video">Vídeo</option>
+                <option value="game">Juego</option>
+                <option value="challenge">Desafío</option>
               </select>
 
               <label for="teacherTitle" data-i18n="title">Título</label>
@@ -296,7 +328,17 @@
               <input type="file" id="teacherFile" accept="application/pdf,image/png,image/jpeg,image/webp,video/mp4" />
 
               <fieldset class="student-picker">
+                <legend>Asignar por grupos</legend>
+                <p class="form-help">Puedes seleccionar un curso o grupo completo y, si hace falta, ajustar después alumno por alumno.</p>
+                <div id="teacherGroupsList" class="checkbox-grid group-grid"></div>
+              </fieldset>
+
+              <fieldset class="student-picker">
                 <legend data-i18n="assignToStudents">Asignar a alumnado</legend>
+                <div class="assignment-actions">
+                  <button type="button" id="selectAllStudentsButton" class="secondary-button">Seleccionar todos</button>
+                  <button type="button" id="clearAllStudentsButton" class="secondary-button">Limpiar selección</button>
+                </div>
                 <div id="teacherStudentsList" class="checkbox-grid"></div>
               </fieldset>
 
@@ -378,6 +420,50 @@
           </article>
         </section>
 
+        <section class="panel teacher-god-panel" aria-labelledby="teacherOverviewTitle">
+          <p class="eyebrow">Modo docente</p>
+          <h2 id="teacherOverviewTitle">Vista general de aula</h2>
+          <div class="teacher-dashboard-cards">
+            <article class="teacher-mini-card">
+              <strong id="teacherMetricStudents">0</strong>
+              <span>Alumnos</span>
+            </article>
+            <article class="teacher-mini-card">
+              <strong id="teacherMetricPosts">0</strong>
+              <span>Publicaciones</span>
+            </article>
+            <article class="teacher-mini-card">
+              <strong id="teacherMetricGroups">0</strong>
+              <span>Grupos</span>
+            </article>
+            <article class="teacher-mini-card">
+              <strong id="teacherMetricUnread">0</strong>
+              <span>Mensajes sin leer</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="teacherGroupsTitle">
+          <p class="eyebrow">Grupos</p>
+          <h2 id="teacherGroupsTitle">Grupos de alumnado</h2>
+          <p class="form-help">Los grupos permiten asignar materiales por curso o agrupación sin marcar alumno por alumno.</p>
+          <div id="teacherGroupSummary" class="group-summary-list"></div>
+        </section>
+
+        <section class="panel" aria-labelledby="recentActivityTitle">
+          <p class="eyebrow">Actividad reciente</p>
+          <h2 id="recentActivityTitle">Qué ha ocurrido en el aula</h2>
+          <p class="form-help">Vista docente de accesos, consultas de publicaciones, eventos creados y tests completados.</p>
+          <div id="recentActivityList" class="activity-list"></div>
+        </section>
+
+        <section class="panel teacher-supervision-panel" aria-labelledby="chatSupervisionTitle">
+          <p class="eyebrow">Supervisión docente</p>
+          <h2 id="chatSupervisionTitle">Chats del aula</h2>
+          <p class="form-help">Panel visible solo para la profesora. La supervisión debe entenderse como medida educativa y de convivencia, no como lectura oculta de carácter personal.</p>
+          <div id="teacherChatOverview" class="chat-overview-list"></div>
+        </section>
+
         <section id="teacherCalendarPanel" class="panel" aria-labelledby="teacherCalendarTitle">
           <p class="eyebrow" data-i18n="calendar">Calendario</p>
           <h2 id="teacherCalendarTitle" data-i18n="monthlyView">Vista mensual</h2>
@@ -399,21 +485,32 @@
         </section>
       </section>
 
-      <section id="communicationSection" class="panel hidden" aria-labelledby="communicationTitle">
-        <p class="eyebrow">Mensajes</p>
+      <section id="communicationSection" class="panel hidden gmail-panel" aria-labelledby="communicationTitle">
+        <p class="eyebrow">Buzón interno</p>
         <h2 id="communicationTitle">
           <span>Mensajes</span>
           <span id="messageUnreadBadge" class="notification-badge hidden">0</span>
         </h2>
+        <p class="message-helper">Buzón interno del aula, con recibidos, enviados y redacción de mensajes.</p>
         <p id="messageUnreadNotice" class="message-alert hidden"></p>
-
-        <div class="message-tabs" role="tablist" aria-label="Buzón de mensajes">
-          <button type="button" id="messageInboxTab" class="tab-button active">Recibidos</button>
-          <button type="button" id="messageSentTab" class="tab-button">Enviados</button>
-          <button type="button" id="messageComposeTab" class="tab-button">Redactar</button>
+        <div class="message-actions-row gmail-actions-top">
+          <button type="button" id="openUnreadMessagesButton" class="secondary-button hidden">Abrir mensajes nuevos</button>
+          <button type="button" id="markMessagesReadTopButton" class="secondary-button hidden">Marcar como leídos</button>
+          <button type="button" id="deleteSelectedInboxMessagesButton" class="secondary-button hidden">Eliminar seleccionados</button>
         </div>
 
-        <form id="messageForm" class="teacher-form message-form hidden">
+        <div class="gmail-layout">
+          <aside class="gmail-sidebar" aria-label="Carpetas de mensajes">
+            <button type="button" id="messageInboxTab" class="gmail-folder active">Recibidos</button>
+            <button type="button" id="messageSentTab" class="gmail-folder">Enviados</button>
+            <button type="button" id="messageComposeTab" class="gmail-folder compose">Redactar</button>
+          </aside>
+          <div class="gmail-content">
+
+        <div class="message-tabs legacy-message-tabs hidden" role="tablist" aria-label="Buzón de mensajes">
+        </div>
+
+        <form id="messageForm" class="teacher-form message-form compose-card hidden">
           <label for="messageRecipient" data-i18n="to">Para</label>
           <select id="messageRecipient" required></select>
 
@@ -424,11 +521,12 @@
           <textarea id="messageBody" rows="4" required></textarea>
 
           <button type="submit" class="primary-button" data-i18n="sendMessage">Enviar mensaje</button>
-          <button type="button" id="markMessagesReadButton" class="secondary-button" data-i18n="markRead">Marcar recibidos como leídos</button>
           <p id="messageStatus" class="feedback" role="status" aria-live="polite"></p>
         </form>
 
         <div id="messageList" class="message-list"></div>
+          </div>
+        </div>
       </section>
     </div>
 
@@ -453,7 +551,7 @@
         </div>
 
         <p class="chat-courtesy">
-          Usa el chat con responsabilidad, respeto y solo para cuestiones relacionadas con el trabajo del aula.
+          Usa el chat con responsabilidad, respeto y solo para cuestiones relacionadas con el trabajo del aula. La profesora puede supervisar las conversaciones con finalidad educativa, de seguridad y convivencia.
         </p>
 
         <label for="presenceStatusSelect">Mi estado</label>
@@ -492,9 +590,9 @@
   </main>
 
 
-  <div id="subjectModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="subjectModalTitle">
+  <div id="subjectModal" class="modal-overlay subject-window-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="subjectModalTitle">
     <div class="modal-card subject-modal-card">
-      <button type="button" id="closeSubjectModal" class="modal-close" aria-label="Cerrar">×</button>
+      <button type="button" id="closeSubjectModal" class="modal-close subject-close" aria-label="Cerrar">×</button>
       <p class="eyebrow">Asignatura</p>
       <h2 id="subjectModalTitle">Asignatura</h2>
       <div id="subjectModalBody"></div>
