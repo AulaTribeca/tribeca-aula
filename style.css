@@ -1216,3 +1216,77 @@ button {
     justify-content: center;
   }
 }
+
+.message-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 1rem 0;
+}
+
+.month-day {
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  background: var(--surface);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.month-day:hover {
+  filter: brightness(0.98);
+}
+
+.dark-mode .month-day:hover {
+  filter: brightness(1.15);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.45);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.modal-card {
+  width: min(980px, 96vw);
+  max-height: 90vh;
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  padding: clamp(1rem, 3vw, 2rem);
+  position: relative;
+}
+
+.subject-modal-card {
+  width: min(1100px, 96vw);
+}
+
+.modal-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.complete-test-button {
+  margin-top: 1rem;
+  margin-left: 0.75rem;
+}
+
+.hidden.modal-overlay {
+  display: none;
+}

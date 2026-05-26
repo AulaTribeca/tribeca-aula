@@ -716,6 +716,21 @@ const studentWallList = document.getElementById("studentWallList");
 const subjectDetail = document.getElementById("subjectDetail");
 const subjectDetailTitle = document.getElementById("subjectDetailTitle");
 const subjectDetailBody = document.getElementById("subjectDetailBody");
+const subjectModal = document.getElementById("subjectModal");
+const subjectModalTitle = document.getElementById("subjectModalTitle");
+const subjectModalBody = document.getElementById("subjectModalBody");
+const closeSubjectModal = document.getElementById("closeSubjectModal");
+const dayModal = document.getElementById("dayModal");
+const closeDayModal = document.getElementById("closeDayModal");
+const dayModalTitle = document.getElementById("dayModalTitle");
+const dayModalEvents = document.getElementById("dayModalEvents");
+const dayEventForm = document.getElementById("dayEventForm");
+const dayEventSubject = document.getElementById("dayEventSubject");
+const dayEventType = document.getElementById("dayEventType");
+const dayEventTitleInput = document.getElementById("dayEventTitleInput");
+const dayEventTimeInput = document.getElementById("dayEventTimeInput");
+const dayEventDescriptionInput = document.getElementById("dayEventDescriptionInput");
+const dayEventMessage = document.getElementById("dayEventMessage");
 
 const contentPanel = document.getElementById("contentPanel");
 const contentTitle = document.getElementById("contentTitle");
@@ -770,7 +785,12 @@ const messageList = document.getElementById("messageList");
 const messageUnreadBadge = document.getElementById("messageUnreadBadge");
 const messageUnreadNotice = document.getElementById("messageUnreadNotice");
 const quickUnreadBadge = document.getElementById("quickUnreadBadge");
+const quickUpcomingBadge = document.getElementById("quickUpcomingBadge");
+const quickUpcomingLink = document.getElementById("quickUpcomingLink");
 const markMessagesReadButton = document.getElementById("markMessagesReadButton");
+const messageInboxTab = document.getElementById("messageInboxTab");
+const messageSentTab = document.getElementById("messageSentTab");
+const messageComposeTab = document.getElementById("messageComposeTab");
 
 const chatContact = document.getElementById("chatContact");
 const chatMessages = document.getElementById("chatMessages");
@@ -808,6 +828,9 @@ let contacts = [];
 let messages = [];
 let presence = [];
 let unreadCount = 0;
+let currentMessageView = "inbox";
+let selectedCalendarDay = null;
+let realtimeChannel = null;
 let openChatIds = [];
 let activeChatId = "";
 let replyToMessageId = "";
@@ -925,6 +948,10 @@ async function logout() {
 
   await supabaseClient.auth.signOut();
   clearInterval(refreshTimer);
+  if (realtimeChannel) {
+    supabaseClient.removeChannel(realtimeChannel);
+    realtimeChannel = null;
+  }
 
   currentUserId = null;
   currentProfile = null;
@@ -1228,6 +1255,7 @@ function renderStudentDashboard() {
   renderStudentSubjectSelect();
   renderStudentCalendar();
   renderStudentWall();
+  updateUpcomingBadge();
   renderRightRailCalendar();
 }
 
@@ -1317,9 +1345,14 @@ function renderSubjects() {
 }
 
 function renderStudentSubjectSelect() {
-  studentEventSubject.innerHTML = currentSubjects.map(function (subject) {
+  const options = currentSubjects.map(function (subject) {
     return `<option value="${subject.id}">${escapeHtml(subject.icon || "📘")} ${escapeHtml(subject.name)}</option>`;
   }).join("");
+
+  studentEventSubject.innerHTML = options;
+  if (dayEventSubject) {
+    dayEventSubject.innerHTML = options;
+  }
 }
 
 function renderStudentWall() {
@@ -1330,10 +1363,13 @@ function openSubject(subject) {
   const subjectPosts = currentPosts.filter(post => post.subject_id === subject.id);
   const subjectEvents = currentEvents.filter(event => event.subject_id === subject.id);
 
-  subjectDetailTitle.textContent = `${subject.icon || "📘"} ${subject.name}`;
+  const titleTarget = subjectModalTitle || subjectDetailTitle;
+  const bodyTarget = subjectModalBody || subjectDetailBody;
+
+  titleTarget.textContent = `${subject.icon || "📘"} ${subject.name}`;
   contentPanel.classList.add("hidden");
 
-  subjectDetailBody.innerHTML = `
+  bodyTarget.innerHTML = `
     <p class="subject-description">${escapeHtml(subject.description || "")}</p>
 
     <div class="tabs" aria-label="Secciones de la asignatura">
@@ -1346,14 +1382,13 @@ function openSubject(subject) {
         <button type="button" class="tab-button" role="tab" aria-selected="false" data-tab="calendar">${escapeHtml(t("calendar"))}</button>
       </div>
 
-      <div id="tabPanel" class="tab-panel" role="tabpanel"></div>
+      <div id="modalTabPanel" class="tab-panel" role="tabpanel"></div>
     </div>
   `;
 
-  subjectDetail.classList.remove("hidden");
-
-  const tabButtons = subjectDetailBody.querySelectorAll(".tab-button");
-  const tabPanel = document.getElementById("tabPanel");
+  const container = bodyTarget;
+  const tabButtons = container.querySelectorAll(".tab-button");
+  const tabPanel = container.querySelector("#modalTabPanel");
 
   tabButtons.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -1371,7 +1406,19 @@ function openSubject(subject) {
   });
 
   renderSubjectTab("wall", subjectPosts, subjectEvents, tabPanel);
-  subjectDetail.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  if (subjectModal) {
+    subjectModal.classList.remove("hidden");
+  } else {
+    subjectDetail.classList.remove("hidden");
+    subjectDetail.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+if (closeSubjectModal) {
+  closeSubjectModal.addEventListener("click", function () {
+    subjectModal.classList.add("hidden");
+  });
 }
 
 function renderSubjectTab(tabName, subjectPosts, subjectEvents, tabPanel) {
@@ -1521,6 +1568,7 @@ async function openPost(post) {
         <a class="external-link" href="${escapeHtml(content.url)}" target="_blank" rel="noopener noreferrer">
           ${escapeHtml(t("openTest"))}
         </a>
+        ${currentProfile && currentProfile.role !== "teacher" ? `<button type="button" class="primary-button complete-test-button" data-post-id="${post.id}">Marcar test como completado</button>` : ""}
       `;
     } else if (post.post_type === "video_class") {
       html += `
@@ -1548,12 +1596,38 @@ async function openPost(post) {
   html += `</div>`;
 
   contentBody.innerHTML = html;
+  contentBody.querySelectorAll(".complete-test-button").forEach(function (button) {
+    button.addEventListener("click", async function () {
+      await completeInteractiveTest(button.dataset.postId);
+    });
+  });
   contentPanel.classList.remove("hidden");
   contentPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 
   if (currentProfile && currentProfile.role !== "teacher") {
     await registerLearningAction("post_view");
   }
+}
+
+async function completeInteractiveTest(postId) {
+  if (!currentProfile || currentProfile.role === "teacher") {
+    return;
+  }
+
+  const { error } = await supabaseClient.rpc("complete_interactive_test_post", {
+    p_post_id: postId
+  });
+
+  if (error) {
+    console.error(error);
+    alert("No se pudo registrar la finalización del test. Ejecuta la migración SQL de esta actualización.");
+    return;
+  }
+
+  await registerLearningAction("interactive_test_completed");
+  currentBadgeAwards = await fetchStudentBadgeAwards(currentProfile.id);
+  renderBadges();
+  alert("Test marcado como completado. Se ha actualizado tu progreso.");
 }
 
 async function deletePost(postId) {
@@ -1633,11 +1707,38 @@ function renderStudentCalendar() {
 function renderTeacherCalendar() {
   renderMonthCalendar(teacherEvents, teacherMonthGrid, teacherMonthTitle, teacherCalendarDate, false);
   renderRightRailCalendar();
+  updateUpcomingBadge();
 }
 
 function renderRightRailCalendar() {
   const sourceEvents = currentProfile && currentProfile.role === "teacher" ? teacherEvents : currentEvents;
   renderMonthCalendar(sourceEvents, railMonthGrid, railMonthTitle, railCalendarDate, true);
+}
+
+function updateUpcomingBadge() {
+  if (!quickUpcomingBadge || !quickUpcomingLink) {
+    return;
+  }
+
+  const sourceEvents = currentProfile && currentProfile.role === "teacher" ? teacherEvents : currentEvents;
+  const now = new Date();
+  const weekEnd = new Date(now);
+  weekEnd.setDate(now.getDate() + 7);
+
+  const count = sourceEvents.filter(function (event) {
+    const date = new Date(event.starts_at);
+    return date >= now && date <= weekEnd;
+  }).length;
+
+  quickUpcomingLink.setAttribute("href", currentProfile && currentProfile.role === "teacher" ? "#teacherCalendarPanel" : "#studentCalendarPanel");
+
+  if (count > 0) {
+    quickUpcomingBadge.textContent = String(count);
+    quickUpcomingBadge.classList.remove("hidden");
+  } else {
+    quickUpcomingBadge.textContent = "0";
+    quickUpcomingBadge.classList.add("hidden");
+  }
 }
 
 function renderMonthCalendar(events, gridElement, titleElement, selectedDate, compact) {
@@ -1677,18 +1778,131 @@ function renderMonthCalendar(events, gridElement, titleElement, selectedDate, co
     ].filter(Boolean).join(" ");
 
     html += `
-      <div class="${classes}">
-        <div class="month-number">${day.getDate()}</div>
+      <button type="button" class="${classes}" data-day="${formatDateKey(day)}" aria-label="Ver eventos del ${formatDateKey(day)}">
+        <span class="month-number">${day.getDate()}</span>
         ${visibleEvents.map(event => compact
           ? `<span class="month-event ${calendarEventClass(event)}" title="${escapeAttribute(event.title)}"></span>`
           : `<span class="month-event ${calendarEventClass(event)}">${escapeHtml(shorten(event.title, 18))}</span>`
         ).join("")}
-      </div>
+      </button>
     `;
   }
 
   gridElement.innerHTML = html;
+
+  gridElement.querySelectorAll(".month-day[data-day]").forEach(function (dayButton) {
+    dayButton.addEventListener("click", function () {
+      openDayModal(dayButton.dataset.day, events);
+    });
+  });
 }
+function openDayModal(dayKey, sourceEvents) {
+  if (!dayModal) {
+    return;
+  }
+
+  selectedCalendarDay = dayKey;
+  const day = new Date(`${dayKey}T12:00:00`);
+  const dayEvents = sourceEvents.filter(event => isSameDay(new Date(event.starts_at), day));
+  const locale = localeMap[state.lang] || "es-ES";
+
+  dayModalTitle.textContent = new Intl.DateTimeFormat(locale, {
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  }).format(day);
+
+  renderCalendarList(dayEvents, dayModalEvents, "No hay eventos para este día.");
+  dayEventMessage.textContent = "";
+  dayEventForm.reset();
+  dayEventTimeInput.value = "18:00";
+
+  if (currentProfile && currentProfile.role !== "teacher") {
+    dayEventType.value = "other";
+    Array.from(dayEventType.options).forEach(function (option) {
+      option.disabled = option.value !== "other";
+    });
+  } else {
+    Array.from(dayEventType.options).forEach(function (option) {
+      option.disabled = false;
+    });
+  }
+
+  dayModal.classList.remove("hidden");
+}
+
+async function reloadCalendarData() {
+  if (currentProfile && currentProfile.role === "teacher") {
+    teacherEvents = await fetchAllEvents();
+    renderTeacherCalendar();
+  } else {
+    currentEvents = await fetchStudentEvents();
+    renderStudentCalendar();
+    renderRightRailCalendar();
+  }
+}
+
+async function createCalendarEventForCurrentUser({ subjectId, eventType, title, description, startsAt, messageElement }) {
+  if (!currentProfile) {
+    return false;
+  }
+
+  if (currentProfile.role === "teacher") {
+    const selectedStudentIds = teacherStudents.map(student => student.id);
+
+    const { data: createdEvent, error: eventError } = await supabaseClient
+      .from("calendar_events")
+      .insert({
+        subject_id: subjectId,
+        created_by: currentUserId,
+        title,
+        description,
+        event_type: eventType,
+        starts_at: startsAt,
+        is_published: true
+      })
+      .select("id")
+      .single();
+
+    if (eventError) {
+      console.error(eventError);
+      showMessage(messageElement, "No se pudo crear el evento.", "warning");
+      return false;
+    }
+
+    if (selectedStudentIds.length > 0) {
+      const assignments = selectedStudentIds.map(studentId => ({ event_id: createdEvent.id, profile_id: studentId }));
+      const { error: assignmentError } = await supabaseClient
+        .from("calendar_event_assignments")
+        .insert(assignments);
+
+      if (assignmentError) {
+        console.error(assignmentError);
+        showMessage(messageElement, "El evento se creó, pero no se pudo asignar.", "warning");
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  const { error } = await supabaseClient.rpc("create_personal_calendar_event", {
+    p_subject_id: subjectId,
+    p_title: title,
+    p_description: description,
+    p_starts_at: startsAt
+  });
+
+  if (error) {
+    console.error(error);
+    showMessage(messageElement, "No se pudo crear el evento personal. Ejecuta la migración SQL de esta actualización.", "warning");
+    return false;
+  }
+
+  return true;
+}
+
 function renderCalendarList(events, container, emptyMessage) {
   if (!events || events.length === 0) {
     container.innerHTML = `
@@ -1751,26 +1965,60 @@ railNextMonth.addEventListener("click", function () {
 studentEventForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
-  const { error } = await supabaseClient.rpc("create_personal_calendar_event", {
-    p_subject_id: studentEventSubject.value,
-    p_title: studentEventTitle.value.trim(),
-    p_description: studentEventDescription.value.trim(),
-    p_starts_at: new Date(studentEventDate.value).toISOString()
+  const ok = await createCalendarEventForCurrentUser({
+    subjectId: studentEventSubject.value,
+    eventType: "other",
+    title: studentEventTitle.value.trim(),
+    description: studentEventDescription.value.trim(),
+    startsAt: new Date(studentEventDate.value).toISOString(),
+    messageElement: studentEventMessage
   });
 
-  if (error) {
-    console.error(error);
-    showMessage(studentEventMessage, "No se pudo crear el evento personal. Ejecuta la migración SQL de esta actualización.", "warning");
+  if (!ok) {
     return;
   }
 
   studentEventForm.reset();
-  currentEvents = await fetchStudentEvents();
-  renderStudentCalendar();
-  renderRightRailCalendar();
+  await reloadCalendarData();
   await registerLearningAction("calendar_event");
   showMessage(studentEventMessage, "Evento personal añadido.", "success");
 });
+
+if (closeDayModal) {
+  closeDayModal.addEventListener("click", function () {
+    dayModal.classList.add("hidden");
+  });
+}
+
+if (dayEventForm) {
+  dayEventForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    if (!selectedCalendarDay) {
+      return;
+    }
+
+    const startsAt = new Date(`${selectedCalendarDay}T${dayEventTimeInput.value || "18:00"}:00`).toISOString();
+    const ok = await createCalendarEventForCurrentUser({
+      subjectId: dayEventSubject.value,
+      eventType: dayEventType.value,
+      title: dayEventTitleInput.value.trim(),
+      description: dayEventDescriptionInput.value.trim(),
+      startsAt,
+      messageElement: dayEventMessage
+    });
+
+    if (!ok) {
+      return;
+    }
+
+    await reloadCalendarData();
+    const sourceEvents = currentProfile && currentProfile.role === "teacher" ? teacherEvents : currentEvents;
+    openDayModal(selectedCalendarDay, sourceEvents);
+    await registerLearningAction("calendar_event");
+    showMessage(dayEventMessage, "Evento añadido.", "success");
+  });
+}
 function renderTeacherSubjects() {
   const options = teacherSubjects.map(function (subject) {
     return `<option value="${subject.id}">${escapeHtml(subject.icon || "📘")} ${escapeHtml(subject.name)}</option>`;
@@ -1779,6 +2027,9 @@ function renderTeacherSubjects() {
   teacherSubject.innerHTML = options;
   teacherEventSubject.innerHTML = options;
   coverSubjectSelect.innerHTML = options;
+  if (dayEventSubject) {
+    dayEventSubject.innerHTML = options;
+  }
 }
 
 function renderTeacherStudents() {
@@ -2116,9 +2367,10 @@ async function loadCommunication() {
   }
 
   renderContactSelectors();
-  renderMessages();
+  setMessageView(currentMessageView || "inbox");
   renderChatTabs();
   renderChat();
+  setupRealtimeSubscriptions();
   updateUnreadBadges();
 
   previousChatMessageIds = new Set(messages.map(message => message.id));
@@ -2227,8 +2479,48 @@ function renderContactSelectors() {
   chatContact.innerHTML = options;
 }
 
+function setMessageView(view) {
+  currentMessageView = view;
+
+  [messageInboxTab, messageSentTab, messageComposeTab].forEach(function (button) {
+    if (button) {
+      button.classList.remove("active");
+    }
+  });
+
+  if (view === "inbox" && messageInboxTab) messageInboxTab.classList.add("active");
+  if (view === "sent" && messageSentTab) messageSentTab.classList.add("active");
+  if (view === "compose" && messageComposeTab) messageComposeTab.classList.add("active");
+
+  if (messageForm) {
+    messageForm.classList.toggle("hidden", view !== "compose");
+  }
+
+  if (markMessagesReadButton) {
+    markMessagesReadButton.classList.toggle("hidden", view !== "inbox");
+  }
+
+  renderMessages();
+}
+
 function renderMessages() {
-  const mail = messages.filter(message => message.message_type === "mail").slice(0, 16);
+  let mail = messages.filter(message => message.message_type === "mail");
+
+  if (currentMessageView === "inbox") {
+    mail = mail.filter(message => message.recipient_id === currentUserId);
+  } else if (currentMessageView === "sent") {
+    mail = mail.filter(message => message.sender_id === currentUserId);
+  } else {
+    messageList.innerHTML = `
+      <div class="empty-panel">
+        <h3>Redactar mensaje</h3>
+        <p>Usa el formulario superior para enviar un mensaje. El alumnado solo puede escribir a la profesora.</p>
+      </div>
+    `;
+    return;
+  }
+
+  mail = mail.slice(0, 30);
 
   if (mail.length === 0) {
     messageList.innerHTML = `
@@ -2397,6 +2689,10 @@ function renderReplyPreview() {
     renderReplyPreview();
   });
 }
+
+if (messageInboxTab) messageInboxTab.addEventListener("click", () => setMessageView("inbox"));
+if (messageSentTab) messageSentTab.addEventListener("click", () => setMessageView("sent"));
+if (messageComposeTab) messageComposeTab.addEventListener("click", () => setMessageView("compose"));
 
 messageForm.addEventListener("submit", async function (event) {
   event.preventDefault();
@@ -2608,8 +2904,39 @@ async function updatePresence(status) {
     });
 }
 
+function setupRealtimeSubscriptions() {
+  if (realtimeChannel || !currentUserId) {
+    return;
+  }
+
+  realtimeChannel = supabaseClient
+    .channel("tribeca-live-messages")
+    .on("postgres_changes", { event: "*", schema: "public", table: "messages" }, async function () {
+      const newMessages = await fetchMessages();
+      detectNewChatActivity(newMessages, presence);
+      messages = newMessages;
+      unreadCount = countUnreadMail();
+      renderMessages();
+      renderChatTabs();
+      renderChat();
+      updateUnreadBadges();
+    })
+    .on("postgres_changes", { event: "*", schema: "public", table: "user_presence" }, async function () {
+      const newPresence = await fetchPresence();
+      detectNewChatActivity(messages, newPresence);
+      presence = newPresence;
+      renderContactSelectors();
+      renderChatTabs();
+    })
+    .subscribe();
+}
+
 function startRefreshTimer() {
   clearInterval(refreshTimer);
+  if (realtimeChannel) {
+    supabaseClient.removeChannel(realtimeChannel);
+    realtimeChannel = null;
+  }
 
   refreshTimer = setInterval(async function () {
     if (!currentUserId) {
@@ -2628,7 +2955,7 @@ function startRefreshTimer() {
     renderChatTabs();
     renderChat();
     updateUnreadBadges();
-  }, 7000);
+  }, 30000);
 }
 
 function detectNewChatActivity(newMessages, newPresence) {

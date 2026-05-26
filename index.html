@@ -66,12 +66,15 @@
   <nav id="quickNav" class="quick-nav hidden" aria-label="Navegación rápida">
     <a href="#subjectsPanel" data-i18n="mySubjects">Mis materias</a>
     <a href="#studentCalendarPanel" data-i18n="calendar">Calendario</a>
-    <a href="#messagesPanel">
+    <a href="#studentCalendarPanel" id="quickUpcomingLink">
+      <span>Eventos próximos</span>
+      <span id="quickUpcomingBadge" class="notification-badge hidden">0</span>
+    </a>
+    <a href="#communicationSection">
       <span data-i18n="messages">Mensajes</span>
       <span id="quickUnreadBadge" class="notification-badge hidden">0</span>
     </a>
     <a href="#studentWallPanel" data-i18n="tasksAndPosts">Tareas y publicaciones</a>
-    <a href="#communicationSection" data-i18n="communication">Comunicación</a>
   </nav>
 
   <main id="contenido-principal" class="app-layout">
@@ -363,7 +366,7 @@
           </article>
         </section>
 
-        <section class="panel" aria-labelledby="teacherCalendarTitle">
+        <section id="teacherCalendarPanel" class="panel" aria-labelledby="teacherCalendarTitle">
           <p class="eyebrow" data-i18n="calendar">Calendario</p>
           <h2 id="teacherCalendarTitle" data-i18n="monthlyView">Vista mensual</h2>
 
@@ -385,14 +388,20 @@
       </section>
 
       <section id="communicationSection" class="panel hidden" aria-labelledby="communicationTitle">
-        <p class="eyebrow" data-i18n="communication">Comunicación</p>
+        <p class="eyebrow">Mensajes</p>
         <h2 id="communicationTitle">
-          <span data-i18n="messages">Mensajes</span>
+          <span>Mensajes</span>
           <span id="messageUnreadBadge" class="notification-badge hidden">0</span>
         </h2>
         <p id="messageUnreadNotice" class="message-alert hidden"></p>
 
-        <form id="messageForm" class="teacher-form message-form">
+        <div class="message-tabs" role="tablist" aria-label="Buzón de mensajes">
+          <button type="button" id="messageInboxTab" class="tab-button active">Recibidos</button>
+          <button type="button" id="messageSentTab" class="tab-button">Enviados</button>
+          <button type="button" id="messageComposeTab" class="tab-button">Redactar</button>
+        </div>
+
+        <form id="messageForm" class="teacher-form message-form hidden">
           <label for="messageRecipient" data-i18n="to">Para</label>
           <select id="messageRecipient" required></select>
 
@@ -469,6 +478,47 @@
       </section>
     </aside>
   </main>
+
+
+  <div id="subjectModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="subjectModalTitle">
+    <div class="modal-card subject-modal-card">
+      <button type="button" id="closeSubjectModal" class="modal-close" aria-label="Cerrar">×</button>
+      <p class="eyebrow">Asignatura</p>
+      <h2 id="subjectModalTitle">Asignatura</h2>
+      <div id="subjectModalBody"></div>
+    </div>
+  </div>
+
+  <div id="dayModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dayModalTitle">
+    <div class="modal-card">
+      <button type="button" id="closeDayModal" class="modal-close" aria-label="Cerrar">×</button>
+      <p class="eyebrow">Calendario</p>
+      <h2 id="dayModalTitle">Eventos del día</h2>
+      <div id="dayModalEvents" class="calendar-list"></div>
+      <form id="dayEventForm" class="teacher-form">
+        <h3>Añadir evento para este día</h3>
+        <label for="dayEventSubject">Asignatura</label>
+        <select id="dayEventSubject" required></select>
+        <label for="dayEventType">Tipo</label>
+        <select id="dayEventType" required>
+          <option value="other">Evento personal</option>
+          <option value="important">Aviso importante</option>
+          <option value="exam">Examen</option>
+          <option value="deadline">Fecha de entrega</option>
+          <option value="excursion">Excursión</option>
+          <option value="class">Clase especial</option>
+        </select>
+        <label for="dayEventTitleInput">Título</label>
+        <input type="text" id="dayEventTitleInput" required />
+        <label for="dayEventTimeInput">Hora</label>
+        <input type="time" id="dayEventTimeInput" value="18:00" required />
+        <label for="dayEventDescriptionInput">Descripción</label>
+        <textarea id="dayEventDescriptionInput" rows="2"></textarea>
+        <button type="submit" class="primary-button">Añadir evento</button>
+        <p id="dayEventMessage" class="feedback" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
 
   <div id="streakToast" class="streak-toast hidden" role="status" aria-live="polite">
     <span class="streak-flame" aria-hidden="true">🔥</span>
