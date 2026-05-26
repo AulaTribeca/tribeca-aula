@@ -70,12 +70,12 @@
 
   <nav id="quickNav" class="quick-nav hidden" aria-label="Navegación rápida">
     <a href="#subjectsPanel" data-i18n="mySubjects">Mis materias</a>
-    <a href="#studentCalendarPanel" data-i18n="calendar">Calendario</a>
-    <a href="#studentCalendarPanel" id="quickUpcomingLink">
-      <span>Eventos próximos</span>
+    <a href="#" id="quickCalendarLink" data-open-panel="calendar" data-i18n="calendar">Calendario</a>
+    <a href="#" id="quickUpcomingLink" data-open-panel="calendar">
+      <span data-i18n="upcomingEvents">Eventos próximos</span>
       <span id="quickUpcomingBadge" class="notification-badge hidden">0</span>
     </a>
-    <a href="#communicationSection">
+    <a href="#" id="quickMessagesLink" data-open-panel="messages">
       <span data-i18n="messages">Mensajes</span>
       <span id="quickUnreadBadge" class="notification-badge hidden">0</span>
     </a>
@@ -171,7 +171,7 @@
           </div>
         </div>
 
-        <section class="grid" aria-label="Resumen del aula">
+        <section class="grid dashboard-summary" aria-label="Resumen del aula">
           <article class="card">
             <h3 data-i18n="myCourse">Mi curso</h3>
             <p id="courseCardText">Curso no cargado.</p>
@@ -204,7 +204,7 @@
           <div id="subjectsContainer" class="edixgal-grid"></div>
         </section>
 
-        <section id="studentCalendarPanel" class="panel" aria-labelledby="studentCalendarTitle">
+        <section id="studentCalendarPanel" class="panel hidden floating-source-panel" aria-labelledby="studentCalendarTitle">
           <p class="eyebrow" data-i18n="calendar">Calendario</p>
           <h2 id="studentCalendarTitle" data-i18n="monthlyView">Vista mensual</h2>
 
@@ -274,10 +274,10 @@
 
             <form id="teacherPostForm" class="teacher-form">
               <section class="teacher-toolbox compact-panel">
-                <h3>Plantillas</h3>
+                <h3 data-i18n="templates">Plantillas</h3>
                 <label for="postTemplateSelect">Usar plantilla</label>
                 <select id="postTemplateSelect">
-                  <option value="">Sin plantilla</option>
+                  <option value="" data-i18n="noTemplate">Sin plantilla</option>
                 </select>
                 <button type="button" id="savePostTemplateButton" class="secondary-button">Guardar publicación como plantilla</button>
               </section>
@@ -288,9 +288,9 @@
               <div class="unit-assignment-box">
                 <label for="teacherUnitMode">Unidad didáctica</label>
                 <select id="teacherUnitMode">
-                  <option value="none">Sin unidad didáctica</option>
-                  <option value="existing">Agregar a una unidad existente</option>
-                  <option value="new">Nueva unidad didáctica</option>
+                  <option value="none" data-i18n="withoutUnit">Sin unidad didáctica</option>
+                  <option value="existing" data-i18n="addToExistingUnit">Agregar a una unidad existente</option>
+                  <option value="new" data-i18n="newDidacticUnit">Nueva unidad didáctica</option>
                 </select>
 
                 <label for="teacherUnitExisting" class="unit-existing-control hidden">Unidad existente</label>
@@ -307,9 +307,9 @@
                 <option value="worksheet" data-i18n="postTypeWorksheet">Boletín</option>
                 <option value="interactive_test" data-i18n="postTypeTest">Test interactivo</option>
                 <option value="video_class" data-i18n="postTypeVideoClass">Videoclase</option>
-                <option value="video">Vídeo</option>
-                <option value="game">Juego</option>
-                <option value="challenge">Desafío</option>
+                <option value="video" data-i18n="postTypeVideo">Vídeo</option>
+                <option value="game" data-i18n="postTypeGame">Juego</option>
+                <option value="challenge" data-i18n="postTypeChallenge">Desafío</option>
               </select>
 
               <label for="teacherTitle" data-i18n="title">Título</label>
@@ -376,8 +376,8 @@
               <select id="teacherEventType" required>
                 <option value="deadline" data-i18n="eventDeadline">Fecha de entrega</option>
                 <option value="exam" data-i18n="eventExam">Examen</option>
-                <option value="important">Aviso importante</option>
-                <option value="excursion">Excursión</option>
+                <option value="important" data-i18n="importantNotice">Aviso importante</option>
+                <option value="excursion" data-i18n="excursion">Excursión</option>
                 <option value="reminder" data-i18n="eventReminder">Recordatorio</option>
                 <option value="class" data-i18n="eventClass">Clase especial</option>
                 <option value="other" data-i18n="eventOther">Otra fecha</option>
@@ -392,7 +392,7 @@
               <label for="teacherEventDescription" data-i18n="description">Descripción</label>
               <textarea id="teacherEventDescription" rows="3"></textarea>
 
-              <p class="form-help">Los eventos publicados por la profesora serán visibles para todo el alumnado.</p>
+              <p class="form-help" data-i18n="teacherEventHelp">Los eventos publicados por la profesora serán visibles para todo el alumnado.</p>
               <div id="teacherEventStudentsList" class="checkbox-grid hidden"></div>
 
               <button type="submit" class="primary-button" data-i18n="addDate">Añadir fecha</button>
@@ -434,37 +434,37 @@
             </article>
             <article class="teacher-mini-card">
               <strong id="teacherMetricGroups">0</strong>
-              <span>Grupos</span>
+              <span data-i18n="totalGroups">Grupos</span>
             </article>
             <article class="teacher-mini-card">
               <strong id="teacherMetricUnread">0</strong>
-              <span>Mensajes sin leer</span>
+              <span data-i18n="unreadMessages">Mensajes sin leer</span>
             </article>
           </div>
         </section>
 
         <section class="panel" aria-labelledby="teacherGroupsTitle">
-          <p class="eyebrow">Grupos</p>
-          <h2 id="teacherGroupsTitle">Grupos de alumnado</h2>
+          <p class="eyebrow" data-i18n="studentGroups">Grupos</p>
+          <h2 id="teacherGroupsTitle" data-i18n="studentGroups">Grupos de alumnado</h2>
           <p class="form-help">Los grupos permiten asignar materiales por curso o agrupación sin marcar alumno por alumno.</p>
           <div id="teacherGroupSummary" class="group-summary-list"></div>
         </section>
 
         <section class="panel" aria-labelledby="recentActivityTitle">
-          <p class="eyebrow">Actividad reciente</p>
-          <h2 id="recentActivityTitle">Qué ha ocurrido en el aula</h2>
-          <p class="form-help">Vista docente de accesos, consultas de publicaciones, eventos creados y tests completados.</p>
+          <p class="eyebrow" data-i18n="recentActivity">Actividad reciente</p>
+          <h2 id="recentActivityTitle" data-i18n="classroomActivityTitle">Qué ha ocurrido en el aula</h2>
+          <p class="form-help" data-i18n="recentActivityHelp">Vista docente de accesos, consultas de publicaciones, eventos creados y tests completados.</p>
           <div id="recentActivityList" class="activity-list"></div>
         </section>
 
         <section class="panel teacher-supervision-panel" aria-labelledby="chatSupervisionTitle">
-          <p class="eyebrow">Supervisión docente</p>
-          <h2 id="chatSupervisionTitle">Chats del aula</h2>
-          <p class="form-help">Panel visible solo para la profesora. La supervisión debe entenderse como medida educativa y de convivencia, no como lectura oculta de carácter personal.</p>
+          <p class="eyebrow" data-i18n="teacherSupervision">Supervisión docente</p>
+          <h2 id="chatSupervisionTitle" data-i18n="classroomChats">Chats del aula</h2>
+          <p class="form-help" data-i18n="teacherSupervisionHelp">Panel visible solo para la profesora. La supervisión debe entenderse como medida educativa y de convivencia, no como lectura oculta de carácter personal.</p>
           <div id="teacherChatOverview" class="chat-overview-list"></div>
         </section>
 
-        <section id="teacherCalendarPanel" class="panel" aria-labelledby="teacherCalendarTitle">
+        <section id="teacherCalendarPanel" class="panel hidden floating-source-panel" aria-labelledby="teacherCalendarTitle">
           <p class="eyebrow" data-i18n="calendar">Calendario</p>
           <h2 id="teacherCalendarTitle" data-i18n="monthlyView">Vista mensual</h2>
 
@@ -485,18 +485,18 @@
         </section>
       </section>
 
-      <section id="communicationSection" class="panel hidden gmail-panel" aria-labelledby="communicationTitle">
-        <p class="eyebrow">Buzón interno</p>
+      <section id="communicationSection" class="panel hidden gmail-panel floating-source-panel" aria-labelledby="communicationTitle">
+        <p class="eyebrow" data-i18n="internalMailbox">Buzón interno</p>
         <h2 id="communicationTitle">
-          <span>Mensajes</span>
+          <span data-i18n="messages">Mensajes</span>
           <span id="messageUnreadBadge" class="notification-badge hidden">0</span>
         </h2>
-        <p class="message-helper">Buzón interno del aula, con recibidos, enviados y redacción de mensajes.</p>
+        <p class="message-helper" data-i18n="mailboxHelp">Buzón interno del aula, con recibidos, enviados y redacción de mensajes.</p>
         <p id="messageUnreadNotice" class="message-alert hidden"></p>
         <div class="message-actions-row gmail-actions-top">
-          <button type="button" id="openUnreadMessagesButton" class="secondary-button hidden">Abrir mensajes nuevos</button>
-          <button type="button" id="markMessagesReadTopButton" class="secondary-button hidden">Marcar como leídos</button>
-          <button type="button" id="deleteSelectedInboxMessagesButton" class="secondary-button hidden">Eliminar seleccionados</button>
+          <button type="button" id="openUnreadMessagesButton" class="secondary-button hidden" data-i18n="openUnreadMessages">Abrir mensajes nuevos</button>
+          <button type="button" id="markMessagesReadTopButton" class="secondary-button hidden" data-i18n="markAsRead">Marcar como leídos</button>
+          <button type="button" id="deleteSelectedInboxMessagesButton" class="secondary-button hidden" data-i18n="deleteSelectedInbox">Eliminar seleccionados</button>
         </div>
 
         <div class="gmail-layout">
@@ -532,7 +532,7 @@
 
     <aside id="rightRail" class="right-rail hidden" aria-label="Calendario y chat rápido">
       <section class="rail-card">
-        <p class="eyebrow" data-i18n="quickCalendar">Calendario rápido</p>
+        <p class="eyebrow" data-i18n="quickCalendar">Calendario</p>
         <div class="rail-calendar-toolbar">
           <button type="button" id="railPrevMonth" class="rail-button">‹</button>
           <h3 id="railMonthTitle">Mes</h3>
@@ -546,31 +546,31 @@
           <p class="eyebrow" data-i18n="instantChat">Chat instantáneo</p>
           <label class="sound-toggle">
             <input type="checkbox" id="chatSoundToggle" />
-            Sonido
+            <span data-i18n="sound">Sonido</span>
           </label>
         </div>
 
-        <p class="chat-courtesy">
+        <p class="chat-courtesy" data-i18n="chatCourtesy">
           Usa el chat con responsabilidad, respeto y solo para cuestiones relacionadas con el trabajo del aula. La profesora puede supervisar las conversaciones con finalidad educativa, de seguridad y convivencia.
         </p>
 
-        <label for="presenceStatusSelect">Mi estado</label>
+        <label for="presenceStatusSelect" data-i18n="myStatus">Mi estado</label>
         <select id="presenceStatusSelect">
-          <option value="online">🟢 Conectado</option>
-          <option value="offline">🔴 No conectado</option>
-          <option value="studying">🟣 Estudiando, no molestar</option>
-          <option value="working">🟠 Trabajando, solo mensajes importantes</option>
+          <option value="online" data-i18n="statusOnline">🟢 Conectado</option>
+          <option value="offline" data-i18n="statusOffline">🔴 No conectado</option>
+          <option value="studying" data-i18n="statusStudying">🟣 Estudiando, no molestar</option>
+          <option value="working" data-i18n="statusWorking">🟠 Trabajando, solo mensajes importantes</option>
         </select>
 
         <label for="chatContact" data-i18n="contact">Contacto</label>
         <select id="chatContact" multiple size="4"></select>
-        <button type="button" id="openChatTabsButton" class="secondary-button">Abrir conversación</button>
+        <button type="button" id="openChatTabsButton" class="secondary-button" data-i18n="openConversation">Abrir conversación</button>
 
         <div id="chatTabs" class="chat-tabs" aria-label="Conversaciones abiertas"></div>
         <div id="replyPreview" class="reply-preview hidden"></div>
         <div id="chatMessages" class="chat-box"></div>
 
-        <div class="emoji-row" aria-label="Emojis rápidos">
+        <div class="emoji-row" aria-label="Emojis rápidos" data-i18n-aria="quickEmojis">
           <button type="button" class="emoji-button" data-emoji="😀">😀</button>
           <button type="button" class="emoji-button" data-emoji="👍">👍</button>
           <button type="button" class="emoji-button" data-emoji="👏">👏</button>
@@ -582,7 +582,7 @@
 
         <form id="chatForm" class="chat-form">
           <input type="text" id="chatInput" data-i18n-placeholder="writeMessage" placeholder="Escribe un mensaje..." required />
-          <button type="button" id="nudgeButton" class="secondary-button">👋 Toque</button>
+          <button type="button" id="nudgeButton" class="secondary-button" data-i18n="nudge">👋 Toque</button>
           <button type="submit" class="primary-button" data-i18n="send">Enviar</button>
         </form>
       </section>
@@ -592,8 +592,8 @@
 
   <div id="subjectModal" class="modal-overlay subject-window-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="subjectModalTitle">
     <div class="modal-card subject-modal-card">
-      <button type="button" id="closeSubjectModal" class="modal-close subject-close" aria-label="Cerrar">×</button>
-      <p class="eyebrow">Asignatura</p>
+      <button type="button" id="closeSubjectModal" class="modal-close subject-close" aria-label="Cerrar" data-i18n-aria="close">×</button>
+      <p class="eyebrow" data-i18n="subjectWindowLabel">Asignatura</p>
       <h2 id="subjectModalTitle">Asignatura</h2>
       <div id="subjectModalBody"></div>
     </div>
@@ -601,32 +601,40 @@
 
   <div id="dayModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dayModalTitle">
     <div class="modal-card">
-      <button type="button" id="closeDayModal" class="modal-close" aria-label="Cerrar">×</button>
-      <p class="eyebrow">Calendario</p>
-      <h2 id="dayModalTitle">Eventos del día</h2>
+      <button type="button" id="closeDayModal" class="modal-close" aria-label="Cerrar" data-i18n-aria="close">×</button>
+      <p class="eyebrow" data-i18n="calendar">Calendario</p>
+      <h2 id="dayModalTitle" data-i18n="dayEvents">Eventos del día</h2>
       <div id="dayModalEvents" class="calendar-list"></div>
       <form id="dayEventForm" class="teacher-form">
-        <h3>Añadir evento para este día</h3>
-        <label for="dayEventSubject">Asignatura</label>
+        <h3 data-i18n="addEventForDay">Añadir evento para este día</h3>
+        <label for="dayEventSubject" data-i18n="subject">Asignatura</label>
         <select id="dayEventSubject" required></select>
-        <label for="dayEventType">Tipo</label>
+        <label for="dayEventType" data-i18n="type">Tipo</label>
         <select id="dayEventType" required>
-          <option value="other">Evento personal</option>
-          <option value="important">Aviso importante</option>
+          <option value="other" data-i18n="personalEvent">Evento personal</option>
+          <option value="important" data-i18n="importantNotice">Aviso importante</option>
           <option value="exam">Examen</option>
           <option value="deadline">Fecha de entrega</option>
-          <option value="excursion">Excursión</option>
+          <option value="excursion" data-i18n="excursion">Excursión</option>
           <option value="class">Clase especial</option>
         </select>
-        <label for="dayEventTitleInput">Título</label>
+        <label for="dayEventTitleInput" data-i18n="title">Título</label>
         <input type="text" id="dayEventTitleInput" required />
-        <label for="dayEventTimeInput">Hora</label>
+        <label for="dayEventTimeInput" data-i18n="time">Hora</label>
         <input type="time" id="dayEventTimeInput" value="18:00" required />
-        <label for="dayEventDescriptionInput">Descripción</label>
+        <label for="dayEventDescriptionInput" data-i18n="description">Descripción</label>
         <textarea id="dayEventDescriptionInput" rows="2"></textarea>
-        <button type="submit" class="primary-button">Añadir evento</button>
+        <button type="submit" class="primary-button" data-i18n="addEvent">Añadir evento</button>
         <p id="dayEventMessage" class="feedback" role="status" aria-live="polite"></p>
       </form>
+    </div>
+  </div>
+
+  <div id="panelWindowModal" class="modal-overlay panel-window-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="panelWindowTitle">
+    <div class="modal-card panel-window-card">
+      <button type="button" id="closePanelWindow" class="modal-close" aria-label="Cerrar" data-i18n-aria="close">×</button>
+      <h2 id="panelWindowTitle">Ventana</h2>
+      <div id="panelWindowBody"></div>
     </div>
   </div>
 

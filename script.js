@@ -699,6 +699,516 @@ const state = {
   lang: "es"
 };
 
+
+const i18nExtra = {
+  es: {
+    upcomingEvents: "Eventos próximos",
+    internalMailbox: "Buzón interno",
+    mailboxHelp: "Buzón interno del aula, con recibidos, enviados y redacción de mensajes.",
+    openUnreadMessages: "Abrir mensajes nuevos",
+    markAsRead: "Marcar como leídos",
+    deleteSelectedInbox: "Eliminar seleccionados",
+    inbox: "Recibidos",
+    sent: "Enviados",
+    compose: "Redactar",
+    sound: "Sonido",
+    chatCourtesy: "Usa el chat con responsabilidad, respeto y solo para cuestiones relacionadas con el trabajo del aula. La profesora puede supervisar las conversaciones con finalidad educativa, de seguridad y convivencia.",
+    myStatus: "Mi estado",
+    statusOnline: "🟢 Conectado",
+    statusOffline: "🔴 No conectado",
+    statusStudying: "🟣 Estudiando, no molestar",
+    statusWorking: "🟠 Trabajando, solo mensajes importantes",
+    openConversation: "Abrir conversación",
+    quickEmojis: "Emojis rápidos",
+    nudge: "👋 Toque",
+    subjectWindowLabel: "Asignatura",
+    close: "Cerrar",
+    dayEvents: "Eventos del día",
+    addEventForDay: "Añadir evento para este día",
+    personalEvent: "Evento personal",
+    importantNotice: "Aviso importante",
+    excursion: "Excursión",
+    time: "Hora",
+    addEvent: "Añadir evento",
+    noEventsDay: "No hay eventos para este día.",
+    noEvents: "Sin eventos",
+    noOpenChats: "No hay conversaciones abiertas.",
+    noChatMessages: "No hay mensajes de chat con este contacto.",
+    newMessage: "Nuevo mensaje",
+    composeHelp: "Escribe el destinatario, el asunto y el contenido. El alumnado solo puede enviar mensajes a la profesora.",
+    unreadShort: "{count} sin leer",
+    sentShort: "{count} enviado(s)",
+    messageCount: "{count} mensaje(s)",
+    from: "De",
+    new: "Nuevo",
+    view: "Ver",
+    selectMessage: "Seleccionar mensaje",
+    me: "Yo",
+    reply: "Responder",
+    replyingTo: "Respondiendo a",
+    cancel: "Cancelar",
+    openFullscreen: "Abrir en ventana completa",
+    exitFullscreen: "Salir de ventana completa",
+    completeTest: "Marcar test como completado",
+    fileAccessError: "No se pudo generar el acceso temporal al archivo.",
+    openGame: "Abrir juego",
+    openChallenge: "Abrir desafío",
+    openVideo: "Abrir vídeo",
+    savedProfile: "Perfil actualizado.",
+    loginProfileMissing: "No se ha encontrado el perfil del usuario.",
+    loginInvalid: "Usuario o contraseña incorrectos. Revisa que el usuario esté confirmado en Supabase.",
+    noActivity: "Todavía no hay actividad registrada.",
+    noActiveChats: "No hay chats activos todavía.",
+    lastMessage: "Último mensaje",
+    postLabel: "Publicación",
+    classroom: "Aula",
+    user: "Usuario",
+    activityLogin: "entrada al aula",
+    activityPostView: "consulta de publicación",
+    activityCalendarEvent: "evento añadido",
+    activityTestCompleted: "test completado",
+    activityMessageSent: "mensaje enviado",
+    entering: "Entrando...",
+    streakDays: "{count} días de racha",
+    viewEventsForDay: "Ver eventos del {date}",
+    profileImageAlt: "Imagen de perfil"
+  },
+  gl: {
+    upcomingEvents: "Eventos próximos",
+    internalMailbox: "Buzón interno",
+    mailboxHelp: "Buzón interno da aula, con recibidos, enviados e redacción de mensaxes.",
+    openUnreadMessages: "Abrir mensaxes novas",
+    markAsRead: "Marcar como lidas",
+    deleteSelectedInbox: "Eliminar seleccionadas",
+    inbox: "Recibidas",
+    sent: "Enviadas",
+    compose: "Redactar",
+    sound: "Son",
+    chatCourtesy: "Usa o chat con responsabilidade, respecto e só para cuestións relacionadas co traballo da aula. A profesora pode supervisar as conversas con finalidade educativa, de seguridade e convivencia.",
+    myStatus: "O meu estado",
+    statusOnline: "🟢 Conectado",
+    statusOffline: "🔴 Non conectado",
+    statusStudying: "🟣 Estudando, non molestar",
+    statusWorking: "🟠 Traballando, só mensaxes importantes",
+    openConversation: "Abrir conversa",
+    quickEmojis: "Emojis rápidos",
+    nudge: "👋 Toque",
+    subjectWindowLabel: "Materia",
+    close: "Pechar",
+    dayEvents: "Eventos do día",
+    addEventForDay: "Engadir evento para este día",
+    personalEvent: "Evento persoal",
+    importantNotice: "Aviso importante",
+    excursion: "Excursión",
+    time: "Hora",
+    addEvent: "Engadir evento",
+    noEventsDay: "Non hai eventos para este día.",
+    noEvents: "Sen eventos",
+    noOpenChats: "Non hai conversas abertas.",
+    noChatMessages: "Non hai mensaxes de chat con este contacto.",
+    newMessage: "Nova mensaxe",
+    composeHelp: "Escribe o destinatario, o asunto e o contido. O alumnado só pode enviar mensaxes á profesora.",
+    unreadShort: "{count} sen ler",
+    sentShort: "{count} enviada(s)",
+    messageCount: "{count} mensaxe(s)",
+    from: "De",
+    new: "Nova",
+    view: "Ver",
+    selectMessage: "Seleccionar mensaxe",
+    me: "Eu",
+    reply: "Responder",
+    replyingTo: "Respondendo a",
+    cancel: "Cancelar",
+    openFullscreen: "Abrir en xanela completa",
+    exitFullscreen: "Saír de xanela completa",
+    completeTest: "Marcar test como completado",
+    fileAccessError: "Non se puido xerar o acceso temporal ao arquivo.",
+    openGame: "Abrir xogo",
+    openChallenge: "Abrir desafío",
+    openVideo: "Abrir vídeo",
+    loginProfileMissing: "Non se atopou o perfil do usuario.",
+    loginInvalid: "Usuario ou contrasinal incorrectos. Revisa que o usuario estea confirmado en Supabase.",
+    noActivity: "Aínda non hai actividade rexistrada.",
+    noActiveChats: "Non hai chats activos aínda.",
+    lastMessage: "Última mensaxe",
+    postLabel: "Publicación",
+    classroom: "Aula",
+    user: "Usuario",
+    activityLogin: "entrada na aula",
+    activityPostView: "consulta de publicación",
+    activityCalendarEvent: "evento engadido",
+    activityTestCompleted: "test completado",
+    activityMessageSent: "mensaxe enviada",
+    entering: "Entrando...",
+    streakDays: "{count} días de racha",
+    viewEventsForDay: "Ver eventos do {date}",
+    profileImageAlt: "Imaxe de perfil"
+  },
+  en: {
+    upcomingEvents: "Upcoming events",
+    internalMailbox: "Internal mailbox",
+    mailboxHelp: "Internal classroom mailbox, with inbox, sent messages and message composition.",
+    openUnreadMessages: "Open new messages",
+    markAsRead: "Mark as read",
+    deleteSelectedInbox: "Delete selected",
+    inbox: "Inbox",
+    sent: "Sent",
+    compose: "Compose",
+    sound: "Sound",
+    chatCourtesy: "Use the chat responsibly, respectfully and only for classroom work. The teacher may supervise conversations for educational, safety and coexistence purposes.",
+    myStatus: "My status",
+    statusOnline: "🟢 Online",
+    statusOffline: "🔴 Offline",
+    statusStudying: "🟣 Studying, do not disturb",
+    statusWorking: "🟠 Working, important messages only",
+    openConversation: "Open conversation",
+    quickEmojis: "Quick emojis",
+    nudge: "👋 Nudge",
+    subjectWindowLabel: "Subject",
+    close: "Close",
+    dayEvents: "Day events",
+    addEventForDay: "Add an event for this day",
+    personalEvent: "Personal event",
+    importantNotice: "Important notice",
+    excursion: "Trip",
+    time: "Time",
+    addEvent: "Add event",
+    noEventsDay: "There are no events for this day.",
+    noEvents: "No events",
+    noOpenChats: "There are no open conversations.",
+    noChatMessages: "There are no chat messages with this contact.",
+    newMessage: "New message",
+    composeHelp: "Write the recipient, subject and content. Students can only send messages to the teacher.",
+    unreadShort: "{count} unread",
+    sentShort: "{count} sent",
+    messageCount: "{count} message(s)",
+    from: "From",
+    new: "New",
+    view: "View",
+    selectMessage: "Select message",
+    me: "Me",
+    reply: "Reply",
+    replyingTo: "Replying to",
+    cancel: "Cancel",
+    openFullscreen: "Open full window",
+    exitFullscreen: "Exit full window",
+    completeTest: "Mark test as completed",
+    fileAccessError: "The temporary file access could not be generated.",
+    openGame: "Open game",
+    openChallenge: "Open challenge",
+    openVideo: "Open video",
+    savedProfile: "Profile updated.",
+    loginProfileMissing: "The user profile could not be found.",
+    loginInvalid: "Incorrect username or password. Check that the user is confirmed in Supabase.",
+    noActivity: "No activity has been recorded yet.",
+    noActiveChats: "There are no active chats yet.",
+    lastMessage: "Last message",
+    postLabel: "Post",
+    classroom: "Classroom",
+    user: "User",
+    activityLogin: "classroom login",
+    activityPostView: "post view",
+    activityCalendarEvent: "event added",
+    activityTestCompleted: "test completed",
+    activityMessageSent: "message sent",
+    entering: "Entering...",
+    streakDays: "{count} day streak",
+    viewEventsForDay: "View events for {date}",
+    profileImageAlt: "Profile image"
+  },
+  fr: {
+    upcomingEvents: "Événements à venir",
+    internalMailbox: "Boîte interne",
+    mailboxHelp: "Boîte interne de la classe, avec reçus, envoyés et rédaction de messages.",
+    openUnreadMessages: "Ouvrir les nouveaux messages",
+    markAsRead: "Marquer comme lus",
+    deleteSelectedInbox: "Supprimer la sélection",
+    inbox: "Reçus",
+    sent: "Envoyés",
+    compose: "Rédiger",
+    sound: "Son",
+    chatCourtesy: "Utilise le chat avec responsabilité, respect et uniquement pour le travail de classe. L’enseignante peut superviser les conversations à des fins éducatives, de sécurité et de convivencia.",
+    myStatus: "Mon statut",
+    statusOnline: "🟢 Connecté",
+    statusOffline: "🔴 Déconnecté",
+    statusStudying: "🟣 Étude, ne pas déranger",
+    statusWorking: "🟠 Travail, messages importants seulement",
+    openConversation: "Ouvrir la conversation",
+    quickEmojis: "Emojis rapides",
+    nudge: "👋 Signal",
+    subjectWindowLabel: "Matière",
+    close: "Fermer",
+    dayEvents: "Événements du jour",
+    addEventForDay: "Ajouter un événement pour ce jour",
+    personalEvent: "Événement personnel",
+    importantNotice: "Avis important",
+    excursion: "Sortie",
+    time: "Heure",
+    addEvent: "Ajouter l’événement",
+    noEventsDay: "Il n’y a pas d’événements pour ce jour.",
+    noEvents: "Aucun événement",
+    noOpenChats: "Aucune conversation ouverte.",
+    noChatMessages: "Aucun message de chat avec ce contact.",
+    newMessage: "Nouveau message",
+    composeHelp: "Écris le destinataire, l’objet et le contenu. Les élèves peuvent seulement écrire à l’enseignante.",
+    unreadShort: "{count} non lu(s)",
+    sentShort: "{count} envoyé(s)",
+    messageCount: "{count} message(s)",
+    from: "De",
+    new: "Nouveau",
+    view: "Voir",
+    selectMessage: "Sélectionner le message",
+    me: "Moi",
+    reply: "Répondre",
+    replyingTo: "Réponse à",
+    cancel: "Annuler",
+    openFullscreen: "Ouvrir en fenêtre complète",
+    exitFullscreen: "Quitter la fenêtre complète",
+    completeTest: "Marquer le test comme terminé",
+    fileAccessError: "L’accès temporaire au fichier n’a pas pu être généré.",
+    openGame: "Ouvrir le jeu",
+    openChallenge: "Ouvrir le défi",
+    openVideo: "Ouvrir la vidéo",
+    savedProfile: "Profil mis à jour.",
+    loginProfileMissing: "Le profil utilisateur est introuvable.",
+    loginInvalid: "Nom d’utilisateur ou mot de passe incorrect. Vérifie que l’utilisateur est confirmé dans Supabase.",
+    noActivity: "Aucune activité enregistrée pour le moment.",
+    noActiveChats: "Aucun chat actif pour le moment.",
+    lastMessage: "Dernier message",
+    postLabel: "Publication",
+    classroom: "Classe",
+    user: "Utilisateur",
+    activityLogin: "entrée dans la classe",
+    activityPostView: "consultation de publication",
+    activityCalendarEvent: "événement ajouté",
+    activityTestCompleted: "test terminé",
+    activityMessageSent: "message envoyé",
+    entering: "Connexion...",
+    streakDays: "{count} jours de série",
+    viewEventsForDay: "Voir les événements du {date}",
+    profileImageAlt: "Image de profil"
+  },
+  pl: {
+    upcomingEvents: "Nadchodzące wydarzenia",
+    internalMailbox: "Skrzynka wewnętrzna",
+    mailboxHelp: "Wewnętrzna skrzynka klasy: odebrane, wysłane i tworzenie wiadomości.",
+    openUnreadMessages: "Otwórz nowe wiadomości",
+    markAsRead: "Oznacz jako przeczytane",
+    deleteSelectedInbox: "Usuń zaznaczone",
+    inbox: "Odebrane",
+    sent: "Wysłane",
+    compose: "Utwórz",
+    sound: "Dźwięk",
+    chatCourtesy: "Korzystaj z czatu odpowiedzialnie, z szacunkiem i tylko w sprawach związanych z pracą w klasie. Nauczycielka może nadzorować rozmowy w celach edukacyjnych, bezpieczeństwa i dobrego współżycia.",
+    myStatus: "Mój status",
+    statusOnline: "🟢 Online",
+    statusOffline: "🔴 Offline",
+    statusStudying: "🟣 Uczę się, nie przeszkadzać",
+    statusWorking: "🟠 Pracuję, tylko ważne wiadomości",
+    openConversation: "Otwórz rozmowę",
+    quickEmojis: "Szybkie emoji",
+    nudge: "👋 Szturchnięcie",
+    subjectWindowLabel: "Przedmiot",
+    close: "Zamknij",
+    dayEvents: "Wydarzenia dnia",
+    addEventForDay: "Dodaj wydarzenie na ten dzień",
+    personalEvent: "Wydarzenie osobiste",
+    importantNotice: "Ważne ogłoszenie",
+    excursion: "Wycieczka",
+    time: "Godzina",
+    addEvent: "Dodaj wydarzenie",
+    noEventsDay: "Brak wydarzeń na ten dzień.",
+    noEvents: "Brak wydarzeń",
+    noOpenChats: "Brak otwartych rozmów.",
+    noChatMessages: "Brak wiadomości czatu z tym kontaktem.",
+    newMessage: "Nowa wiadomość",
+    composeHelp: "Wpisz odbiorcę, temat i treść. Uczniowie mogą pisać tylko do nauczycielki.",
+    unreadShort: "{count} nieprzeczytane",
+    sentShort: "{count} wysłane",
+    messageCount: "{count} wiadomość/wiadomości",
+    from: "Od",
+    new: "Nowe",
+    view: "Zobacz",
+    selectMessage: "Zaznacz wiadomość",
+    me: "Ja",
+    reply: "Odpowiedz",
+    replyingTo: "Odpowiedź do",
+    cancel: "Anuluj",
+    openFullscreen: "Otwórz w pełnym oknie",
+    exitFullscreen: "Zamknij pełne okno",
+    completeTest: "Oznacz test jako ukończony",
+    fileAccessError: "Nie udało się wygenerować tymczasowego dostępu do pliku.",
+    openGame: "Otwórz grę",
+    openChallenge: "Otwórz wyzwanie",
+    openVideo: "Otwórz wideo",
+    savedProfile: "Profil zaktualizowany.",
+    loginProfileMissing: "Nie znaleziono profilu użytkownika.",
+    loginInvalid: "Nieprawidłowa nazwa użytkownika lub hasło. Sprawdź, czy użytkownik jest potwierdzony w Supabase.",
+    noActivity: "Brak zapisanej aktywności.",
+    noActiveChats: "Brak aktywnych czatów.",
+    lastMessage: "Ostatnia wiadomość",
+    postLabel: "Wpis",
+    classroom: "Klasa",
+    user: "Użytkownik",
+    activityLogin: "wejście do klasy",
+    activityPostView: "wyświetlenie wpisu",
+    activityCalendarEvent: "dodano wydarzenie",
+    activityTestCompleted: "test ukończony",
+    activityMessageSent: "wiadomość wysłana",
+    entering: "Wchodzenie...",
+    streakDays: "{count} dni serii",
+    viewEventsForDay: "Zobacz wydarzenia z {date}",
+    profileImageAlt: "Zdjęcie profilowe"
+  }
+};
+
+Object.keys(i18nExtra).forEach((lang) => {
+  i18n[lang] = { ...(i18n[lang] || i18n.es), ...i18nExtra[lang] };
+});
+
+
+const i18nCorrections = {
+  es: {
+    teacherEventHelp: "Los eventos publicados por la profesora serán visibles para todo el alumnado.",
+    templates: "Plantillas",
+    teacherSummary: "Resumen docente",
+    totalStudents: "Alumnado total",
+    totalGroups: "Grupos",
+    unreadMessages: "Mensajes sin leer",
+    studentGroups: "Grupos de alumnado",
+    studentGroupsHelp: "Los grupos permiten asignar materiales por curso o agrupación sin marcar alumno por alumno.",
+    recentActivity: "Actividad reciente",
+    classroomActivityTitle: "Qué ha ocurrido en el aula",
+    recentActivityHelp: "Vista docente de accesos, consultas de publicaciones, eventos creados y tests completados.",
+    teacherSupervision: "Supervisión docente",
+    classroomChats: "Chats del aula",
+    teacherSupervisionHelp: "Panel visible solo para la profesora. La supervisión debe entenderse como medida educativa y de convivencia, no como lectura oculta de carácter personal.",
+    testCompletionError: "No se pudo registrar la finalización del test. Ejecuta la migración SQL correspondiente.",
+    testCompleted: "Test marcado como completado. Se ha actualizado tu progreso.",
+    deletePostConfirm: "¿Seguro que quieres borrar esta publicación?",
+    postDeleteError: "No se pudo borrar la publicación.",
+    selectOnePost: "Selecciona al menos una publicación.",
+    deletePostsConfirm: "¿Seguro que quieres borrar {count} publicación(es)?",
+    selectedPostsDeleteError: "No se pudieron borrar las publicaciones seleccionadas.",
+    noPostsCreated: "Aún no se han creado publicaciones.",
+    postField: "Publicación",
+    subjectField: "Materia",
+    activity: "actividad"
+  },
+  gl: {
+    teacherEventHelp: "Os eventos publicados pola profesora serán visibles para todo o alumnado.",
+    templates: "Modelos",
+    teacherSummary: "Resumo docente",
+    totalStudents: "Alumnado total",
+    totalGroups: "Grupos",
+    unreadMessages: "Mensaxes sen ler",
+    studentGroups: "Grupos de alumnado",
+    studentGroupsHelp: "Os grupos permiten asignar materiais por curso ou agrupación sen marcar alumno por alumno.",
+    recentActivity: "Actividade recente",
+    classroomActivityTitle: "Que ocorreu na aula",
+    recentActivityHelp: "Vista docente de accesos, consultas de publicacións, eventos creados e tests completados.",
+    teacherSupervision: "Supervisión docente",
+    classroomChats: "Chats da aula",
+    teacherSupervisionHelp: "Panel visible só para a profesora. A supervisión debe entenderse como medida educativa e de convivencia, non como lectura oculta de carácter persoal.",
+    testCompletionError: "Non se puido rexistrar a finalización do test.",
+    testCompleted: "Test marcado como completado. Actualizouse o teu progreso.",
+    deletePostConfirm: "Seguro que queres borrar esta publicación?",
+    postDeleteError: "Non se puido borrar a publicación.",
+    selectOnePost: "Selecciona polo menos unha publicación.",
+    deletePostsConfirm: "Seguro que queres borrar {count} publicación(s)?",
+    selectedPostsDeleteError: "Non se puideron borrar as publicacións seleccionadas.",
+    noPostsCreated: "Aínda non se crearon publicacións.",
+    postField: "Publicación",
+    subjectField: "Materia",
+    activity: "actividade"
+  },
+  en: {
+    teacherEventHelp: "Events published by the teacher will be visible to all students.",
+    templates: "Templates",
+    teacherSummary: "Teacher summary",
+    totalStudents: "Total students",
+    totalGroups: "Groups",
+    unreadMessages: "Unread messages",
+    studentGroups: "Student groups",
+    studentGroupsHelp: "Groups allow you to assign materials by course or group without selecting students one by one.",
+    recentActivity: "Recent activity",
+    classroomActivityTitle: "What has happened in the classroom",
+    recentActivityHelp: "Teacher view of logins, post views, created events and completed tests.",
+    teacherSupervision: "Teacher supervision",
+    classroomChats: "Classroom chats",
+    teacherSupervisionHelp: "Panel visible only to the teacher. Supervision should be understood as an educational and coexistence measure, not as hidden personal reading.",
+    testCompletionError: "The test completion could not be recorded.",
+    testCompleted: "Test marked as completed. Your progress has been updated.",
+    deletePostConfirm: "Are you sure you want to delete this post?",
+    postDeleteError: "The post could not be deleted.",
+    selectOnePost: "Select at least one post.",
+    deletePostsConfirm: "Are you sure you want to delete {count} post(s)?",
+    selectedPostsDeleteError: "The selected posts could not be deleted.",
+    noPostsCreated: "No posts have been created yet.",
+    postField: "Post",
+    subjectField: "Subject",
+    activity: "activity"
+  },
+  fr: {
+    teacherEventHelp: "Les événements publiés par l’enseignante seront visibles par tous les élèves.",
+    templates: "Modèles",
+    teacherSummary: "Résumé enseignant",
+    totalStudents: "Élèves au total",
+    totalGroups: "Groupes",
+    unreadMessages: "Messages non lus",
+    studentGroups: "Groupes d’élèves",
+    studentGroupsHelp: "Les groupes permettent d’attribuer des ressources par classe ou groupe sans sélectionner les élèves un par un.",
+    recentActivity: "Activité récente",
+    classroomActivityTitle: "Ce qui s’est passé dans la classe",
+    recentActivityHelp: "Vue enseignante des connexions, consultations, événements créés et tests terminés.",
+    teacherSupervision: "Supervision enseignante",
+    classroomChats: "Chats de la classe",
+    teacherSupervisionHelp: "Panneau visible seulement par l’enseignante. La supervision est une mesure éducative et de convivencia, pas une lecture cachée de caractère personnel.",
+    testCompletionError: "La fin du test n’a pas pu être enregistrée.",
+    testCompleted: "Test marqué comme terminé. Votre progression a été mise à jour.",
+    deletePostConfirm: "Voulez-vous vraiment supprimer cette publication?",
+    postDeleteError: "La publication n’a pas pu être supprimée.",
+    selectOnePost: "Sélectionnez au moins une publication.",
+    deletePostsConfirm: "Voulez-vous vraiment supprimer {count} publication(s)?",
+    selectedPostsDeleteError: "Les publications sélectionnées n’ont pas pu être supprimées.",
+    noPostsCreated: "Aucune publication n’a encore été créée.",
+    postField: "Publication",
+    subjectField: "Matière",
+    activity: "activité"
+  },
+  pl: {
+    teacherEventHelp: "Wydarzenia opublikowane przez nauczycielkę będą widoczne dla wszystkich uczniów.",
+    templates: "Szablony",
+    teacherSummary: "Podsumowanie nauczycielki",
+    totalStudents: "Łącznie uczniów",
+    totalGroups: "Grupy",
+    unreadMessages: "Nieprzeczytane wiadomości",
+    studentGroups: "Grupy uczniów",
+    studentGroupsHelp: "Grupy pozwalają przypisywać materiały według klasy lub grupy bez wybierania uczniów pojedynczo.",
+    recentActivity: "Ostatnia aktywność",
+    classroomActivityTitle: "Co wydarzyło się w klasie",
+    recentActivityHelp: "Widok logowań, otwartych wpisów, utworzonych wydarzeń i ukończonych testów.",
+    teacherSupervision: "Nadzór nauczycielski",
+    classroomChats: "Czaty klasy",
+    teacherSupervisionHelp: "Panel widoczny tylko dla nauczycielki. Nadzór należy rozumieć jako środek edukacyjny i porządkowy, nie jako ukryte czytanie prywatne.",
+    testCompletionError: "Nie udało się zapisać ukończenia testu.",
+    testCompleted: "Test oznaczony jako ukończony. Postęp został zaktualizowany.",
+    deletePostConfirm: "Czy na pewno chcesz usunąć ten wpis?",
+    postDeleteError: "Nie udało się usunąć wpisu.",
+    selectOnePost: "Wybierz co najmniej jeden wpis.",
+    deletePostsConfirm: "Czy na pewno chcesz usunąć {count} wpis(ów)?",
+    selectedPostsDeleteError: "Nie udało się usunąć zaznaczonych wpisów.",
+    noPostsCreated: "Nie utworzono jeszcze wpisów.",
+    postField: "Wpis",
+    subjectField: "Przedmiot",
+    activity: "aktywność"
+  }
+};
+
+Object.keys(i18nCorrections).forEach((lang) => {
+  i18n[lang] = { ...(i18n[lang] || i18n.es), ...i18nCorrections[lang] };
+});
+
 function t(key, params = {}) {
   const dictionary = i18n[state.lang] || i18n.es;
   let value = dictionary[key] || i18n.es[key] || key;
@@ -721,6 +1231,11 @@ function applyI18n() {
     element.setAttribute("placeholder", t(key));
   });
 
+  document.querySelectorAll("[data-i18n-aria]").forEach((element) => {
+    const key = element.dataset.i18nAria;
+    element.setAttribute("aria-label", t(key));
+  });
+
   document.documentElement.lang = state.lang;
 
   if (currentUserId) {
@@ -737,6 +1252,8 @@ const loginSection = document.getElementById("loginSection");
 const authButton = document.getElementById("authButton");
 const profileButton = document.getElementById("profileButton");
 const quickNav = document.getElementById("quickNav");
+const quickCalendarLink = document.getElementById("quickCalendarLink");
+const quickMessagesLink = document.getElementById("quickMessagesLink");
 const rightRail = document.getElementById("rightRail");
 
 const fontSizeSelect = document.getElementById("fontSizeSelect");
@@ -800,6 +1317,12 @@ const dayEventTitleInput = document.getElementById("dayEventTitleInput");
 const dayEventTimeInput = document.getElementById("dayEventTimeInput");
 const dayEventDescriptionInput = document.getElementById("dayEventDescriptionInput");
 const dayEventMessage = document.getElementById("dayEventMessage");
+const panelWindowModal = document.getElementById("panelWindowModal");
+const panelWindowTitle = document.getElementById("panelWindowTitle");
+const panelWindowBody = document.getElementById("panelWindowBody");
+const closePanelWindow = document.getElementById("closePanelWindow");
+let openedFloatingPanel = null;
+let openedFloatingPanelPlaceholder = null;
 
 const contentPanel = document.getElementById("contentPanel");
 const contentTitle = document.getElementById("contentTitle");
@@ -1012,7 +1535,7 @@ loginForm.addEventListener("submit", async function (event) {
 
   if (error) {
     setLoginLoading(false);
-    showLoginError("Usuario o contraseña incorrectos. Revisa que el usuario esté confirmado en Supabase.");
+    showLoginError(t("loginInvalid"));
     return;
   }
 
@@ -1076,6 +1599,7 @@ async function logout() {
   loginSection.classList.remove("hidden");
   rightRail.classList.add("hidden");
   quickNav.classList.add("hidden");
+  closeFloatingPanelWindow();
   document.body.classList.remove("logged-in");
 
   setLoggedOutUi();
@@ -1086,7 +1610,7 @@ async function loadUserData(userId) {
   const profile = await fetchProfile(userId);
 
   if (!profile) {
-    showLoginError("No se ha encontrado el perfil del usuario.");
+    showLoginError(t("loginProfileMissing"));
     setLoggedOutUi();
     return;
   }
@@ -1118,7 +1642,7 @@ async function loadUserData(userId) {
     renderTeacherChatOverview();
   }
   await recordActivityEvent("login", {});
-  communicationSection.classList.remove("hidden");
+  communicationSection.classList.add("hidden");
   startRefreshTimer();
   applyI18n();
 }
@@ -1945,7 +2469,7 @@ async function completeInteractiveTest(postId) {
 
   if (error) {
     console.error(error);
-    alert("No se pudo registrar la finalización del test. Ejecuta la migración SQL de esta actualización.");
+    alert(t("testCompletionError"));
     return;
   }
 
@@ -1953,13 +2477,13 @@ async function completeInteractiveTest(postId) {
   await registerLearningAction("interactive_test_completed");
   currentBadgeAwards = await fetchStudentBadgeAwards(currentProfile.id);
   renderBadges();
-  alert("Test marcado como completado. Se ha actualizado tu progreso.");
+  alert(t("testCompleted"));
 }
 
 async function deletePost(postId) {
   const post = teacherPosts.find(item => item.id === postId);
 
-  const confirmed = confirm("¿Seguro que quieres borrar esta publicación?");
+  const confirmed = confirm(t("deletePostConfirm"));
   if (!confirmed) {
     return;
   }
@@ -1974,7 +2498,7 @@ async function deletePost(postId) {
     .eq("id", postId);
 
   if (error) {
-    alert("No se pudo borrar la publicación.");
+    alert(t("postDeleteError"));
     console.error(error);
     return;
   }
@@ -1989,11 +2513,11 @@ deleteSelectedPostsButton.addEventListener("click", async function () {
     .map(input => input.value);
 
   if (selectedIds.length === 0) {
-    alert("Selecciona al menos una publicación.");
+    alert(t("selectOnePost"));
     return;
   }
 
-  const confirmed = confirm(`¿Seguro que quieres borrar ${selectedIds.length} publicación(es)?`);
+  const confirmed = confirm(t("deletePostsConfirm", { count: selectedIds.length }));
   if (!confirmed) {
     return;
   }
@@ -2013,7 +2537,7 @@ deleteSelectedPostsButton.addEventListener("click", async function () {
     .in("id", selectedIds);
 
   if (error) {
-    alert("No se pudieron borrar las publicaciones seleccionadas.");
+    alert(t("selectedPostsDeleteError"));
     console.error(error);
     return;
   }
@@ -2057,7 +2581,8 @@ function updateUpcomingBadge() {
     return date >= now && date <= weekEnd;
   }).length;
 
-  quickUpcomingLink.setAttribute("href", currentProfile && currentProfile.role === "teacher" ? "#teacherCalendarPanel" : "#studentCalendarPanel");
+  quickUpcomingLink.setAttribute("href", "#");
+  quickUpcomingLink.dataset.openPanel = "calendar";
 
   if (count > 0) {
     quickUpcomingBadge.textContent = String(count);
@@ -2111,8 +2636,9 @@ function renderMonthCalendar(events, gridElement, titleElement, selectedDate, co
         type="button"
         class="${classes}"
         data-day="${formatDateKey(day)}"
+        ${dayTooltip ? `data-tooltip="${escapeAttribute(dayTooltip)}"` : ""}
         title="${escapeAttribute(dayTooltip)}"
-        aria-label="${escapeAttribute(dayTooltip || `Ver eventos del ${formatDateKey(day)}`)}">
+        aria-label="${escapeAttribute(dayTooltip || t("viewEventsForDay", { date: formatDateKey(day) }))}">
         <span class="month-number">${day.getDate()}</span>
         ${visibleEvents.map(event => compact
           ? `<span class="month-event ${calendarEventClass(event)}" title="${escapeAttribute(event.title)}"></span>`
@@ -2147,7 +2673,7 @@ function openDayModal(dayKey, sourceEvents) {
     year: "numeric"
   }).format(day);
 
-  renderCalendarList(dayEvents, dayModalEvents, "No hay eventos para este día.");
+  renderCalendarList(dayEvents, dayModalEvents, t("noEventsDay"));
   dayEventMessage.textContent = "";
   dayEventForm.reset();
   dayEventTimeInput.value = "18:00";
@@ -2543,19 +3069,19 @@ function renderRecentActivity() {
   }
 
   if (!recentActivity || recentActivity.length === 0) {
-    recentActivityList.innerHTML = `<div class="empty-panel"><p>Todavía no hay actividad registrada.</p></div>`;
+    recentActivityList.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noActivity"))}</p></div>`;
     return;
   }
 
   recentActivityList.innerHTML = recentActivity.map(function (item) {
-    const profileName = item.profiles ? (item.profiles.nickname || item.profiles.display_name || item.profiles.username) : "Usuario";
+    const profileName = item.profiles ? (item.profiles.nickname || item.profiles.display_name || item.profiles.username) : t("user");
     const postTitle = item.posts ? item.posts.title : "";
     const subjectName = item.subjects ? item.subjects.name : "";
     return `
       <article class="activity-card">
         <h3>${escapeHtml(profileName)} · ${escapeHtml(readableActivityType(item.action_type))}</h3>
         <p class="activity-meta">${escapeHtml(formatDateTime(item.created_at))}</p>
-        <p>${postTitle ? `Publicación: ${escapeHtml(postTitle)}` : ""}${subjectName ? ` · Materia: ${escapeHtml(subjectName)}` : ""}</p>
+        <p>${postTitle ? `${escapeHtml(t("postField"))}: ${escapeHtml(postTitle)}` : ""}${subjectName ? ` · ${escapeHtml(t("subjectField"))}: ${escapeHtml(subjectName)}` : ""}</p>
       </article>
     `;
   }).join("");
@@ -2571,7 +3097,7 @@ function renderTeacherChatOverview() {
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
   if (chatMessagesOnly.length === 0) {
-    teacherChatOverview.innerHTML = `<div class="empty-panel"><p>No hay chats activos todavía.</p></div>`;
+    teacherChatOverview.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noActiveChats"))}</p></div>`;
     return;
   }
 
@@ -2591,13 +3117,13 @@ function renderTeacherChatOverview() {
     return `
       <article class="chat-overview-card">
         <h3><span class="status-dot ${presenceClass(conversation.otherId)}"></span>${escapeHtml(getProfileName(conversation.otherId))}</h3>
-        <p class="chat-meta">Último mensaje: ${escapeHtml(formatDateTime(latest.created_at))}</p>
+        <p class="chat-meta">${escapeHtml(t("lastMessage"))}: ${escapeHtml(formatDateTime(latest.created_at))}</p>
         <div class="chat-overview-messages">
           ${conversation.messages.slice(0, 6).reverse().map(function (message) {
             return `
               <div class="chat-overview-line">
                 <strong>${escapeHtml(getProfileName(message.sender_id))}:</strong>
-                ${escapeHtml(message.message_type === "nudge" ? "👋 Toque" : message.body)}
+                ${escapeHtml(message.message_type === "nudge" ? t("nudge") : message.body)}
               </div>
             `;
           }).join("")}
@@ -2609,14 +3135,14 @@ function renderTeacherChatOverview() {
 
 function readableActivityType(type) {
   const labels = {
-    login: "entrada al aula",
-    post_view: "consulta de publicación",
-    calendar_event: "evento añadido",
-    interactive_test_completed: "test completado",
-    message_sent: "mensaje enviado"
+    login: t("activityLogin"),
+    post_view: t("activityPostView"),
+    calendar_event: t("activityCalendarEvent"),
+    interactive_test_completed: t("activityTestCompleted"),
+    message_sent: t("activityMessageSent")
   };
 
-  return labels[type] || type || "actividad";
+  return labels[type] || type || t("activity");
 }
 
 function renderTeacherBadges() {
@@ -2626,7 +3152,7 @@ function renderTeacherBadges() {
 }
 
 function renderTeacherPosts() {
-  renderPostList(teacherPosts, teacherPostsList, "Aún no se han creado publicaciones.", true);
+  renderPostList(teacherPosts, teacherPostsList, t("noPostsCreated"), true);
 }
 
 
@@ -3184,22 +3710,22 @@ function renderMessages() {
   const unreadInboxCount = inboxMessages.filter(message => !message.is_read).length;
 
   if (messageInboxTab) {
-    messageInboxTab.innerHTML = `Recibidos <span class="folder-count">${inboxMessages.length}</span>${unreadInboxCount ? `<span class="folder-unread">${unreadInboxCount}</span>` : ""}`;
+    messageInboxTab.innerHTML = `${escapeHtml(t("inbox"))} <span class="folder-count">${inboxMessages.length}</span>${unreadInboxCount ? `<span class="folder-unread">${unreadInboxCount}</span>` : ""}`;
   }
 
   if (messageSentTab) {
-    messageSentTab.innerHTML = `Enviados <span class="folder-count">${sentMessages.length}</span>`;
+    messageSentTab.innerHTML = `${escapeHtml(t("sent"))} <span class="folder-count">${sentMessages.length}</span>`;
   }
 
   if (messageComposeTab) {
-    messageComposeTab.textContent = "Redactar";
+    messageComposeTab.textContent = t("compose");
   }
 
   if (currentMessageView === "compose") {
     messageList.innerHTML = `
       <div class="gmail-empty compose-helper-card">
-        <h3>Nuevo mensaje</h3>
-        <p>Escribe el destinatario, el asunto y el contenido. El alumnado solo puede enviar mensajes a la profesora.</p>
+        <h3>${escapeHtml(t("newMessage"))}</h3>
+        <p>${escapeHtml(t("composeHelp"))}</p>
       </div>
     `;
     if (deleteSelectedInboxMessagesButton) deleteSelectedInboxMessagesButton.classList.add("hidden");
@@ -3209,15 +3735,15 @@ function renderMessages() {
   let mail = currentMessageView === "sent" ? sentMessages : inboxMessages;
   mail = mail.slice(0, 60);
 
-  const viewTitle = currentMessageView === "sent" ? "Enviados" : "Recibidos";
+  const viewTitle = currentMessageView === "sent" ? t("sent") : t("inbox");
   const viewCount = mail.length;
   const selectedTools = currentMessageView === "inbox" ? `
     <div class="gmail-toolbar-right">
-      <span>${unreadInboxCount} sin leer</span>
+      <span>${escapeHtml(t("unreadShort", { count: unreadInboxCount }))}</span>
     </div>
   ` : `
     <div class="gmail-toolbar-right">
-      <span>${viewCount} enviado(s)</span>
+      <span>${escapeHtml(t("sentShort", { count: viewCount }))}</span>
     </div>
   `;
 
@@ -3226,7 +3752,7 @@ function renderMessages() {
       <div class="gmail-topbar">
         <div>
           <strong>${escapeHtml(viewTitle)}</strong>
-          <small>${viewCount} mensaje(s)</small>
+          <small>${escapeHtml(t("messageCount", { count: viewCount }))}</small>
         </div>
         ${selectedTools}
       </div>
@@ -3247,11 +3773,11 @@ function renderMessages() {
           <strong>${escapeHtml(openedMessage.subject || t("subjectLabel"))}</strong>
           <small>${escapeHtml(formatDateTime(openedMessage.created_at))}</small>
         </div>
-        <button type="button" id="closeOpenedMailButton" class="secondary-button">Cerrar</button>
+        <button type="button" id="closeOpenedMailButton" class="secondary-button">${escapeHtml(t("close"))}</button>
       </div>
       <div class="gmail-message-meta">
-        <span><strong>De:</strong> ${escapeHtml(getProfileName(openedMessage.sender_id))}</span>
-        <span><strong>Para:</strong> ${escapeHtml(getProfileName(openedMessage.recipient_id))}</span>
+        <span><strong>${escapeHtml(t("from"))}:</strong> ${escapeHtml(getProfileName(openedMessage.sender_id))}</span>
+        <span><strong>${escapeHtml(t("to"))}:</strong> ${escapeHtml(getProfileName(openedMessage.recipient_id))}</span>
       </div>
       <p class="gmail-message-body-full">${escapeHtml(openedMessage.body)}</p>
     </article>
@@ -3261,7 +3787,7 @@ function renderMessages() {
     <div class="gmail-topbar">
       <div>
         <strong>${escapeHtml(viewTitle)}</strong>
-        <small>${viewCount} mensaje(s)</small>
+        <small>${escapeHtml(t("messageCount", { count: viewCount }))}</small>
       </div>
       ${selectedTools}
     </div>
@@ -3276,7 +3802,7 @@ function renderMessages() {
 
         return `
           <article class="gmail-message-row ${unread ? "unread-message" : ""}" data-message-id="${message.id}" role="listitem" tabindex="0">
-            ${currentMessageView === "inbox" ? `<input type="checkbox" class="gmail-message-select" value="${message.id}" aria-label="Seleccionar mensaje" />` : ""}
+            ${currentMessageView === "inbox" ? `<input type="checkbox" class="gmail-message-select" value="${message.id}" aria-label="${escapeAttribute(t("selectMessage"))}" />` : ""}
             <div class="gmail-avatar" aria-hidden="true">${escapeHtml(initials)}</div>
             <div class="gmail-message-main">
               <div class="gmail-message-head">
@@ -3285,12 +3811,12 @@ function renderMessages() {
               </div>
               <h3>${escapeHtml(message.subject || t("subjectLabel"))}</h3>
               <p>${escapeHtml(shorten(message.body, 190))}</p>
-              <small>${currentMessageView === "sent" ? "Para" : "De"}: ${escapeHtml(person)}</small>
+              <small>${currentMessageView === "sent" ? escapeHtml(t("to")) : escapeHtml(t("from"))}: ${escapeHtml(person)}</small>
             </div>
             <div class="gmail-message-actions">
-              ${unread ? `<span class="new-pill">Nuevo</span>` : ""}
-              <button type="button" class="open-message-button" data-message-id="${message.id}">${unread ? "Abrir" : "Ver"}</button>
-              ${currentMessageView === "inbox" ? `<button type="button" class="delete-message-button" data-message-id="${message.id}">Eliminar</button>` : ""}
+              ${unread ? `<span class="new-pill">${escapeHtml(t("new"))}</span>` : ""}
+              <button type="button" class="open-message-button" data-message-id="${message.id}">${unread ? escapeHtml(t("open")) : escapeHtml(t("view"))}</button>
+              ${currentMessageView === "inbox" ? `<button type="button" class="delete-message-button" data-message-id="${message.id}">${escapeHtml(t("delete"))}</button>` : ""}
             </div>
           </article>
         `;
@@ -3484,7 +4010,7 @@ function renderChat() {
   if (!selectedContactId) {
     chatMessages.innerHTML = `
       <div class="empty-panel">
-        <p>No hay conversaciones abiertas.</p>
+        <p>${escapeHtml(t("noOpenChats"))}</p>
       </div>
     `;
     return;
@@ -3501,7 +4027,7 @@ function renderChat() {
   if (chat.length === 0) {
     chatMessages.innerHTML = `
       <div class="empty-panel">
-        <p>No hay mensajes de chat con este contacto.</p>
+        <p>${escapeHtml(t("noChatMessages"))}</p>
       </div>
     `;
     return;
@@ -4083,7 +4609,7 @@ async function renderProfileAvatar() {
       .createSignedUrl(currentProfile.avatarFilePath, 3600);
 
     if (data && data.signedUrl) {
-      profileAvatarPreview.innerHTML = `<img src="${escapeAttribute(data.signedUrl)}" alt="Imagen de perfil" />`;
+      profileAvatarPreview.innerHTML = `<img src="${escapeAttribute(data.signedUrl)}" alt="${escapeAttribute(t("profileImageAlt") || "Imagen de perfil")}" />`;
       return;
     }
   }
@@ -4151,8 +4677,8 @@ function readableEventType(type) {
   const labels = {
     deadline: t("eventDeadline"),
     exam: t("eventExam"),
-    important: "Aviso importante",
-    excursion: "Excursión",
+    important: t("importantNotice"),
+    excursion: t("excursion"),
     reminder: t("eventReminder"),
     class: t("eventClass"),
     other: t("eventOther")
@@ -4255,7 +4781,7 @@ function calendarEventClass(event) {
 
 function createDayTooltip(dayEvents) {
   if (!dayEvents || dayEvents.length === 0) {
-    return "Sin eventos";
+    return t("noEvents");
   }
 
   return dayEvents
@@ -4268,7 +4794,7 @@ function formatTimeOnly(value) {
     return "";
   }
 
-  return new Intl.DateTimeFormat("es-ES", {
+  return new Intl.DateTimeFormat(localeMap[state.lang] || "es-ES", {
     hour: "2-digit",
     minute: "2-digit"
   }).format(new Date(value));
@@ -4336,7 +4862,7 @@ function showStreakToast(days) {
     return;
   }
 
-  streakToastText.textContent = `${days} días de racha`;
+  streakToastText.textContent = t("streakDays", { count: days });
   streakToast.classList.remove("hidden");
 
   setTimeout(function () {
@@ -4356,7 +4882,7 @@ function shorten(text, maxLength) {
 
 function setLoginLoading(isLoading) {
   loginButton.disabled = isLoading;
-  loginButton.textContent = isLoading ? "Entrando..." : t("enter");
+  loginButton.textContent = isLoading ? t("entering") : t("enter");
 }
 
 function showLoginError(message) {
@@ -4456,6 +4982,117 @@ function applyDyslexiaMode(mode) {
   }
 }
 
+
+function openFloatingPanelWindow(panelKey) {
+  if (!panelWindowModal || !panelWindowBody || !panelWindowTitle) {
+    return;
+  }
+
+  let panelId = "";
+  let title = "";
+
+  if (panelKey === "calendar") {
+    panelId = currentProfile && currentProfile.role === "teacher" ? "teacherCalendarPanel" : "studentCalendarPanel";
+    title = t("calendar");
+  }
+
+  if (panelKey === "messages") {
+    panelId = "communicationSection";
+    title = t("messages");
+  }
+
+  if (!panelId) {
+    return;
+  }
+
+  const panel = document.getElementById(panelId);
+  if (!panel) {
+    return;
+  }
+
+  closeFloatingPanelWindow(true);
+
+  openedFloatingPanel = panel;
+  openedFloatingPanelPlaceholder = document.createComment(`placeholder-${panelId}`);
+  panel.parentNode.insertBefore(openedFloatingPanelPlaceholder, panel);
+  panel.classList.remove("hidden");
+  panel.classList.add("panel-in-window");
+  panelWindowBody.appendChild(panel);
+  panelWindowTitle.textContent = title;
+  panelWindowModal.classList.remove("hidden");
+
+  if (panelKey === "calendar") {
+    if (currentProfile && currentProfile.role === "teacher") {
+      renderTeacherCalendar();
+    } else {
+      renderStudentCalendar();
+    }
+  }
+
+  if (panelKey === "messages") {
+    renderMessages();
+    updateUnreadBadges();
+  }
+
+  applyI18n();
+}
+
+function closeFloatingPanelWindow(addHidden = true) {
+  if (!openedFloatingPanel) {
+    if (panelWindowModal) {
+      panelWindowModal.classList.add("hidden");
+    }
+    return;
+  }
+
+  openedFloatingPanel.classList.remove("panel-in-window");
+  if (addHidden) {
+    openedFloatingPanel.classList.add("hidden");
+  }
+
+  if (openedFloatingPanelPlaceholder && openedFloatingPanelPlaceholder.parentNode) {
+    openedFloatingPanelPlaceholder.parentNode.insertBefore(openedFloatingPanel, openedFloatingPanelPlaceholder);
+    openedFloatingPanelPlaceholder.remove();
+  }
+
+  openedFloatingPanel = null;
+  openedFloatingPanelPlaceholder = null;
+
+  if (panelWindowModal) {
+    panelWindowModal.classList.add("hidden");
+  }
+}
+
+function handlePanelLinkClick(event) {
+  const target = event.currentTarget.dataset.openPanel;
+  if (!target) {
+    return;
+  }
+
+  event.preventDefault();
+  openFloatingPanelWindow(target);
+}
+
+[quickCalendarLink, quickUpcomingLink, quickMessagesLink].forEach(function (link) {
+  if (link) {
+    link.addEventListener("click", handlePanelLinkClick);
+  }
+});
+
+if (closePanelWindow) {
+  closePanelWindow.addEventListener("click", function () {
+    closeFloatingPanelWindow(true);
+  });
+}
+
+if (panelWindowModal) {
+  panelWindowModal.addEventListener("click", function (event) {
+    if (event.target === panelWindowModal) {
+      closeFloatingPanelWindow(true);
+    }
+  });
+}
+
 fontSizeSelect.addEventListener("change", function () {
   document.documentElement.style.setProperty("--base-size", fontSizeSelect.value);
   saveUiSettings();
@@ -4475,6 +5112,10 @@ languageSelect.addEventListener("change", function () {
   state.lang = languageSelect.value;
   applyI18n();
   saveUiSettings();
+
+  if (openedFloatingPanel && panelWindowTitle) {
+    panelWindowTitle.textContent = openedFloatingPanel.id === "communicationSection" ? t("messages") : t("calendar");
+  }
 
   if (currentUserId) {
     if (currentProfile && currentProfile.role === "teacher") {

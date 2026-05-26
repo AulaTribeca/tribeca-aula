@@ -1976,3 +1976,115 @@ button {
     border-radius: 18px;
   }
 }
+
+/* Ajustes tras publicación: paneles bajo demanda, resumen compacto y tooltips de calendario */
+.dashboard-header {
+  margin-bottom: 0.75rem;
+}
+
+.dashboard-header h2 {
+  font-size: clamp(1.25rem, 2.2vw, 1.85rem);
+  margin-bottom: 0.1rem;
+}
+
+.dashboard-summary.grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-bottom: 0.9rem;
+}
+
+.dashboard-summary .card {
+  padding: 0.72rem 0.85rem;
+  min-height: 0;
+}
+
+.dashboard-summary .card h3 {
+  font-size: 0.92rem;
+  margin-bottom: 0.12rem;
+}
+
+.dashboard-summary .card p {
+  margin-bottom: 0.2rem;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.dashboard-summary .badges {
+  gap: 0.35rem;
+}
+
+.dashboard-summary .badge {
+  padding: 0.28rem 0.55rem;
+  font-size: 0.82rem;
+}
+
+.panel-window-card {
+  width: min(1120px, 96vw);
+  max-height: 90vh;
+}
+
+.panel-in-window {
+  margin-bottom: 0;
+  box-shadow: none;
+  border-radius: 18px;
+}
+
+.panel-window-overlay .gmail-panel,
+.panel-window-overlay #studentCalendarPanel,
+.panel-window-overlay #teacherCalendarPanel {
+  padding: clamp(1rem, 2.5vw, 1.6rem);
+}
+
+.month-day[data-tooltip] {
+  position: relative;
+}
+
+.right-rail .month-day[data-tooltip]:hover::after,
+.right-rail .month-day[data-tooltip]:focus-visible::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  z-index: 50;
+  left: 50%;
+  top: calc(100% + 0.35rem);
+  transform: translateX(-50%);
+  min-width: 12rem;
+  max-width: 18rem;
+  white-space: pre-line;
+  text-align: left;
+  background: var(--text);
+  color: var(--surface);
+  border-radius: 12px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  box-shadow: var(--shadow);
+  pointer-events: none;
+}
+
+.dark-mode .right-rail .month-day[data-tooltip]:hover::after,
+.dark-mode .right-rail .month-day[data-tooltip]:focus-visible::after {
+  background: #f5f1ea;
+  color: #111111;
+}
+
+@media (max-width: 1050px) {
+  .dashboard-summary.grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .dashboard-summary.grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-summary .card {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .panel-window-card {
+    width: calc(100vw - 0.75rem);
+    max-height: 92vh;
+    padding: 0.8rem;
+  }
+}

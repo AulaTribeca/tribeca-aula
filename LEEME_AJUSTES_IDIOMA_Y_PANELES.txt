@@ -1,0 +1,20 @@
+Actualización Tribeca Aula: idioma, paneles bajo demanda y resumen compacto
+
+No hace falta ejecutar SQL en Supabase.
+
+Pasos:
+1. Sustituye index.html, style.css y script.js en tu carpeta tribeca-aula.
+2. Guarda los cambios.
+3. Haz commit en GitHub Desktop.
+4. Pulsa Push origin para que GitHub Pages publique la versión nueva.
+
+Cambios incluidos:
+- Ampliación de traducciones de la interfaz en castellano, galego, inglés, francés y polaco.
+- El calendario grande ya no aparece por defecto. Se abre en ventana al pulsar Calendario o Eventos próximos.
+- El panel de mensajes ya no aparece por defecto. Se abre en ventana al pulsar Mensajes.
+- El resumen del aula se ha compactado para ocupar menos altura.
+- El calendario pequeño muestra detalles del evento al pasar el cursor sobre un día con eventos.
+- Se mantienen el calendario lateral y el chat lateral.
+
+Nota:
+Los textos creados por la profesora, como títulos de publicaciones, nombres de unidades, mensajes o contenidos subidos, no se traducen automáticamente porque son contenido pedagógico propio. La traducción afecta a la interfaz de navegación y funcionamiento.
