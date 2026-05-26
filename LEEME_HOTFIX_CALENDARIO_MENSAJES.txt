@@ -1,0 +1,26 @@
+HOTFIX TRIBECA AULA: calendario y mensajes en ventana
+
+No hay que ejecutar SQL.
+No hay que tocar GitHub Pages ni Actions.
+
+Sustituye en tu carpeta local tribeca-aula estos tres archivos:
+- index.html
+- style.css
+- script.js
+
+Después:
+1. Abre GitHub Desktop.
+2. Comprueba que aparecen cambios en index.html, style.css y script.js.
+3. Commit: Corrige vista de calendario y mensajes
+4. Push origin.
+5. Espera a que GitHub Pages despliegue.
+6. Prueba con: https://aulatribeca.github.io/tribeca-aula/?v=200
+
+Cambios incluidos:
+- El calendario grande queda oculto por defecto.
+- El calendario se abre como ventana al pulsar Calendario o Eventos próximos.
+- Mensajes queda oculto por defecto.
+- Mensajes se abre como ventana al pulsar Mensajes.
+- Se mantiene el calendario pequeño en la columna derecha.
+- Se mantiene el resumen del aula más compacto.
+- En el calendario pequeño, al pasar el cursor por días con eventos aparece el detalle.
