@@ -20,16 +20,18 @@
       <button type="button" id="btnTextSize">Aumentar texto</button>
       <button type="button" id="btnContrast">Alto contraste</button>
       <button type="button" id="btnDyslexia">Modo lectura</button>
+      <button type="button" id="btnMotion">Reducir movimiento</button>
     </nav>
   </header>
 
   <main id="contenido-principal">
     <section id="loginSection" class="panel login-panel" aria-labelledby="loginTitle">
       <div>
-        <p class="eyebrow">Acceso conectado a Supabase</p>
-        <h2 id="loginTitle">Entrar al aula</h2>
+        <p class="eyebrow">Acceso al aula</p>
+        <h2 id="loginTitle">Entrar a Tribeca Aula</h2>
         <p>
-          La profesora crea publicaciones y decide qué alumnado puede ver cada recurso.
+          La profesora crea publicaciones, apuntes, boletines, tests interactivos, fechas e insignias.
+          El alumnado ve solo lo que tiene asignado.
         </p>
       </div>
 
@@ -67,15 +69,15 @@
     <section id="studentDashboardSection" class="dashboard hidden" aria-labelledby="studentDashboardTitle">
       <div class="dashboard-header">
         <div>
-          <p class="eyebrow">Panel del alumno</p>
-          <h2 id="studentDashboardTitle">Bienvenido/a, <span id="studentName">alumno/a</span></h2>
+          <p class="eyebrow">Mi aula</p>
+          <h2 id="studentDashboardTitle">Hola, <span id="studentName">alumno/a</span></h2>
           <p id="studentCourse" class="student-meta"></p>
         </div>
 
         <button type="button" id="studentLogoutButton" class="secondary-button">Salir</button>
       </div>
 
-      <section class="grid" aria-label="Resumen del progreso">
+      <section class="grid" aria-label="Resumen del aula">
         <article class="card">
           <h3>Mi curso</h3>
           <p id="courseCardText">Curso no cargado.</p>
@@ -83,7 +85,7 @@
 
         <article class="card">
           <h3>Mi progreso</h3>
-          <p id="progressText">Todavía no has completado actividades.</p>
+          <p id="progressText">Todavía no hay progreso registrado.</p>
           <div class="progress-bar" aria-label="Progreso de actividades">
             <div id="progressFill" class="progress-fill"></div>
           </div>
@@ -102,16 +104,28 @@
         </article>
       </section>
 
+      <section class="panel" aria-labelledby="studentCalendarTitle">
+        <p class="eyebrow">Próximas fechas</p>
+        <h2 id="studentCalendarTitle">Calendario</h2>
+        <div id="studentCalendarList" class="calendar-list"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="studentWallTitle">
+        <p class="eyebrow">Muro cronológico</p>
+        <h2 id="studentWallTitle">Últimas publicaciones</h2>
+        <div id="studentWallList" class="feed-list"></div>
+      </section>
+
       <section class="panel" aria-labelledby="subjectsTitle">
-        <p class="eyebrow">Materias asignadas</p>
-        <h2 id="subjectsTitle">Mis materias</h2>
-        <p>Selecciona una materia para ver el tablón, los tests y los boletines disponibles.</p>
+        <p class="eyebrow">Materias</p>
+        <h2 id="subjectsTitle">Mis asignaturas</h2>
+        <p>Selecciona una asignatura para ver sus publicaciones, apuntes, boletines, tests y fechas.</p>
         <div id="subjectsContainer" class="subjects-grid"></div>
       </section>
 
       <section id="subjectDetail" class="panel hidden" aria-labelledby="subjectDetailTitle">
-        <p class="eyebrow">Espacio de materia</p>
-        <h2 id="subjectDetailTitle">Materia</h2>
+        <p class="eyebrow">Espacio de asignatura</p>
+        <h2 id="subjectDetailTitle">Asignatura</h2>
         <div id="subjectDetailBody"></div>
       </section>
 
@@ -120,81 +134,133 @@
         <h2 id="contentTitle">Publicación</h2>
         <div id="contentBody"></div>
       </section>
-
-      <section id="activityPanel" class="panel hidden" aria-labelledby="activityTitle">
-        <p class="eyebrow">Actividad autocorregible</p>
-        <h2 id="activityTitle">Actividad</h2>
-        <p id="activityIntro">Responde a las preguntas. Al terminar recibirás feedback inmediato.</p>
-        <form id="quizForm" class="quiz"></form>
-        <div id="quizFeedback" class="feedback" role="status" aria-live="polite"></div>
-      </section>
     </section>
 
     <section id="teacherDashboardSection" class="dashboard hidden" aria-labelledby="teacherDashboardTitle">
       <div class="dashboard-header">
         <div>
           <p class="eyebrow">Panel de profesora</p>
-          <h2 id="teacherDashboardTitle">Tablón de Tribeca Aula</h2>
+          <h2 id="teacherDashboardTitle">Gestión de Tribeca Aula</h2>
           <p class="student-meta">
-            Crea publicaciones, adjunta archivos y asígnalas solo al alumnado que corresponda.
+            Crea publicaciones, adjunta materiales, añade fechas y asigna insignias.
           </p>
         </div>
 
         <button type="button" id="teacherLogoutButton" class="secondary-button">Salir</button>
       </div>
 
-      <section class="panel classroom-composer" aria-labelledby="createMaterialTitle">
-        <p class="eyebrow">Crear publicación</p>
-        <h2 id="createMaterialTitle">Nueva publicación</h2>
+      <section class="teacher-grid">
+        <article class="panel classroom-composer" aria-labelledby="createPostTitle">
+          <p class="eyebrow">Publicar</p>
+          <h2 id="createPostTitle">Nueva publicación</h2>
 
-        <form id="teacherMaterialForm" class="teacher-form">
-          <label for="teacherSubject">Materia</label>
-          <select id="teacherSubject" required></select>
+          <form id="teacherPostForm" class="teacher-form">
+            <label for="teacherSubject">Asignatura</label>
+            <select id="teacherSubject" required></select>
 
-          <label for="teacherKind">Tipo de publicación</label>
-          <select id="teacherKind" required>
-            <option value="announcement">Aviso o publicación simple</option>
-            <option value="external_link">Enlace externo</option>
-            <option value="external_video">Vídeo externo</option>
-            <option value="pdf">PDF para visualizar y descargar</option>
-            <option value="image">Imagen insertada</option>
-            <option value="gemini">Test externo de Gemini</option>
-            <option value="worksheet">Boletín</option>
-          </select>
+            <label for="teacherPostType">Tipo</label>
+            <select id="teacherPostType" required>
+              <option value="announcement">Publicación</option>
+              <option value="notes">Apuntes</option>
+              <option value="worksheet">Boletín</option>
+              <option value="interactive_test">Test interactivo</option>
+            </select>
 
-          <label for="teacherTitle">Título</label>
-          <input type="text" id="teacherTitle" required placeholder="Ejemplo: Repaso de Roma" />
+            <label for="teacherTitle">Título</label>
+            <input type="text" id="teacherTitle" required placeholder="Ejemplo: Repaso de Roma" />
 
-          <label for="teacherDescription">Texto de la publicación</label>
-          <textarea id="teacherDescription" rows="4" required placeholder="Escribe aquí el aviso, explicación o indicación para el alumnado."></textarea>
+            <label for="teacherBody">Texto</label>
+            <textarea id="teacherBody" rows="5" required placeholder="Escribe aquí el aviso, explicación o indicación para el alumnado."></textarea>
 
-          <label for="teacherKeyPoints">Instrucciones o ideas clave, opcional, una por línea</label>
-          <textarea id="teacherKeyPoints" rows="4" placeholder="Una instrucción o idea clave por línea."></textarea>
+            <label for="teacherKeyPoints">Instrucciones o ideas clave, opcional, una por línea</label>
+            <textarea id="teacherKeyPoints" rows="4" placeholder="Una instrucción o idea clave por línea."></textarea>
 
-          <label for="teacherUrl">Enlace externo, vídeo o test de Gemini, opcional</label>
-          <input type="url" id="teacherUrl" placeholder="https://..." />
+            <label for="teacherUrl">Enlace externo o test interactivo, opcional</label>
+            <input type="url" id="teacherUrl" placeholder="https://..." />
 
-          <label for="teacherFile">Archivo PDF o imagen, opcional</label>
-          <input
-            type="file"
-            id="teacherFile"
-            accept="application/pdf,image/png,image/jpeg,image/webp,video/mp4"
-          />
+            <label for="teacherFile">Archivo PDF, imagen o vídeo, opcional</label>
+            <input
+              type="file"
+              id="teacherFile"
+              accept="application/pdf,image/png,image/jpeg,image/webp,video/mp4"
+            />
 
-          <fieldset class="student-picker">
-            <legend>Asignar a alumnado</legend>
-            <div id="teacherStudentsList" class="checkbox-grid"></div>
-          </fieldset>
+            <fieldset class="student-picker">
+              <legend>Asignar a alumnado</legend>
+              <div id="teacherStudentsList" class="checkbox-grid"></div>
+            </fieldset>
 
-          <button type="submit" class="primary-button">Publicar y asignar</button>
-          <p id="teacherMessage" class="feedback" role="status" aria-live="polite"></p>
-        </form>
+            <button type="submit" class="primary-button">Publicar</button>
+            <p id="teacherPostMessage" class="feedback" role="status" aria-live="polite"></p>
+          </form>
+        </article>
+
+        <article class="panel" aria-labelledby="createEventTitle">
+          <p class="eyebrow">Calendario</p>
+          <h2 id="createEventTitle">Nueva fecha</h2>
+
+          <form id="teacherEventForm" class="teacher-form">
+            <label for="teacherEventSubject">Asignatura</label>
+            <select id="teacherEventSubject" required></select>
+
+            <label for="teacherEventType">Tipo de fecha</label>
+            <select id="teacherEventType" required>
+              <option value="deadline">Fecha de entrega</option>
+              <option value="exam">Examen</option>
+              <option value="reminder">Recordatorio</option>
+              <option value="class">Clase especial</option>
+              <option value="other">Otra fecha</option>
+            </select>
+
+            <label for="teacherEventTitle">Título</label>
+            <input type="text" id="teacherEventTitle" required placeholder="Ejemplo: Entrega del boletín de Roma" />
+
+            <label for="teacherEventDate">Fecha y hora</label>
+            <input type="datetime-local" id="teacherEventDate" required />
+
+            <label for="teacherEventDescription">Descripción</label>
+            <textarea id="teacherEventDescription" rows="3" placeholder="Información breve para el alumnado."></textarea>
+
+            <fieldset class="student-picker">
+              <legend>Asignar a alumnado</legend>
+              <div id="teacherEventStudentsList" class="checkbox-grid"></div>
+            </fieldset>
+
+            <button type="submit" class="primary-button">Añadir fecha</button>
+            <p id="teacherEventMessage" class="feedback" role="status" aria-live="polite"></p>
+          </form>
+        </article>
+
+        <article class="panel" aria-labelledby="assignBadgeTitle">
+          <p class="eyebrow">Insignias</p>
+          <h2 id="assignBadgeTitle">Asignar insignia</h2>
+
+          <form id="teacherBadgeForm" class="teacher-form">
+            <label for="teacherBadgeStudent">Alumno/a</label>
+            <select id="teacherBadgeStudent" required></select>
+
+            <label for="teacherBadge">Insignia</label>
+            <select id="teacherBadge" required></select>
+
+            <label for="teacherBadgeNote">Nota opcional</label>
+            <textarea id="teacherBadgeNote" rows="2" placeholder="Ejemplo: Trabajo excelente en el repaso."></textarea>
+
+            <button type="submit" class="primary-button">Asignar insignia</button>
+            <p id="teacherBadgeMessage" class="feedback" role="status" aria-live="polite"></p>
+          </form>
+        </article>
       </section>
 
-      <section class="panel" aria-labelledby="teacherMaterialsTitle">
+      <section class="panel" aria-labelledby="teacherPostsTitle">
         <p class="eyebrow">Historial</p>
-        <h2 id="teacherMaterialsTitle">Últimas publicaciones</h2>
-        <div id="teacherMaterialsList" class="material-list"></div>
+        <h2 id="teacherPostsTitle">Últimas publicaciones</h2>
+        <div id="teacherPostsList" class="feed-list"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="teacherEventsTitle">
+        <p class="eyebrow">Calendario</p>
+        <h2 id="teacherEventsTitle">Últimas fechas añadidas</h2>
+        <div id="teacherEventsList" class="calendar-list"></div>
       </section>
     </section>
   </main>
