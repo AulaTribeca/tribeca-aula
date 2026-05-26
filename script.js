@@ -24,11 +24,22 @@ const i18n = {
     communication: "Comunicación",
     accessClassroom: "Acceso al aula",
     enterTribeca: "Entrar a Tribeca Aula",
-    loginIntro: "La profesora crea publicaciones, apuntes, boletines, tests interactivos, videoclases, fechas, mensajes e insignias. El alumnado ve solo lo que tiene asignado.",
+    loginIntro: "Accede a tu aula virtual para consultar materias, publicaciones, calendario, mensajes, chat e insignias.",
     username: "Nombre de usuario",
     password: "Contraseña",
+    usernamePlaceholder: "Introduce tu usuario",
+    passwordPlaceholder: "Introduce tu contraseña",
+    changePassword: "Cambiar contraseña",
+    passwordChangeHelp: "Déjalo en blanco si no quieres cambiarla ahora.",
+    newPassword: "Nueva contraseña",
+    repeatPassword: "Repetir nueva contraseña",
+    newPasswordPlaceholder: "Nueva contraseña",
+    repeatPasswordPlaceholder: "Repite la nueva contraseña",
+    passwordsDoNotMatch: "Las contraseñas no coinciden.",
+    passwordTooShort: "La nueva contraseña debe tener al menos 6 caracteres.",
+    passwordUpdateError: "El perfil se guardó, pero no se pudo cambiar la contraseña.",
     enter: "Entrar",
-    testUsers: "Usuarios de prueba: demo_1eso_full y profesora.",
+    loginHelpReady: "Acceso exclusivo para alumnado y profesora de Tribeca Aula.",
     myProfile: "Mi perfil",
     userProfile: "Perfil de usuario",
     visibleNickname: "Apodo visible",
@@ -148,11 +159,22 @@ const i18n = {
     communication: "Comunicación",
     accessClassroom: "Acceso á aula",
     enterTribeca: "Entrar en Tribeca Aula",
-    loginIntro: "A profesora crea publicacións, apuntamentos, boletíns, tests interactivos, videoclases, datas, mensaxes e insignias. O alumnado ve só o que ten asignado.",
+    loginIntro: "Accede á túa aula virtual para consultar materias, publicacións, calendario, mensaxes, chat e insignias.",
     username: "Nome de usuario",
     password: "Contrasinal",
+    usernamePlaceholder: "Introduce o teu usuario",
+    passwordPlaceholder: "Introduce o teu contrasinal",
+    changePassword: "Cambiar contrasinal",
+    passwordChangeHelp: "Déixao en branco se non queres cambialo agora.",
+    newPassword: "Novo contrasinal",
+    repeatPassword: "Repetir novo contrasinal",
+    newPasswordPlaceholder: "Novo contrasinal",
+    repeatPasswordPlaceholder: "Repite o novo contrasinal",
+    passwordsDoNotMatch: "Os contrasinais non coinciden.",
+    passwordTooShort: "O novo contrasinal debe ter polo menos 6 caracteres.",
+    passwordUpdateError: "O perfil gardouse, pero non se puido cambiar o contrasinal.",
     enter: "Entrar",
-    testUsers: "Usuarios de proba: demo_1eso_full e profesora.",
+    loginHelpReady: "Acceso exclusivo para alumnado e profesora de Tribeca Aula.",
     myProfile: "O meu perfil",
     userProfile: "Perfil de usuario",
     visibleNickname: "Alcume visible",
@@ -272,11 +294,22 @@ const i18n = {
     communication: "Communication",
     accessClassroom: "Classroom access",
     enterTribeca: "Enter Tribeca Aula",
-    loginIntro: "The teacher creates posts, notes, worksheets, interactive tests, video classes, dates, messages and badges. Students only see what has been assigned to them.",
+    loginIntro: "Access your virtual classroom to check subjects, posts, calendar, messages, chat and badges.",
     username: "Username",
     password: "Password",
+    usernamePlaceholder: "Enter your username",
+    passwordPlaceholder: "Enter your password",
+    changePassword: "Change password",
+    passwordChangeHelp: "Leave it blank if you do not want to change it now.",
+    newPassword: "New password",
+    repeatPassword: "Repeat new password",
+    newPasswordPlaceholder: "New password",
+    repeatPasswordPlaceholder: "Repeat the new password",
+    passwordsDoNotMatch: "The passwords do not match.",
+    passwordTooShort: "The new password must have at least 6 characters.",
+    passwordUpdateError: "The profile was saved, but the password could not be changed.",
     enter: "Enter",
-    testUsers: "Test users: demo_1eso_full and profesora.",
+    loginHelpReady: "Exclusive access for Tribeca Aula students and teacher.",
     myProfile: "My profile",
     userProfile: "User profile",
     visibleNickname: "Visible nickname",
@@ -396,11 +429,22 @@ const i18n = {
     communication: "Communication",
     accessClassroom: "Accès à la classe",
     enterTribeca: "Entrer dans Tribeca Aula",
-    loginIntro: "L’enseignante crée des publications, notes, fiches, tests interactifs, visiocours, dates, messages et badges. Les élèves ne voient que ce qui leur est attribué.",
+    loginIntro: "Accède à ton aula virtuelle pour consulter les matières, publications, calendrier, messages, chat et badges.",
     username: "Nom d’utilisateur",
     password: "Mot de passe",
+    usernamePlaceholder: "Saisis ton identifiant",
+    passwordPlaceholder: "Saisis ton mot de passe",
+    changePassword: "Changer le mot de passe",
+    passwordChangeHelp: "Laisse vide si tu ne veux pas le changer maintenant.",
+    newPassword: "Nouveau mot de passe",
+    repeatPassword: "Répéter le nouveau mot de passe",
+    newPasswordPlaceholder: "Nouveau mot de passe",
+    repeatPasswordPlaceholder: "Répète le nouveau mot de passe",
+    passwordsDoNotMatch: "Les mots de passe ne correspondent pas.",
+    passwordTooShort: "Le nouveau mot de passe doit contenir au moins 6 caractères.",
+    passwordUpdateError: "Le profil a été enregistré, mais le mot de passe n’a pas pu être changé.",
     enter: "Entrer",
-    testUsers: "Utilisateurs de test : demo_1eso_full et profesora.",
+    loginHelpReady: "Accès réservé aux élèves et à l’enseignante de Tribeca Aula.",
     myProfile: "Mon profil",
     userProfile: "Profil utilisateur",
     visibleNickname: "Surnom visible",
@@ -520,11 +564,22 @@ const i18n = {
     communication: "Komunikacja",
     accessClassroom: "Dostęp do klasy",
     enterTribeca: "Wejdź do Tribeca Aula",
-    loginIntro: "Nauczycielka tworzy wpisy, notatki, karty pracy, testy interaktywne, wideolekcje, terminy, wiadomości i odznaki. Uczniowie widzą tylko przypisane treści.",
+    loginIntro: "Wejdź do swojej wirtualnej klasy, aby sprawdzić przedmioty, publikacje, kalendarz, wiadomości, czat i odznaki.",
     username: "Nazwa użytkownika",
     password: "Hasło",
+    usernamePlaceholder: "Wpisz nazwę użytkownika",
+    passwordPlaceholder: "Wpisz hasło",
+    changePassword: "Zmień hasło",
+    passwordChangeHelp: "Zostaw puste, jeśli nie chcesz go teraz zmieniać.",
+    newPassword: "Nowe hasło",
+    repeatPassword: "Powtórz nowe hasło",
+    newPasswordPlaceholder: "Nowe hasło",
+    repeatPasswordPlaceholder: "Powtórz nowe hasło",
+    passwordsDoNotMatch: "Hasła nie są takie same.",
+    passwordTooShort: "Nowe hasło musi mieć co najmniej 6 znaków.",
+    passwordUpdateError: "Profil został zapisany, ale nie udało się zmienić hasła.",
     enter: "Wejdź",
-    testUsers: "Użytkownicy testowi: demo_1eso_full i profesora.",
+    loginHelpReady: "Dostęp wyłącznie dla uczniów i nauczycielki Tribeca Aula.",
     myProfile: "Mój profil",
     userProfile: "Profil użytkownika",
     visibleNickname: "Widoczny pseudonim",
@@ -680,6 +735,8 @@ const languageSelect = document.getElementById("languageSelect");
 const profilePanel = document.getElementById("profilePanel");
 const profileForm = document.getElementById("profileForm");
 const profileNickname = document.getElementById("profileNickname");
+const profileNewPassword = document.getElementById("profileNewPassword");
+const profileRepeatPassword = document.getElementById("profileRepeatPassword");
 const profileAvatarFile = document.getElementById("profileAvatarFile");
 const profileAvatarPreview = document.getElementById("profileAvatarPreview");
 const profileNamePreview = document.getElementById("profileNamePreview");
@@ -3076,6 +3133,20 @@ profileForm.addEventListener("submit", async function (event) {
 
   let avatarFilePath = selectedAvatarFilePath;
   const file = profileAvatarFile.files[0] || null;
+  const newPassword = profileNewPassword.value.trim();
+  const repeatedPassword = profileRepeatPassword.value.trim();
+
+  if (newPassword || repeatedPassword) {
+    if (newPassword !== repeatedPassword) {
+      showMessage(profileMessage, t("passwordsDoNotMatch"), "warning");
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      showMessage(profileMessage, t("passwordTooShort"), "warning");
+      return;
+    }
+  }
 
   if (file) {
     if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
@@ -3116,6 +3187,21 @@ profileForm.addEventListener("submit", async function (event) {
     console.error(error);
     showMessage(profileMessage, "No se pudo guardar el perfil.", "warning");
     return;
+  }
+
+  if (newPassword) {
+    const { error: passwordError } = await supabaseClient.auth.updateUser({
+      password: newPassword
+    });
+
+    if (passwordError) {
+      console.error(passwordError);
+      showMessage(profileMessage, t("passwordUpdateError"), "warning");
+      return;
+    }
+
+    profileNewPassword.value = "";
+    profileRepeatPassword.value = "";
   }
 
   currentProfile = await fetchProfile(currentUserId);

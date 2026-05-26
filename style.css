@@ -1290,3 +1290,11 @@ button {
 .hidden.modal-overlay {
   display: none;
 }
+
+.password-box {
+  margin-top: 0.6rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-2);
+}

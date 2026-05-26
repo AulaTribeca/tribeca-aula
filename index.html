@@ -96,7 +96,7 @@
             id="username"
             name="username"
             autocomplete="username"
-            placeholder="demo_1eso_full o profesora"
+            placeholder="Introduce tu usuario" data-i18n-placeholder="usernamePlaceholder"
             required
           />
 
@@ -107,12 +107,13 @@
             name="password"
             autocomplete="current-password"
             placeholder="Contraseña"
+            data-i18n-placeholder="passwordPlaceholder"
             required
           />
 
           <button type="submit" class="primary-button" id="loginButton" data-i18n="enter">Entrar</button>
 
-          <p class="form-help" data-i18n="testUsers">Usuarios de prueba: demo_1eso_full y profesora.</p>
+          <p class="form-help" data-i18n="loginHelpReady">Acceso exclusivo para alumnado y profesora de Tribeca Aula.</p>
           <p id="loginError" class="login-error" role="alert"></p>
         </form>
       </section>
@@ -138,6 +139,17 @@
 
             <label for="profileAvatarFile" data-i18n="uploadOwnAvatar">Subir imagen de perfil propia</label>
             <input type="file" id="profileAvatarFile" accept="image/png,image/jpeg,image/webp" />
+
+            <fieldset class="password-box">
+              <legend data-i18n="changePassword">Cambiar contraseña</legend>
+              <p class="form-help" data-i18n="passwordChangeHelp">Déjalo en blanco si no quieres cambiarla ahora.</p>
+
+              <label for="profileNewPassword" data-i18n="newPassword">Nueva contraseña</label>
+              <input type="password" id="profileNewPassword" autocomplete="new-password" data-i18n-placeholder="newPasswordPlaceholder" placeholder="Nueva contraseña" />
+
+              <label for="profileRepeatPassword" data-i18n="repeatPassword">Repetir nueva contraseña</label>
+              <input type="password" id="profileRepeatPassword" autocomplete="new-password" data-i18n-placeholder="repeatPasswordPlaceholder" placeholder="Repite la nueva contraseña" />
+            </fieldset>
 
             <button type="submit" class="primary-button" data-i18n="saveProfile">Guardar perfil</button>
             <p id="profileMessage" class="feedback" role="status" aria-live="polite"></p>
