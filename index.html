@@ -21,6 +21,7 @@
       <div>
         <p class="eyebrow" data-i18n="internalEnv">Entorno educativo interno</p>
         <h1 class="brand-title">Tribeca Aula</h1>
+        <p id="academicYearBanner" class="academic-year-banner">Curso 2025/26</p>
       </div>
     </div>
 
@@ -78,7 +79,11 @@
       <span data-i18n="messages">Mensajes</span>
       <span id="quickUnreadBadge" class="notification-badge hidden">0</span>
     </a>
-    <a href="#studentWallPanel" data-i18n="tasksAndPosts">Tareas y publicaciones</a>
+    <a href="#" id="quickNotificationsLink" data-open-panel="notifications">
+      <span data-i18n="notifications">Notificaciones</span>
+      <span id="quickNotificationsBadge" class="notification-badge hidden">0</span>
+    </a>
+    <a href="#studentWallPanel" data-i18n="feed">Feed</a>
   </nav>
 
   <main id="contenido-principal" class="app-layout">
@@ -142,7 +147,9 @@
             </fieldset>
 
             <label for="profileAvatarFile" data-i18n="uploadOwnAvatar">Subir imagen de perfil propia</label>
+            <p class="form-help" data-i18n="profilePhotoHelp">Formatos admitidos: PNG, JPG o WEBP. Tamaño máximo: 2 MB. La imagen debe ser clara y respetuosa.</p>
             <input type="file" id="profileAvatarFile" accept="image/png,image/jpeg,image/webp" />
+            <button type="button" id="deleteProfilePhotoButton" class="secondary-button" data-i18n="deleteProfilePhoto">Eliminar foto de perfil</button>
 
             <fieldset class="password-box">
               <legend data-i18n="changePassword">Cambiar contraseña</legend>
@@ -159,6 +166,78 @@
             <p id="profileMessage" class="feedback" role="status" aria-live="polite"></p>
           </form>
         </div>
+
+        <div id="profileExtraGrid" class="profile-extra-grid">
+          <article class="profile-extra-card">
+            <h3 data-i18n="myAccount">Mi cuenta</h3>
+            <div id="profileAccountInfo" class="profile-info-list"></div>
+          </article>
+
+          <article class="profile-extra-card">
+            <h3 data-i18n="security">Seguridad</h3>
+            <p class="form-help" data-i18n="securityHelp">Gestiona el acceso a tu cuenta y pide ayuda si necesitas una nueva contraseña.</p>
+            <button type="button" id="requestPasswordHelpButton" class="secondary-button" data-i18n="requestPasswordHelp">Solicitar ayuda para recuperar contraseña</button>
+            <p id="passwordHelpMessage" class="feedback" role="status" aria-live="polite"></p>
+          </article>
+
+          <article class="profile-extra-card">
+            <h3 data-i18n="emailNotifications">Notificaciones por email</h3>
+            <p class="form-help" data-i18n="emailNoticeHelp">El email solo avisa de que hay una novedad en Tribeca Aula. No incluye notas ni mensajes privados completos.</p>
+            <form id="emailPrefsForm" class="teacher-form compact-settings-form">
+              <label class="checkbox-line"><input type="checkbox" id="emailPrefsEnabled" /> <span data-i18n="receiveEmailAlerts">Recibir avisos por email</span></label>
+              <label for="emailPrefsStudent" data-i18n="studentEmail">Email del alumno/a</label>
+              <input type="email" id="emailPrefsStudent" placeholder="alumno@email.com" />
+              <label for="emailPrefsFamily" data-i18n="familyEmail">Email familiar</label>
+              <input type="email" id="emailPrefsFamily" placeholder="familia@email.com" />
+              <label for="emailPrefsRecipient" data-i18n="sendAlertsTo">Enviar avisos a</label>
+              <select id="emailPrefsRecipient">
+                <option value="student" data-i18n="toStudent">Alumno/a</option>
+                <option value="family" data-i18n="toFamily">Familia</option>
+                <option value="both" data-i18n="toBoth">Ambos</option>
+              </select>
+              <label for="emailPrefsFrequency" data-i18n="frequency">Frecuencia</label>
+              <select id="emailPrefsFrequency">
+                <option value="immediate" data-i18n="immediate">Inmediata</option>
+                <option value="daily" data-i18n="dailySummary">Resumen diario</option>
+                <option value="weekly" data-i18n="weeklySummary">Resumen semanal</option>
+                <option value="none" data-i18n="noEmails">No recibir emails</option>
+              </select>
+              <fieldset>
+                <legend data-i18n="emailAlertTypes">Tipos de aviso</legend>
+                <div id="emailPrefsTypes" class="checkbox-grid compact-checkbox-grid"></div>
+              </fieldset>
+              <button type="submit" class="secondary-button" data-i18n="saveEmailPrefs">Guardar preferencias</button>
+              <p id="emailPrefsMessage" class="feedback" role="status" aria-live="polite"></p>
+            </form>
+          </article>
+
+          <article class="profile-extra-card student-only-profile-card">
+            <h3 data-i18n="myActivity">Mi actividad</h3>
+            <div id="studentActivitySummary" class="profile-info-list"></div>
+          </article>
+
+          <article class="profile-extra-card student-only-profile-card">
+            <h3 data-i18n="quickMessageTeacher">Mensaje rápido a la profesora</h3>
+            <p class="form-help" data-i18n="quickMessageHelp">Elige una necesidad y añade, si quieres, una explicación breve.</p>
+            <form id="quickNeedForm" class="teacher-form compact-settings-form">
+              <label for="quickNeedType" data-i18n="whatDoYouNeed">¿Qué necesitas?</label>
+              <select id="quickNeedType">
+                <option value="duda" data-i18n="needQuestion">Tengo una duda</option>
+                <option value="explicacion" data-i18n="needExplanation">No entendí la última explicación</option>
+                <option value="repaso" data-i18n="needReview">Necesito repasar este tema</option>
+                <option value="organizacion" data-i18n="needOrganization">Me cuesta organizarme</option>
+                <option value="ejercicios" data-i18n="needExercises">Quiero más ejercicios</option>
+                <option value="inicio" data-i18n="needStart">No sé por dónde empezar</option>
+                <option value="comentario" data-i18n="needTalk">Quiero comentar algo con la profesora</option>
+              </select>
+              <label for="quickNeedText" data-i18n="briefMessage">Mensaje breve</label>
+              <textarea id="quickNeedText" maxlength="300" rows="3" placeholder="Máximo 300 caracteres"></textarea>
+              <small id="quickNeedCounter">0/300</small>
+              <button type="submit" class="secondary-button" data-i18n="sendQuickMessage">Enviar aviso</button>
+              <p id="quickNeedMessage" class="feedback" role="status" aria-live="polite"></p>
+            </form>
+          </article>
+        </div>
       </section>
 
       <section id="studentDashboardSection" class="dashboard hidden" aria-labelledby="studentDashboardTitle">
@@ -172,9 +251,10 @@
         </div>
 
         <section class="grid dashboard-summary student-summary-compact" aria-label="Resumen del aula">
-          <article class="card summary-card">
-            <h3 data-i18n="myCourse">Mi curso</h3>
-            <p id="courseCardText">Curso no cargado.</p>
+          <article class="card summary-card clickable-card" id="studentSchoolCard" role="button" tabindex="0">
+            <h3 data-i18n="mySchoolCenter">Mi centro educativo</h3>
+            <p id="courseCardText">Centro no cargado.</p>
+            <p class="card-hint" data-i18n="openSchoolProfileHint">Ver o modificar centro, etapa y curso</p>
           </article>
 
           <article class="card summary-card clickable-card" id="studentBadgesCard" role="button" tabindex="0">
@@ -240,8 +320,8 @@
         </section>
 
         <section id="studentWallPanel" class="panel" aria-labelledby="studentWallTitle">
-          <p class="eyebrow" data-i18n="timelineWall">Muro cronológico</p>
-          <h2 id="studentWallTitle" data-i18n="latestPosts">Últimas publicaciones</h2>
+          <p class="eyebrow" data-i18n="feed">Feed</p>
+          <h2 id="studentWallTitle" data-i18n="latestFeedPosts">Feed de noticias y anuncios</h2>
           <div id="studentWallList" class="feed-list"></div>
         </section>
 
@@ -265,7 +345,6 @@
             <h2 id="teacherDashboardTitle" data-i18n="tribecaManagement">Gestión de Tribeca Aula</h2>
             <p class="student-meta" data-i18n="teacherIntro">Publicaciones, calendario, imágenes de materias, mensajes, chat e insignias.</p>
             <div class="teacher-quick-actions" aria-label="Herramientas rápidas de profesora">
-              <button type="button" id="toggleTeacherCompactButton" class="secondary-button" data-i18n="compactTeacherView">Comprimir vista docente</button>
               <button type="button" id="openTeacherMessagesButton" class="secondary-button" data-open-panel="messages" data-i18n="openMessages">Abrir mensajes</button>
               <button type="button" id="openTeacherCalendarButton" class="secondary-button" data-open-panel="calendar" data-i18n="openCalendar">Abrir calendario</button>
             </div>
@@ -297,8 +376,49 @@
               <strong data-i18n="classroomChats">Chats del aula</strong>
               <span data-i18n="teacherSupervisionHelpShort">Conversaciones educativas abiertas con el alumnado.</span>
             </button>
+            <button type="button" class="teacher-launch-card" data-teacher-panel="teacherAlertsPanel" data-teacher-title-key="teacherAlertsTitle">
+              <strong data-i18n="teacherAlertsTitle">Alertas docentes</strong>
+              <span data-i18n="teacherAlertsHelpShort">Inactividad, dificultades, calificaciones bajas y tareas pendientes.</span>
+            </button>
+            <button type="button" class="teacher-launch-card" data-teacher-panel="teacherOverviewPanel" data-teacher-title-key="teacherOverview">
+              <strong data-i18n="teacherOverview">Vista general de aula</strong>
+              <span data-i18n="teacherOverviewHelpShort">Métricas rápidas de alumnado, publicaciones y mensajes.</span>
+            </button>
+            <button type="button" class="teacher-launch-card" data-teacher-panel="subjectCoverPanel" data-teacher-title-key="subjectImage">
+              <strong data-i18n="subjectImage">Imagen de asignatura</strong>
+              <span data-i18n="subjectImageHelpShort">Cambiar portadas de materias.</span>
+            </button>
+            <button type="button" class="teacher-launch-card" data-teacher-panel="teacherBadgePanel" data-teacher-title-key="assignBadge">
+              <strong data-i18n="assignBadge">Asignar insignia</strong>
+              <span data-i18n="badgeToolHelpShort">Reconocer logros individuales.</span>
+            </button>
+            <button type="button" class="teacher-launch-card" data-teacher-panel="teacherRecoveryPanel" data-teacher-title-key="passwordHelpRequests">
+              <strong data-i18n="passwordHelpRequests">Recuperación de contraseñas</strong>
+              <span data-i18n="passwordHelpRequestsShort">Solicitudes de ayuda del alumnado.</span>
+            </button>
           </div>
         </section>
+
+        <article id="teacherAlertsPanel" class="panel teacher-window-source" aria-labelledby="teacherAlertsTitle">
+          <p class="eyebrow" data-i18n="teacherMode">Modo docente</p>
+          <h2 id="teacherAlertsTitle" data-i18n="teacherAlertsTitle">Alertas docentes</h2>
+          <p class="form-help" data-i18n="teacherAlertsHelp">Vista sobria para priorizar seguimiento: alumnado sin entrar, materias difíciles, calificaciones bajas y publicaciones pendientes.</p>
+          <div id="teacherAlertsList" class="teacher-alert-grid"></div>
+          <hr class="soft-separator" />
+          <h3 data-i18n="promotionToolTitle">Cambio de curso</h3>
+          <p class="form-help" data-i18n="promotionToolHelp">Puedes promocionar automáticamente al curso siguiente o modificar cada perfil desde la vista individual del alumnado.</p>
+          <button type="button" id="promoteStudentsButton" class="secondary-button" data-i18n="promoteStudentsButton">Promocionar alumnado al curso siguiente</button>
+          <p id="promotionMessage" class="feedback" role="status" aria-live="polite"></p>
+        </article>
+
+
+
+        <article id="teacherRecoveryPanel" class="panel teacher-window-source hidden" aria-labelledby="teacherRecoveryTitle">
+          <p class="eyebrow" data-i18n="security">Seguridad</p>
+          <h2 id="teacherRecoveryTitle" data-i18n="passwordHelpRequests">Recuperación de contraseñas</h2>
+          <p class="form-help" data-i18n="passwordHelpTeacherHelp">Solicitudes internas del alumnado para que puedas asignar una contraseña nueva desde Supabase.</p>
+          <div id="teacherRecoveryList" class="detail-list"></div>
+        </article>
 
         <section class="teacher-grid teacher-collapsible teacher-window-source-group">
           <article id="teacherPostToolPanel" class="panel classroom-composer teacher-window-source" aria-labelledby="createPostTitle">
@@ -318,6 +438,19 @@
               <label for="teacherSubject" data-i18n="subject">Asignatura</label>
               <select id="teacherSubject" required></select>
 
+              <fieldset class="student-picker teacher-targeting-box">
+                <legend data-i18n="targetBySchool">Destinatarios por centro y curso</legend>
+                <p class="form-help" data-i18n="targetBySchoolHelp">Elige centro educativo, tipo de estudios y curso. Después puedes quitar o añadir alumnado de forma manual.</p>
+                <div class="filter-grid">
+                  <label for="teacherFilterCenter"><span data-i18n="schoolCenter">Centro educativo</span><select id="teacherFilterCenter"></select></label>
+                  <label for="teacherFilterAcademicCourse"><span data-i18n="academicCourse">Curso</span><select id="teacherFilterAcademicCourse"></select></label>
+                </div>
+                <div class="assignment-actions">
+                  <button type="button" id="applyStudentFilterButton" class="secondary-button" data-i18n="selectMatchingStudents">Seleccionar coincidencias</button>
+                  <button type="button" id="clearStudentFilterButton" class="secondary-button" data-i18n="clearSelection">Limpiar selección</button>
+                </div>
+              </fieldset>
+
               <div class="unit-assignment-box">
                 <label for="teacherUnitMode">Unidad didáctica</label>
                 <select id="teacherUnitMode">
@@ -335,7 +468,9 @@
 
               <label for="teacherPostType" data-i18n="type">Tipo</label>
               <select id="teacherPostType" required>
-                <option value="announcement" data-i18n="postTypeAnnouncement">Publicación</option>
+                <option value="announcement" data-i18n="postTypeAnnouncement">Anuncio</option>
+                <option value="news" data-i18n="postTypeNews">Noticia</option>
+                <option value="notice" data-i18n="postTypeNotice">Aviso</option>
                 <option value="notes" data-i18n="postTypeNotes">Apuntes</option>
                 <option value="worksheet" data-i18n="postTypeWorksheet">Boletín</option>
                 <option value="interactive_test" data-i18n="postTypeTest">Test interactivo</option>
@@ -380,7 +515,7 @@
             </form>
           </article>
 
-          <article class="panel" aria-labelledby="subjectCoverTitle">
+          <article id="subjectCoverPanel" class="panel teacher-window-source hidden" aria-labelledby="subjectCoverTitle">
             <p class="eyebrow" data-i18n="subjects">Materias</p>
             <h2 id="subjectCoverTitle" data-i18n="subjectImage">Imagen de asignatura</h2>
 
@@ -425,15 +560,15 @@
               <label for="teacherEventDescription" data-i18n="description">Descripción</label>
               <textarea id="teacherEventDescription" rows="3"></textarea>
 
-              <p class="form-help" data-i18n="teacherEventHelp">Los eventos publicados por la profesora serán visibles para todo el alumnado.</p>
-              <div id="teacherEventStudentsList" class="checkbox-grid hidden"></div>
+              <p class="form-help" data-i18n="teacherEventHelp">Los eventos pueden asignarse al alumnado seleccionado. Si no marcas a nadie, se asignarán a todo el alumnado.</p>
+              <div id="teacherEventStudentsList" class="checkbox-grid"></div>
 
               <button type="submit" class="primary-button" data-i18n="addDate">Añadir fecha</button>
               <p id="teacherEventMessage" class="feedback" role="status" aria-live="polite"></p>
             </form>
           </article>
 
-          <article class="panel" aria-labelledby="assignBadgeTitle">
+          <article id="teacherBadgePanel" class="panel teacher-window-source hidden" aria-labelledby="assignBadgeTitle">
             <p class="eyebrow" data-i18n="badges">Insignias</p>
             <h2 id="assignBadgeTitle" data-i18n="assignBadge">Asignar insignia</h2>
 
@@ -453,7 +588,7 @@
           </article>
         </section>
 
-        <section class="panel teacher-god-panel teacher-collapsible" aria-labelledby="teacherOverviewTitle">
+        <section id="teacherOverviewPanel" class="panel teacher-god-panel teacher-window-source hidden" aria-labelledby="teacherOverviewTitle">
           <p class="eyebrow" data-i18n="teacherMode">Modo docente</p>
           <h2 id="teacherOverviewTitle" data-i18n="teacherOverview">Vista general de aula</h2>
           <div class="teacher-dashboard-cards">
@@ -479,10 +614,10 @@
         <section class="panel teacher-student-hub teacher-collapsible" aria-labelledby="teacherStudentHubTitle">
           <p class="eyebrow" data-i18n="studentProfiles">Perfiles del alumnado</p>
           <h2 id="teacherStudentHubTitle" data-i18n="studentOverview">Vista individual del alumnado</h2>
-          <p class="form-help" data-i18n="studentOverviewHelp">Consulta de forma rápida sus eventos, publicaciones asignadas y mensajes relacionados contigo.</p>
-          <label for="teacherStudentFocusSelect" data-i18n="student">Alumno/a</label>
-          <select id="teacherStudentFocusSelect"></select>
-          <div id="teacherStudentFocusBody" class="student-focus-body"></div>
+          <p class="form-help" data-i18n="studentOverviewHelp">Vista rápida del alumnado. Haz clic en una tarjeta para abrir su ficha completa.</p>
+          <label for="teacherStudentFocusSelect" class="visually-hidden" data-i18n="student">Alumno/a</label>
+          <select id="teacherStudentFocusSelect" class="visually-hidden"></select>
+          <div id="teacherStudentFocusBody" class="student-card-grid"></div>
         </section>
 
         <section id="teacherGroupsPanel" class="panel teacher-collapsible teacher-window-source" aria-labelledby="teacherGroupsTitle">
@@ -519,11 +654,16 @@
           <div id="teacherMonthGrid" class="month-grid"></div>
         </section>
 
-        <section class="panel teacher-collapsible" aria-labelledby="teacherPostsTitle">
-          <p class="eyebrow" data-i18n="history">Historial</p>
-          <h2 id="teacherPostsTitle" data-i18n="posts">Publicaciones</h2>
+        <section id="teacherChronologicalFeedPanel" class="panel teacher-feed-panel is-collapsed" aria-labelledby="teacherPostsTitle">
+          <div class="section-heading-row">
+            <div>
+              <p class="eyebrow" data-i18n="teacherFeed">Muro cronológico</p>
+              <h2 id="teacherPostsTitle" data-i18n="teacherFeedTitle">Publicaciones recientes</h2>
+            </div>
+            <button type="button" id="toggleTeacherFeedButton" class="secondary-button feed-toggle-button" aria-expanded="false">⌄</button>
+          </div>
           <button type="button" id="deleteSelectedPostsButton" class="secondary-button" data-i18n="deleteSelected">Borrar seleccionadas</button>
-          <div id="teacherPostsList" class="feed-list"></div>
+          <div id="teacherPostsList" class="feed-list teacher-feed-list"></div>
         </section>
       </section>
 
@@ -631,6 +771,22 @@
     </aside>
   </main>
 
+  <section id="studentSchoolPanel" class="panel hidden floating-source-panel" aria-labelledby="studentSchoolPanelTitle">
+    <p class="eyebrow" data-i18n="schoolProfile">Perfil escolar</p>
+    <h2 id="studentSchoolPanelTitle" data-i18n="schoolProfileTitle">Centro, etapa y curso</h2>
+    <p class="form-help" data-i18n="schoolProfileIntro">Mantén actualizados estos datos para que las publicaciones y avisos lleguen bien.</p>
+    <form id="studentSchoolForm" class="teacher-form">
+      <label for="studentSchoolCenterSelect" data-i18n="schoolCenter">Centro educativo</label>
+      <select id="studentSchoolCenterSelect" required></select>
+      <label for="studentEducationalStageSelect" data-i18n="educationalStage">Etapa educativa</label>
+      <select id="studentEducationalStageSelect" required></select>
+      <label for="studentAcademicCourseSelect" data-i18n="academicCourse">Curso</label>
+      <select id="studentAcademicCourseSelect" required></select>
+      <button type="submit" class="primary-button" data-i18n="saveSchoolProfile">Guardar perfil escolar</button>
+      <p id="studentSchoolMessage" class="feedback" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
   <section id="studentBadgesPanel" class="panel hidden floating-source-panel" aria-labelledby="studentBadgesPanelTitle">
     <p class="eyebrow" data-i18n="myBadges">Mis insignias</p>
     <h2 id="studentBadgesPanelTitle" data-i18n="badgeDetailTitle">Detalle de insignias</h2>
@@ -682,6 +838,16 @@
     <div id="gradeRecordsList" class="detail-list"></div>
   </section>
 
+
+  <section id="notificationCenterPanel" class="panel hidden floating-source-panel" aria-labelledby="notificationCenterTitle">
+    <p class="eyebrow" data-i18n="notifications">Notificaciones</p>
+    <h2 id="notificationCenterTitle" data-i18n="notificationCenter">Centro de notificaciones</h2>
+    <p class="form-help" data-i18n="notificationCenterHelp">Avisos internos de Tribeca Aula. Cada aviso indica el tipo, la fecha y la sección relacionada.</p>
+    <div class="message-actions-row">
+      <button type="button" id="markAllNotificationsReadButton" class="secondary-button" data-i18n="markAllRead">Marcar todas como leídas</button>
+    </div>
+    <div id="notificationList" class="notification-list"></div>
+  </section>
 
   <div id="subjectModal" class="modal-overlay subject-window-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="subjectModalTitle">
     <div class="modal-card subject-modal-card">

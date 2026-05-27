@@ -1,0 +1,55 @@
+TRIBECA AULA - ALERTAS DOCENTES, CENTROS EDUCATIVOS Y CALENDARIO
+
+Archivos incluidos:
+- index.html
+- style.css
+- script.js
+- supabase_migracion_alertas_centros_calendario.sql
+
+Orden de instalación:
+
+1. En Supabase, abre SQL Editor y ejecuta completo:
+   supabase_migracion_alertas_centros_calendario.sql
+
+2. En tu carpeta local de Tribeca Aula, sustituye estos tres archivos por los nuevos:
+   - index.html
+   - style.css
+   - script.js
+
+3. Publica en Netlify como hasta ahora:
+   crea una carpeta limpia con solo index.html, style.css y script.js, y arrástrala al apartado Deploys del sitio ya creado.
+
+4. Comprueba en la web publicada:
+   - login de profesora
+   - login de alumno/a
+   - cabecera con curso escolar automático
+   - tarjeta de centro educativo en el panel del alumnado
+   - vista de alertas docentes
+   - edición de centro, etapa, curso y tipo de estudios desde el perfil del alumno y desde la vista de profesora
+   - filtrado de destinatarios al crear publicaciones por centro, tipo de estudios y curso
+   - calendario con eventos generales, escolares y festivos
+
+Cambios principales:
+
+- Añadida vista de alertas docentes sobria:
+  alumnado sin entrar en varios días, materias difíciles, calificaciones bajas recientes y publicaciones pendientes.
+
+- Sustituida la tarjeta "Mi curso" por "Mi centro educativo".
+  Al abrirla se puede modificar centro, etapa, curso y tipo de estudios.
+
+- Añadida edición de datos escolares desde la vista de profesora de cada alumno/a.
+
+- Añadida promoción automática del alumnado al curso siguiente.
+  Después de usarla conviene revisar manualmente los perfiles individuales.
+
+- Añadido curso escolar automático en la cabecera:
+  de septiembre a junio muestra el curso actual; en julio y agosto muestra preparación del curso venidero.
+
+- Añadidos centros educativos de referencia de Costa da Morte.
+
+- Añadido filtrado de publicaciones por centro educativo, tipo de estudios, curso y selección manual de alumnado.
+
+- Añadidos eventos de calendario escolar 2026/27 y festivos 2026 de referencia para Galicia, Cee y Corcubión.
+
+Nota importante:
+Los eventos de calendario se insertan como eventos visibles para todo el alumnado. Las notas del evento indican cuándo afectan específicamente a Cee, Corcubión, Tribeca Aula o a los centros mencionados.

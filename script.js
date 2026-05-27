@@ -1386,6 +1386,210 @@ Object.keys(i18n).forEach(function (lang) {
   }, i18n[lang]);
 });
 
+Object.keys(i18n).forEach(function (lang) {
+  i18n[lang] = Object.assign({
+    academicYear: "Curso {year}",
+    academicYearPreparation: "Preparación del curso {year}",
+    mySchoolCenter: "Mi centro educativo",
+    openSchoolProfileHint: "Ver o modificar centro, etapa y curso",
+    schoolProfile: "Perfil escolar",
+    schoolProfileTitle: "Centro, etapa y curso",
+    schoolProfileIntro: "Mantén actualizados estos datos para que las publicaciones y avisos lleguen bien.",
+    schoolCenter: "Centro educativo",
+    studyType: "Tipo de estudios",
+    educationalStage: "Etapa educativa",
+    academicCourse: "Curso",
+    saveSchoolProfile: "Guardar perfil escolar",
+    schoolProfileSaved: "Perfil escolar guardado.",
+    targetBySchool: "Destinatarios por centro y curso",
+    targetBySchoolHelp: "Elige centro educativo, tipo de estudios y curso. Después puedes quitar o añadir alumnado manualmente.",
+    selectMatchingStudents: "Seleccionar coincidencias",
+    teacherAlertsTitle: "Alertas docentes",
+    teacherAlertsHelp: "Vista sobria para priorizar seguimiento: alumnado sin entrar, materias difíciles, calificaciones bajas y publicaciones pendientes.",
+    teacherAlertsHelpShort: "Inactividad, dificultades, calificaciones bajas y tareas pendientes.",
+    inactiveStudents: "Sin entrar en varios días",
+    difficultSubjectAlerts: "Materias marcadas como difíciles",
+    lowGradeAlerts: "Calificaciones bajas recientes",
+    pendingPostsAlerts: "Publicaciones pendientes",
+    noTeacherAlerts: "No hay alertas relevantes ahora mismo.",
+    daysWithoutLogin: "{count} día(s) sin entrar",
+    pendingCount: "{count} pendiente(s)",
+    promotionToolTitle: "Cambio de curso",
+    promotionToolHelp: "Puedes promocionar automáticamente al curso siguiente o modificar cada perfil desde la vista individual del alumnado.",
+    promoteStudentsButton: "Promocionar alumnado al curso siguiente",
+    promoteConfirm: "¿Seguro que quieres promocionar automáticamente al curso siguiente al alumnado con curso reconocido?",
+    promotionDone: "Promoción realizada. Revisa los perfiles individuales antes de comenzar el nuevo curso.",
+    studentSchoolData: "Datos escolares",
+    saveStudentSchoolData: "Guardar datos escolares",
+    promoted: "Curso actualizado.",
+    unassigned: "Sin asignar",
+    allCenters: "Todos los centros",
+    allStudyTypes: "Todos los estudios",
+    allCourses: "Todos los cursos"
+  }, i18n[lang]);
+});
+
+
+const tribecaInterfaceLabels = {
+    // Mantener traducciones propias si existen, pero asegurar que no aparezcan claves técnicas en la interfaz.
+    teacherTools: "Herramientas de profesora",
+    teacherToolsHelp: "Accesos compactos. Cada apartado se abre en una ventana de trabajo.",
+    teacherMode: "Modo docente",
+    teacherOverview: "Vista general del aula",
+    teacherOverviewHelpShort: "Resumen rápido de alumnado, publicaciones, grupos y mensajes.",
+    newPostHelp: "Crear anuncios, noticias, avisos, materiales y tareas.",
+    newDateHelp: "Publicar exámenes, entregas, avisos y excursiones.",
+    studentGroups: "Grupos de alumnado",
+    studentGroupsHelp: "Organiza el alumnado por grupos para asignar materiales con rapidez.",
+    studentGroupsHelpShort: "Crear y revisar grupos de alumnado.",
+    classroomActivityTitle: "Qué ha ocurrido en el aula",
+    recentActivity: "Actividad reciente",
+    recentActivityHelp: "Últimos accesos, publicaciones consultadas, actividades completadas y cambios relevantes.",
+    recentActivityHelpShort: "Accesos, publicaciones consultadas y actividad reciente.",
+    classroomChats: "Chats del aula",
+    teacherSupervision: "Supervisión docente",
+    teacherSupervisionHelp: "Panel visible solo para la profesora. Úsalo para seguimiento educativo y organización del aula.",
+    teacherSupervisionHelpShort: "Conversaciones educativas abiertas con el alumnado.",
+    subjectImageHelpShort: "Cambiar imagen de una materia.",
+    badgeToolHelpShort: "Asignar insignias y reconocer avances.",
+    passwordHelpRequests: "Solicitudes de recuperación de contraseña",
+    passwordHelpRequestsShort: "Alumnado que necesita una contraseña nueva.",
+    passwordHelpTeacherHelp: "Estas solicitudes te avisan para restablecer la contraseña y comunicar una nueva al alumno o alumna.",
+    notificationCenter: "Centro de notificaciones",
+    notificationCenterHelp: "Avisos internos de Tribeca Aula. Cada aviso enlaza con la sección correspondiente.",
+    notifications: "Notificaciones",
+    markAllRead: "Marcar todo como leído",
+    noNotifications: "No hay notificaciones pendientes.",
+    openSection: "Ver apartado",
+    notificationNewPost: "Nueva publicación",
+    notificationNewTask: "Nueva tarea",
+    notificationNewCorrection: "Nueva corrección",
+    notificationNewMessage: "Nuevo mensaje",
+    notificationNewMaterial: "Nuevo material",
+    notificationNewEvent: "Nuevo evento",
+    notificationPendingTask: "Tarea pendiente",
+    notificationExam: "Examen o recordatorio",
+    notificationAchievement: "Logro conseguido",
+    notificationGeneral: "Aviso general",
+    notificationPassword: "Contraseña",
+    notificationQuickNeed: "Mensaje rápido",
+    noPasswordRequests: "No hay solicitudes de recuperación de contraseña.",
+    myAccount: "Mi cuenta",
+    security: "Seguridad",
+    securityHelp: "Gestiona el acceso a tu cuenta y pide ayuda si necesitas una nueva contraseña.",
+    requestPasswordHelp: "Solicitar ayuda para recuperar contraseña",
+    passwordHelpSent: "Solicitud enviada a la profesora. Te dará una nueva contraseña cuando la revise.",
+    passwordHelpAlreadySent: "Ya tienes una solicitud pendiente.",
+    profilePhotoHelp: "Formatos admitidos: PNG, JPG o WEBP. Tamaño máximo: 2 MB. La imagen debe ser clara y respetuosa.",
+    deleteProfilePhoto: "Eliminar foto de perfil",
+    profilePhotoUploaded: "Foto de perfil subida correctamente.",
+    profilePhotoDeleted: "Foto de perfil eliminada correctamente.",
+    profilePhotoDeleteError: "No se pudo eliminar la foto de perfil.",
+    profilePhotoInvalidType: "La imagen debe ser PNG, JPG o WEBP.",
+    profilePhotoTooLarge: "La imagen supera el tamaño máximo de 2 MB.",
+    profilePhotoUploadError: "No se pudo subir la imagen de perfil.",
+    emailNotifications: "Notificaciones por email",
+    emailNoticeHelp: "El email solo servirá como aviso. No se enviarán notas, mensajes privados ni información sensible en el correo.",
+    receiveEmailAlerts: "Recibir avisos por email",
+    studentEmail: "Email del alumno/a",
+    familyEmail: "Email familiar",
+    sendAlertsTo: "Enviar avisos a",
+    toStudent: "Al alumno/a",
+    toFamily: "A la familia",
+    toBoth: "A ambos",
+    frequency: "Frecuencia",
+    immediate: "Inmediata",
+    dailySummary: "Resumen diario",
+    weeklySummary: "Resumen semanal",
+    noEmails: "No recibir emails",
+    emailAlertTypes: "Tipos de aviso",
+    saveEmailPrefs: "Guardar preferencias de email",
+    emailPrefsSaved: "Preferencias de email guardadas.",
+    quickMessageTeacher: "Mensaje rápido a la profesora",
+    quickMessageHelp: "Elige una necesidad y añade un mensaje breve si lo necesitas. Máximo 300 caracteres.",
+    whatDoYouNeed: "¿Qué necesitas?",
+    needQuestion: "Tengo una duda",
+    needExplanation: "No entendí la última explicación",
+    needReview: "Necesito repasar este tema",
+    needOrganization: "Me cuesta organizarme",
+    needExercises: "Quiero más ejercicios",
+    needStart: "No sé por dónde empezar",
+    needTalk: "Quiero comentar algo con la profesora",
+    briefMessage: "Mensaje breve",
+    sendQuickMessage: "Enviar mensaje rápido",
+    quickNeedSent: "Mensaje enviado a la profesora.",
+    myActivity: "Mi actividad",
+    lastAccess: "Último acceso",
+    currentSession: "Sesión actual",
+    officialName: "Nombre oficial",
+    visibleName: "Nombre visible",
+    accessEmail: "Email de acceso",
+    accountCreated: "Fecha de alta",
+    currentCourse: "Curso actual",
+    assignedSubjects: "Materias asignadas",
+    teacherAlertsTitle: "Alertas docentes",
+    teacherAlertsHelp: "Vista sobria para priorizar seguimiento: alumnado sin entrar, materias difíciles, calificaciones bajas y publicaciones pendientes.",
+    teacherAlertsHelpShort: "Inactividad, dificultades, calificaciones bajas y tareas pendientes.",
+    teacherFeed: "Feed docente",
+    teacherFeedTitle: "Feed de noticias y anuncios",
+    latestFeedPosts: "Feed de noticias y anuncios",
+    feed: "Feed",
+    noFeedPosts: "Todavía no hay noticias, anuncios ni avisos.",
+    postTypeAnnouncement: "Anuncio",
+    postTypeNews: "Noticia",
+    postTypeNotice: "Aviso",
+    postTypeNotes: "Material o recurso",
+    newMaterialAvailable: "Nuevo material disponible ({count})",
+    mySchoolCenter: "Mi centro educativo",
+    schoolProfile: "Perfil escolar",
+    schoolProfileTitle: "Centro, etapa y curso",
+    schoolProfileIntro: "Mantén actualizados estos datos para que las publicaciones y avisos lleguen bien.",
+    schoolCenter: "Centro educativo",
+    educationalStage: "Etapa educativa",
+    academicCourse: "Curso",
+    saveSchoolProfile: "Guardar perfil escolar",
+    targetBySchool: "Destinatarios por centro, etapa y curso",
+    targetBySchoolHelp: "Elige centro educativo, etapa y curso. Después puedes quitar o añadir alumnado manualmente.",
+    allEducationalStages: "Todas las etapas",
+    teacherStudentNeeds: "Materias con dificultades",
+    teacherStudentGrades: "Calificaciones registradas",
+    noStudentNeeds: "No indicó materias con dificultad especial.",
+    noStudentGrades: "No registró calificaciones.",
+    myStatus: "Mi estado",
+    statusOnline: "Conectado",
+    statusStudying: "Estudiando",
+    statusWorking: "Trabajando",
+    statusOffline: "Desconectado",
+    sound: "Sonido",
+    openConversation: "Abrir conversación",
+    openMessages: "Abrir mensajes",
+    openCalendar: "Abrir calendario",
+    openUnreadMessages: "Abrir mensajes no leídos",
+    internalMailbox: "Buzón interno",
+    unreadMessages: "Mensajes no leídos",
+    deleteSelectedInbox: "Borrar seleccionados",
+    markAsRead: "Marcar como leído",
+    quickEmojis: "Emojis rápidos",
+    nudge: "👋 Toque",
+    noRelatedItems: "No hay elementos relacionados todavía.",
+    assignedWork: "Trabajos y publicaciones",
+    relatedEvents: "Eventos relacionados",
+    relatedMessages: "Mensajes",
+    studentProfiles: "Perfiles del alumnado",
+    studentOverview: "Vista individual del alumnado",
+    studentOverviewHelp: "Abre cada ficha para consultar centro, curso, publicaciones, mensajes, calificaciones, necesidades y últimos movimientos.",
+    openBadgesHint: "Ver insignias",
+    openDifficultSubjectsHint: "Ver o actualizar",
+    openGradesHint: "Ver calificaciones",
+    openSchoolProfileHint: "Ver o modificar centro, etapa y curso"
+};
+Object.keys(i18n).forEach(function (lang) {
+  i18n[lang] = Object.assign({}, tribecaInterfaceLabels, i18n[lang]);
+  if (lang === "es") {
+    i18n[lang] = Object.assign({}, i18n[lang], tribecaInterfaceLabels);
+  }
+});
+
 const loginForm = document.getElementById("loginForm");
 const loginButton = document.getElementById("loginButton");
 const loginError = document.getElementById("loginError");
@@ -1408,10 +1612,34 @@ const profileNickname = document.getElementById("profileNickname");
 const profileNewPassword = document.getElementById("profileNewPassword");
 const profileRepeatPassword = document.getElementById("profileRepeatPassword");
 const profileAvatarFile = document.getElementById("profileAvatarFile");
+const deleteProfilePhotoButton = document.getElementById("deleteProfilePhotoButton");
 const profileAvatarPreview = document.getElementById("profileAvatarPreview");
 const profileNamePreview = document.getElementById("profileNamePreview");
 const avatarChoiceList = document.getElementById("avatarChoiceList");
 const profileMessage = document.getElementById("profileMessage");
+const profileAccountInfo = document.getElementById("profileAccountInfo");
+const requestPasswordHelpButton = document.getElementById("requestPasswordHelpButton");
+const passwordHelpMessage = document.getElementById("passwordHelpMessage");
+const emailPrefsForm = document.getElementById("emailPrefsForm");
+const emailPrefsEnabled = document.getElementById("emailPrefsEnabled");
+const emailPrefsStudent = document.getElementById("emailPrefsStudent");
+const emailPrefsFamily = document.getElementById("emailPrefsFamily");
+const emailPrefsRecipient = document.getElementById("emailPrefsRecipient");
+const emailPrefsFrequency = document.getElementById("emailPrefsFrequency");
+const emailPrefsTypes = document.getElementById("emailPrefsTypes");
+const emailPrefsMessage = document.getElementById("emailPrefsMessage");
+const studentActivitySummary = document.getElementById("studentActivitySummary");
+const quickNeedForm = document.getElementById("quickNeedForm");
+const quickNeedType = document.getElementById("quickNeedType");
+const quickNeedText = document.getElementById("quickNeedText");
+const quickNeedCounter = document.getElementById("quickNeedCounter");
+const quickNeedMessage = document.getElementById("quickNeedMessage");
+const privacyPrefsForm = document.getElementById("privacyPrefsForm");
+const privacyPlatformUse = document.getElementById("privacyPlatformUse");
+const privacyEmailContact = document.getElementById("privacyEmailContact");
+const privacyFamilyContact = document.getElementById("privacyFamilyContact");
+const privacyProfileImage = document.getElementById("privacyProfileImage");
+const privacyPrefsMessage = document.getElementById("privacyPrefsMessage");
 
 const studentDashboardSection = document.getElementById("studentDashboardSection");
 const teacherDashboardSection = document.getElementById("teacherDashboardSection");
@@ -1448,6 +1676,15 @@ const gradeNoteInput = document.getElementById("gradeNoteInput");
 const gradeRecordMessage = document.getElementById("gradeRecordMessage");
 const gradeRecordsList = document.getElementById("gradeRecordsList");
 const gradesSummary = document.getElementById("gradesSummary");
+const studentSchoolCard = document.getElementById("studentSchoolCard");
+const studentSchoolPanel = document.getElementById("studentSchoolPanel");
+const studentSchoolForm = document.getElementById("studentSchoolForm");
+const studentSchoolCenterSelect = document.getElementById("studentSchoolCenterSelect");
+const studentStudyTypeSelect = document.getElementById("studentStudyTypeSelect");
+const studentEducationalStageSelect = document.getElementById("studentEducationalStageSelect");
+const studentAcademicCourseSelect = document.getElementById("studentAcademicCourseSelect");
+const studentSchoolMessage = document.getElementById("studentSchoolMessage");
+const academicYearBanner = document.getElementById("academicYearBanner");
 
 const subjectsContainer = document.getElementById("subjectsContainer");
 const studentEventSubject = document.getElementById("studentEventSubject");
@@ -1528,6 +1765,17 @@ const teacherStudentFocusSelect = document.getElementById("teacherStudentFocusSe
 const teacherStudentFocusBody = document.getElementById("teacherStudentFocusBody");
 const openTeacherMessagesButton = document.getElementById("openTeacherMessagesButton");
 const openTeacherCalendarButton = document.getElementById("openTeacherCalendarButton");
+const teacherFilterCenter = document.getElementById("teacherFilterCenter");
+const teacherFilterStudyType = document.getElementById("teacherFilterStudyType");
+const teacherFilterAcademicCourse = document.getElementById("teacherFilterAcademicCourse");
+const applyStudentFilterButton = document.getElementById("applyStudentFilterButton");
+const clearStudentFilterButton = document.getElementById("clearStudentFilterButton");
+const teacherAlertsList = document.getElementById("teacherAlertsList");
+const promoteStudentsButton = document.getElementById("promoteStudentsButton");
+const promotionMessage = document.getElementById("promotionMessage");
+const teacherRecoveryList = document.getElementById("teacherRecoveryList");
+const teacherChronologicalFeedPanel = document.getElementById("teacherChronologicalFeedPanel");
+const toggleTeacherFeedButton = document.getElementById("toggleTeacherFeedButton");
 
 const coverSubjectSelect = document.getElementById("coverSubjectSelect");
 const coverImageFile = document.getElementById("coverImageFile");
@@ -1568,6 +1816,11 @@ const messageUnreadBadge = document.getElementById("messageUnreadBadge");
 const messageUnreadNotice = document.getElementById("messageUnreadNotice");
 const quickUnreadBadge = document.getElementById("quickUnreadBadge");
 const quickUpcomingBadge = document.getElementById("quickUpcomingBadge");
+const quickNotificationsLink = document.getElementById("quickNotificationsLink");
+const quickNotificationsBadge = document.getElementById("quickNotificationsBadge");
+const notificationCenterPanel = document.getElementById("notificationCenterPanel");
+const notificationList = document.getElementById("notificationList");
+const markAllNotificationsReadButton = document.getElementById("markAllNotificationsReadButton");
 const quickUpcomingLink = document.getElementById("quickUpcomingLink");
 const markMessagesReadButton = document.getElementById("markMessagesReadButton");
 const openUnreadMessagesButton = document.getElementById("openUnreadMessagesButton");
@@ -1607,6 +1860,13 @@ let currentUnits = [];
 let currentPostCompletions = [];
 let currentDifficultSubjects = [];
 let currentGradeRecords = [];
+let schoolCenters = [];
+let platformNotifications = [];
+let emailPreferences = null;
+let privacyPreferences = null;
+let teacherPasswordRequests = [];
+let teacherQuickHelpRequests = [];
+let studentAvatarUrlCache = new Map();
 
 let teacherSubjects = [];
 let teacherStudents = [];
@@ -1653,17 +1913,85 @@ let refreshTimer = null;
 let chatFastRefreshTimer = null;
 
 const avatarChoices = [
-  "💡", "📚", "🌟", "🌍", "🧠", "🎨", "🚀", "😎",
-  "🐱", "🐶", "🦊", "🐼", "🦉", "🦋", "🌙", "☀️",
-  "🍀", "🌸", "⚡", "🎯", "🧩", "🎧", "📝", "🔬",
-  "🗺️", "🏆", "💎", "🪐", "🐝", "🧸", "🎮", "🎬"
+  "💡", "📚", "🌟", "🌍", "🧠", "🎨", "🚀", "😎", "😊", "🙂", "🤓", "🥳",
+  "🐱", "🐶", "🦊", "🐼", "🦉", "🦋", "🐢", "🐬", "🐳", "🦄", "🐝", "🧸",
+  "🌙", "☀️", "🍀", "🌸", "🌻", "⭐", "⚡", "🔥", "❄️", "🌈", "🌊", "🌲",
+  "🎯", "🧩", "🎧", "📝", "🔬", "🧪", "📐", "🧮", "🗺️", "🧭", "💬", "✏️",
+  "🏆", "💎", "🪐", "🎮", "🎬", "🎭", "🎹", "⚽", "🏀", "🏐", "🚴", "⛵",
+  "🍎", "🍓", "🍉", "🍕", "🥐", "🧁", "🪴", "🏰", "🛸", "🕹️", "📖", "🎒"
 ];
+
+
+const PROFILE_IMAGE_MAX_BYTES = 2 * 1024 * 1024;
+const FEED_POST_TYPES = ["announcement", "news", "notice"];
+const MATERIAL_POST_TYPES = ["notes"];
+function materialSeenStorageKey(postId) {
+  return `tribecaMaterialSeen:${currentUserId || "anon"}:${postId}`;
+}
+function isMaterialPostSeen(postId) {
+  try { return localStorage.getItem(materialSeenStorageKey(postId)) === "1"; } catch (e) { return false; }
+}
+function markMaterialPostSeen(postId) {
+  try { localStorage.setItem(materialSeenStorageKey(postId), "1"); } catch (e) {}
+}
 
 const GALICIA_HOLIDAYS_2026 = new Set([
   "2026-01-01", "2026-01-06", "2026-03-19", "2026-04-02",
   "2026-04-03", "2026-05-01", "2026-06-24", "2026-07-25",
   "2026-08-15", "2026-10-12", "2026-12-08", "2026-12-25"
 ]);
+
+const TRIBECA_SCHOOL_CENTERS = [
+  { name: "CEIP Plurilingüe de Ponte do Porto", locality: "Ponte do Porto, Camariñas", offer: "Infantil y Primaria" },
+  { name: "CEIP O Areal", locality: "Camariñas", offer: "Infantil y Primaria" },
+  { name: "CEIP de Camelle", locality: "Camelle, Camariñas", offer: "Infantil y Primaria" },
+  { name: "IES Pedra da Aguia", locality: "Ponte do Porto, Camariñas", offer: "ESO, Bachillerato y FP" },
+  { name: "CEIP do Pindo", locality: "O Pindo, Carnota", offer: "Infantil y Primaria" },
+  { name: "CEIP Plurilingüe de Carnota", locality: "Carnota", offer: "Infantil y Primaria" },
+  { name: "IES Lamas de Castelo", locality: "Carnota", offer: "ESO y Bachillerato" },
+  { name: "EEI da Pereiriña", locality: "A Pereiriña, Cee", offer: "Infantil" },
+  { name: "CEIP de Brens", locality: "Brens, Cee", offer: "Infantil y Primaria" },
+  { name: "CEIP Plurilingüe Vila de Cee", locality: "Cee", offer: "Infantil y Primaria" },
+  { name: "IES Agra de Raíces", locality: "Cee", offer: "ESO, Bachillerato, FP sanitaria, idiomas" },
+  { name: "IES Fernando Blanco", locality: "Cee", offer: "ESO, Bachillerato, FP industrial, administrativa y automoción" },
+  { name: "CPR Plurilingüe Manuela Rial Mouzo", locality: "Cee", offer: "Infantil, Primaria y ESO" },
+  { name: "CEIP Praia de Quenxe", locality: "Corcubión", offer: "Infantil y Primaria" },
+  { name: "CEIP Plurilingüe Santa Eulalia de Dumbría", locality: "Dumbría", offer: "Infantil y Primaria" },
+  { name: "CEIP Mar de Fóra", locality: "Fisterra", offer: "Infantil y Primaria" },
+  { name: "CEIP Areouta", locality: "Sardiñeiro, Fisterra", offer: "Infantil y Primaria" },
+  { name: "IES Fin do Camiño", locality: "Fisterra", offer: "ESO y Bachillerato" },
+  { name: "CPR Ntra. Sra. del Carmen", locality: "Fisterra", offer: "Infantil, Primaria y ESO" },
+  { name: "CPI Plurilingüe da Picota", locality: "Mazaricos", offer: "Infantil, Primaria y ESO" },
+  { name: "CEIP San Cosme de Antes", locality: "Antes, Mazaricos", offer: "Infantil y Primaria" },
+  { name: "CEIP de Vilarmide-Eduardo Noya", locality: "Muxía", offer: "Infantil y Primaria" },
+  { name: "CEIP dos Muíños", locality: "Moraime, Muxía", offer: "Infantil y Primaria" },
+  { name: "CEIP Virxe da Barca", locality: "Muxía", offer: "Infantil y Primaria" },
+  { name: "IES Ramón Caamaño", locality: "Muxía", offer: "ESO" },
+  { name: "EEI de Carantoña", locality: "Carantoña, Vimianzo", offer: "Infantil" },
+  { name: "CEIP Baíñas", locality: "Baíñas, Vimianzo", offer: "Infantil y Primaria" },
+  { name: "CEIP Plurilingüe San Vicenzo", locality: "Vimianzo", offer: "Infantil y Primaria" },
+  { name: "IES Terra de Soneira", locality: "Vimianzo", offer: "ESO, Bachillerato, FP Administración" },
+  { name: "CPI de Zas", locality: "Zas", offer: "Infantil, Primaria y ESO" },
+  { name: "CEIP Labarta Pose", locality: "Baio, Zas", offer: "Infantil y Primaria" },
+  { name: "IES Maximino Romero de Lema", locality: "Baio, Zas", offer: "ESO, Bachillerato, FP Informática" }
+];
+
+const STUDY_TYPES = ["Infantil", "Primaria", "ESO", "Bachillerato", "FP básica", "FP grado medio", "FP grado superior", "Grado universitario", "Máster universitario", "Idiomas", "Otros"];
+const EDUCATIONAL_STAGES = ["Infantil", "Primaria", "ESO", "Bachillerato", "Formación Profesional", "Universidad", "Máster", "Idiomas", "Otros"];
+const ACADEMIC_COURSES = ["1º Infantil", "2º Infantil", "3º Infantil", "1º Primaria", "2º Primaria", "3º Primaria", "4º Primaria", "5º Primaria", "6º Primaria", "1º ESO", "2º ESO", "3º ESO", "4º ESO", "1º Bachillerato", "2º Bachillerato", "1º FP", "2º FP", "1º Universidad", "2º Universidad", "3º Universidad", "4º Universidad", "Máster", "Otros"];
+
+const EMAIL_NOTIFICATION_TYPES = [
+  "new_post", "new_task", "pending_task", "deadline", "correction", "message", "material", "event", "exam", "general", "achievement"
+];
+
+const NOTIFICATION_SECTION_MAP = {
+  feed: "studentWallPanel",
+  calendar: "calendar",
+  messages: "messages",
+  badges: "badges",
+  profile: "profile",
+  subjects: "subjectsPanel"
+};
 
 const localeMap = {
   es: "es-ES",
@@ -1685,6 +2013,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   restoreUiSettings();
   renderAvatarChoices();
   applyI18n();
+  updateAcademicYearBanner();
+  initSchoolStaticSelectors();
 
   const { data } = await supabaseClient.auth.getSession();
 
@@ -1849,7 +2179,7 @@ function setLoggedOutUi() {
 async function fetchProfile(userId) {
   const { data, error } = await supabaseClient
     .from("profiles")
-    .select("id, username, display_name, nickname, avatar_type, avatar_value, avatar_file_path, learning_settings, role, courses(name, stage)")
+    .select("id, username, display_name, nickname, avatar_type, avatar_value, avatar_file_path, learning_settings, role, school_center, educational_stage, academic_course, study_type, created_at, courses(name, stage)")
     .eq("id", userId)
     .single();
 
@@ -1868,9 +2198,14 @@ async function fetchProfile(userId) {
     avatarType: data.avatar_type || "emoji",
     avatarValue: data.avatar_value || "💡",
     avatarFilePath: data.avatar_file_path || "",
+    createdAt: data.created_at || "",
     course: data.courses ? data.courses.name : "Curso no asignado",
     level: data.courses ? data.courses.stage : "Etapa no asignada",
-    learningSettings: data.learning_settings || []
+    learningSettings: data.learning_settings || [],
+    schoolCenter: data.school_center || "",
+    educationalStage: data.educational_stage || (data.courses ? data.courses.stage : ""),
+    academicCourse: data.academic_course || (data.courses ? data.courses.name : ""),
+    studyType: data.study_type || ""
   };
 }
 
@@ -1885,8 +2220,13 @@ async function loadStudentPanel() {
   currentDifficultSubjects = await fetchStudentDifficultSubjects(currentProfile.id);
   currentGradeRecords = await fetchStudentGradeRecords(currentProfile.id);
   currentStreak = await fetchCurrentStreak();
+  platformNotifications = await fetchPlatformNotifications();
+  emailPreferences = await fetchEmailPreferences();
+  privacyPreferences = null;
 
   renderStudentDashboard();
+  renderNotifications();
+  renderEmailPreferences();
 }
 
 async function loadTeacherPanel() {
@@ -1905,6 +2245,12 @@ async function loadTeacherPanel() {
   teacherDifficultSubjects = await fetchAllDifficultSubjects();
   teacherGradeRecords = await fetchAllGradeRecords();
   teacherBadges = await fetchAllBadges();
+  platformNotifications = await fetchPlatformNotifications();
+  emailPreferences = await fetchEmailPreferences();
+  privacyPreferences = null;
+  teacherPasswordRequests = await fetchTeacherPasswordRequests();
+  teacherQuickHelpRequests = await fetchTeacherQuickHelpRequests();
+  await preloadTeacherStudentAvatars();
 
   renderTeacherSubjects();
   renderTeacherStudents();
@@ -1917,6 +2263,12 @@ async function loadTeacherPanel() {
   renderRecentActivity();
   renderTeacherChatOverview();
   renderTeacherStudentHub();
+  renderTeacherAlerts();
+  renderTeacherTargetFilters();
+  renderNotifications();
+  renderEmailPreferences();
+  renderPrivacyPreferences();
+  renderTeacherRecoveryRequests();
 }
 
 async function fetchStudentSubjects(userId) {
@@ -1990,7 +2342,7 @@ async function fetchStudentPosts() {
 async function fetchStudentEvents() {
   const { data, error } = await supabaseClient
     .from("calendar_events")
-    .select("id, subject_id, title, description, event_type, starts_at, created_by, created_at, subjects(name, code, icon)")
+    .select("id, subject_id, title, description, event_type, starts_at, created_by, created_at, visibility_scope, affected_school_centers, subjects(name, code, icon)")
     .order("starts_at", { ascending: true });
 
   if (error) {
@@ -1998,7 +2350,17 @@ async function fetchStudentEvents() {
     return [];
   }
 
-  return data || [];
+  return filterEventsForCurrentProfile(data || []);
+}
+
+function filterEventsForCurrentProfile(events) {
+  if (!currentProfile || currentProfile.role === "teacher") return events || [];
+  return (events || []).filter(function(event) {
+    if (event.created_by === currentUserId) return true;
+    if (event.visibility_scope === "all" || !event.visibility_scope) return true;
+    if (Array.isArray(event.affected_school_centers) && event.affected_school_centers.includes(currentProfile.schoolCenter)) return true;
+    return true; // RLS ya aplica asignaciones; mantener compatibilidad con esquemas antiguos.
+  });
 }
 
 async function fetchStudentBadgeAwards(userId) {
@@ -2112,7 +2474,7 @@ async function fetchAllSubjects() {
 async function fetchAllStudents() {
   const { data, error } = await supabaseClient
     .from("profiles")
-    .select("id, username, display_name, nickname, role, courses(name, stage)")
+    .select("id, username, display_name, nickname, role, avatar_type, avatar_value, avatar_file_path, school_center, educational_stage, academic_course, study_type, created_at, courses(name, stage)")
     .eq("role", "student")
     .order("display_name", { ascending: true });
 
@@ -2142,7 +2504,7 @@ async function fetchAllPosts() {
 async function fetchAllEvents() {
   const { data, error } = await supabaseClient
     .from("calendar_events")
-    .select("id, subject_id, title, description, event_type, starts_at, created_by, created_at, subjects(name, icon)")
+    .select("id, subject_id, title, description, event_type, starts_at, created_by, created_at, visibility_scope, affected_school_centers, subjects(name, icon)")
     .order("starts_at", { ascending: true })
     .limit(120);
 
@@ -2243,6 +2605,269 @@ async function fetchRecentActivity() {
   return data || [];
 }
 
+
+
+async function fetchPlatformNotifications() {
+  const { data, error } = await supabaseClient
+    .from("platform_notifications")
+    .select("id, profile_id, title, body, notification_type, link_target, is_read, created_at")
+    .order("created_at", { ascending: false })
+    .limit(80);
+
+  if (error) {
+    console.warn("No se pudieron cargar notificaciones internas:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function fetchEmailPreferences() {
+  if (!currentUserId) return null;
+  const { data, error } = await supabaseClient
+    .from("notification_email_preferences")
+    .select("profile_id, enabled, student_email, family_email, send_to, frequency, types")
+    .eq("profile_id", currentUserId)
+    .maybeSingle();
+
+  if (error) {
+    console.warn("No se pudieron cargar preferencias de email:", error);
+    return null;
+  }
+
+  return data || null;
+}
+
+async function fetchPrivacyPreferences() {
+  if (!currentUserId) return null;
+  const { data, error } = await supabaseClient
+    .from("privacy_authorizations")
+    .select("profile_id, platform_use, email_contact, family_contact, profile_image, updated_at")
+    .eq("profile_id", currentUserId)
+    .maybeSingle();
+
+  if (error) {
+    console.warn("No se pudieron cargar autorizaciones:", error);
+    return null;
+  }
+
+  return data || null;
+}
+
+async function fetchTeacherPasswordRequests() {
+  if (!currentProfile || currentProfile.role !== "teacher") return [];
+  const { data, error } = await supabaseClient
+    .from("password_reset_requests")
+    .select("id, profile_id, status, requested_at, resolved_at, profiles(display_name, nickname, username)")
+    .order("requested_at", { ascending: false })
+    .limit(80);
+
+  if (error) {
+    console.warn("No se pudieron cargar solicitudes de contraseña:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function fetchTeacherQuickHelpRequests() {
+  if (!currentProfile || currentProfile.role !== "teacher") return [];
+  const { data, error } = await supabaseClient
+    .from("student_quick_help_requests")
+    .select("id, profile_id, need_type, body, status, created_at, profiles(display_name, nickname, username)")
+    .order("created_at", { ascending: false })
+    .limit(80);
+
+  if (error) {
+    console.warn("No se pudieron cargar mensajes rápidos:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function createInternalNotification(profileId, title, body, type, linkTarget) {
+  if (!profileId) return;
+  const { error } = await supabaseClient.rpc("create_platform_notification", {
+    p_profile_id: profileId,
+    p_title: title,
+    p_body: body || "",
+    p_notification_type: type || "general",
+    p_link_target: linkTarget || "feed"
+  });
+  if (error) {
+    console.warn("No se pudo crear notificación interna:", error);
+  }
+}
+
+function renderNotifications() {
+  updateNotificationBadge();
+  if (!notificationList) return;
+
+  if (!platformNotifications || platformNotifications.length === 0) {
+    notificationList.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noNotifications"))}</p></div>`;
+    return;
+  }
+
+  notificationList.innerHTML = platformNotifications.map(function (item) {
+    return `
+      <article class="notification-card ${item.is_read ? "" : "unread"}" data-notification-id="${item.id}">
+        <div class="notification-card-top">
+          <div>
+            <span class="notification-type-pill">${escapeHtml(readableNotificationType(item.notification_type))}</span>
+            <h3>${escapeHtml(item.title)}</h3>
+          </div>
+          <span class="status-pill">${escapeHtml(item.is_read ? t("read") : t("unread"))}</span>
+        </div>
+        <p>${escapeHtml(item.body || "")}</p>
+        <p class="activity-meta">${escapeHtml(formatDateTime(item.created_at))}</p>
+        <button type="button" class="secondary-button open-notification-button" data-id="${item.id}" data-target="${escapeAttribute(item.link_target || "feed")}">${escapeHtml(t("openSection"))}</button>
+      </article>
+    `;
+  }).join("");
+
+  notificationList.querySelectorAll(".open-notification-button").forEach(function (button) {
+    button.addEventListener("click", async function () {
+      await markNotificationRead(button.dataset.id);
+      openNotificationTarget(button.dataset.target);
+    });
+  });
+}
+
+function readableNotificationType(type) {
+  const labels = {
+    new_post: t("notificationNewPost"),
+    new_task: t("notificationNewTask"),
+    correction: t("notificationNewCorrection"),
+    message: t("notificationNewMessage"),
+    material: t("notificationNewMaterial"),
+    event: t("notificationNewEvent"),
+    pending_task: t("notificationPendingTask"),
+    exam: t("notificationExam"),
+    achievement: t("notificationAchievement"),
+    general: t("notificationGeneral"),
+    password: t("notificationPassword"),
+    quick_need: t("notificationQuickNeed")
+  };
+  return labels[type] || labels.general;
+}
+
+async function markNotificationRead(notificationId) {
+  const { error } = await supabaseClient
+    .from("platform_notifications")
+    .update({ is_read: true })
+    .eq("id", notificationId);
+  if (error) {
+    console.warn("No se pudo marcar la notificación:", error);
+    return;
+  }
+  platformNotifications = platformNotifications.map(item => item.id === notificationId ? { ...item, is_read: true } : item);
+  renderNotifications();
+}
+
+async function markAllNotificationsRead() {
+  const unreadIds = platformNotifications.filter(item => !item.is_read).map(item => item.id);
+  if (unreadIds.length === 0) return;
+  const { error } = await supabaseClient
+    .from("platform_notifications")
+    .update({ is_read: true })
+    .in("id", unreadIds);
+  if (error) {
+    console.warn("No se pudieron marcar las notificaciones:", error);
+    return;
+  }
+  platformNotifications = platformNotifications.map(item => ({ ...item, is_read: true }));
+  renderNotifications();
+}
+
+function updateNotificationBadge() {
+  if (!quickNotificationsBadge) return;
+  const unread = (platformNotifications || []).filter(item => !item.is_read).length;
+  quickNotificationsBadge.textContent = String(unread);
+  quickNotificationsBadge.classList.toggle("hidden", unread === 0);
+}
+
+function openNotificationTarget(target) {
+  closeFloatingPanelWindow(true);
+  if (target === "calendar") {
+    openFloatingPanelWindow("calendar");
+    return;
+  }
+  if (target === "messages") {
+    openFloatingPanelWindow("messages");
+    return;
+  }
+  if (target === "badges") {
+    openGenericPanelWindow(studentBadgesPanel, t("myBadges"), renderStudentBadgesDetail);
+    return;
+  }
+  if (target === "profile") {
+    profilePanel.classList.remove("hidden");
+    profilePanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+  const section = document.getElementById(NOTIFICATION_SECTION_MAP[target] || "studentWallPanel");
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+function renderEmailPreferences() {
+  if (!emailPrefsTypes) return;
+  const selectedTypes = new Set(emailPreferences && Array.isArray(emailPreferences.types) ? emailPreferences.types : EMAIL_NOTIFICATION_TYPES);
+  emailPrefsTypes.innerHTML = EMAIL_NOTIFICATION_TYPES.map(function (type) {
+    return `<label class="checkbox-card"><input type="checkbox" value="${escapeAttribute(type)}" ${selectedTypes.has(type) ? "checked" : ""} /><span>${escapeHtml(readableNotificationType(emailTypeToNotificationType(type)))}</span></label>`;
+  }).join("");
+  if (emailPrefsEnabled) emailPrefsEnabled.checked = Boolean(emailPreferences && emailPreferences.enabled);
+  if (emailPrefsStudent) emailPrefsStudent.value = emailPreferences ? (emailPreferences.student_email || "") : "";
+  if (emailPrefsFamily) emailPrefsFamily.value = emailPreferences ? (emailPreferences.family_email || "") : "";
+  if (emailPrefsRecipient) emailPrefsRecipient.value = emailPreferences ? (emailPreferences.send_to || "student") : "student";
+  if (emailPrefsFrequency) emailPrefsFrequency.value = emailPreferences ? (emailPreferences.frequency || "immediate") : "immediate";
+}
+
+function emailTypeToNotificationType(type) {
+  const map = { new_post: "new_post", new_task: "new_task", pending_task: "pending_task", deadline: "pending_task", correction: "correction", message: "message", material: "material", event: "event", exam: "exam", general: "general", achievement: "achievement" };
+  return map[type] || "general";
+}
+
+function renderPrivacyPreferences() { return; }
+
+function renderTeacherRecoveryRequests() {
+  if (!teacherRecoveryList) return;
+  const pending = (teacherPasswordRequests || []).filter(item => item.status !== "resolved");
+  const quick = (teacherQuickHelpRequests || []).filter(item => item.status !== "closed").slice(0, 20);
+  if (!pending.length && !quick.length) {
+    teacherRecoveryList.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noPasswordRequests"))}</p></div>`;
+    return;
+  }
+  teacherRecoveryList.innerHTML = [
+    ...pending.map(function (item) {
+      const name = item.profiles ? (item.profiles.nickname || item.profiles.display_name || item.profiles.username) : t("student");
+      return `<article class="detail-card"><h3>${escapeHtml(name)}</h3><p class="activity-meta">${escapeHtml(formatDateTime(item.requested_at))}</p><p>${escapeHtml(t("pendingPassword"))}</p><button type="button" class="secondary-button resolve-password-request-button" data-id="${item.id}">${escapeHtml(t("markResolved"))}</button></article>`;
+    }),
+    ...quick.map(function (item) {
+      const name = item.profiles ? (item.profiles.nickname || item.profiles.display_name || item.profiles.username) : t("student");
+      return `<article class="detail-card quick-need-open"><h3>${escapeHtml(name)} · ${escapeHtml(t("quickMessageTeacher"))}</h3><p class="activity-meta">${escapeHtml(formatDateTime(item.created_at))}</p><p><strong>${escapeHtml(item.need_type || "")}</strong></p><p>${escapeHtml(item.body || "")}</p></article>`;
+    })
+  ].join("");
+  teacherRecoveryList.querySelectorAll(".resolve-password-request-button").forEach(function(button){
+    button.addEventListener("click", async function(){ await resolvePasswordRequest(button.dataset.id); });
+  });
+}
+
+async function resolvePasswordRequest(requestId) {
+  const { error } = await supabaseClient
+    .from("password_reset_requests")
+    .update({ status: "resolved", resolved_at: new Date().toISOString(), resolved_by: currentUserId })
+    .eq("id", requestId);
+  if (error) {
+    console.warn(error);
+    return;
+  }
+  teacherPasswordRequests = await fetchTeacherPasswordRequests();
+  renderTeacherRecoveryRequests();
+}
+
 async function addSignedCoverUrls(subjects) {
   const enriched = [];
 
@@ -2271,8 +2896,8 @@ function renderStudentDashboard() {
   if (studentTodayDate) {
     studentTodayDate.textContent = formatFullTodayDate();
   }
-  studentCourse.textContent = `${currentProfile.level}, ${currentProfile.course}`;
-  courseCardText.textContent = currentProfile.course;
+  studentCourse.textContent = formatStudentSchoolLine(currentProfile);
+  courseCardText.textContent = formatStudentSchoolLine(currentProfile);
 
   renderBadges();
   renderStudentSummaryCards();
@@ -2460,6 +3085,10 @@ function renderSubjects() {
       : `background-color: ${escapeAttribute(subject.cover_color || "#b58b5b")};`;
 
     const subjectProgress = calculateSubjectProgress(subject.id);
+    const unseenMaterialCount = countUnseenMaterialForSubject(subject.id);
+    const materialNoticeHtml = unseenMaterialCount > 0
+      ? `<p class="subject-new-material">${escapeHtml(t("newMaterialAvailable", { count: unseenMaterialCount }))}</p>`
+      : "";
 
     card.innerHTML = `
       <div class="subject-cover" style="${backgroundStyle}">
@@ -2468,6 +3097,7 @@ function renderSubjects() {
       </div>
       <div class="subject-card-body">
         <h3>${escapeHtml(subject.name)}</h3>
+        ${materialNoticeHtml}
         <p>${escapeHtml(t("assignedPosts", { count: subjectPosts.length }))} · ${subjectUnits.length} unidad(es)</p>
         <div class="subject-progress" aria-label="${escapeAttribute(t("subjectProgress"))}">
           <div class="subject-progress-text"><span>${escapeHtml(t("subjectProgress"))}</span><strong>${subjectProgress.percentage}%</strong></div>
@@ -2491,6 +3121,12 @@ function renderSubjects() {
       }
     });
   });
+}
+
+function countUnseenMaterialForSubject(subjectId) {
+  return currentPosts.filter(function(post) {
+    return post.subject_id === subjectId && MATERIAL_POST_TYPES.includes(post.post_type) && !isMaterialPostSeen(post.id);
+  }).length;
 }
 
 function getActionablePostsForSubject(subjectId) {
@@ -2517,7 +3153,8 @@ function calculateSubjectProgress(subjectId) {
 }
 
 function renderStudentWall() {
-  renderPostList(currentPosts.slice(0, 12), studentWallList, t("noPosts"), false);
+  const feedPosts = currentPosts.filter(post => FEED_POST_TYPES.includes(post.post_type));
+  renderPostList(feedPosts.slice(0, 12), studentWallList, t("noFeedPosts"), false);
 }
 
 function openSubject(subject) {
@@ -2758,6 +3395,10 @@ async function openPost(post) {
   contentTitle.textContent = post.title;
 
   const content = post.content || {};
+  if (MATERIAL_POST_TYPES.includes(post.post_type)) {
+    markMaterialPostSeen(post.id);
+    renderSubjects();
+  }
   let fileUrl = "";
 
   if (content.file_path) {
@@ -3094,7 +3735,6 @@ function renderMonthCalendar(events, gridElement, titleElement, selectedDate, co
         title="${escapeAttribute(dayTooltip)}"
         aria-label="${escapeAttribute(dayTooltip || t("viewEventsForDay", { date: formatDateKey(day) }))}">
         <span class="month-number">${day.getDate()}</span>
-        ${isToday ? `<span class="today-label">${escapeHtml(t("today"))}</span>` : ""}
         ${visibleEvents.map(event => compact
           ? `<span class="month-event ${calendarEventClass(event)}" title="${escapeAttribute(event.title)}"></span>`
           : `<span class="month-event ${calendarEventClass(event)}">${escapeHtml(shorten(event.title, 18))}</span>`
@@ -3634,6 +4274,265 @@ function readableGradeType(type) {
   return labels[type] || type || t("gradeOther");
 }
 
+function updateAcademicYearBanner() {
+  if (!academicYearBanner) {
+    return;
+  }
+  const label = getAcademicYearLabel(new Date());
+  academicYearBanner.textContent = label.isPreparation
+    ? t("academicYearPreparation", { year: label.label })
+    : t("academicYear", { year: label.label });
+}
+
+function getAcademicYearLabel(date) {
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const isPreparation = month === 7 || month === 8;
+  const startYear = isPreparation || month >= 9 ? year : year - 1;
+  const endYear = startYear + 1;
+  const label = `${startYear}/${String(endYear).slice(2)}`;
+  return { label, isPreparation };
+}
+
+function initSchoolStaticSelectors() {
+  fillSchoolSelect(studentSchoolCenterSelect, false);
+  fillBasicSelect(studentStudyTypeSelect, STUDY_TYPES, false);
+  fillBasicSelect(studentEducationalStageSelect, EDUCATIONAL_STAGES, false);
+  fillBasicSelect(studentAcademicCourseSelect, ACADEMIC_COURSES, false);
+}
+
+function fillSchoolSelect(select, includeAll) {
+  if (!select) {
+    return;
+  }
+  const first = includeAll ? `<option value="">${escapeHtml(t("allCenters"))}</option>` : `<option value="">${escapeHtml(t("unassigned"))}</option>`;
+  select.innerHTML = first + TRIBECA_SCHOOL_CENTERS.map(center => `<option value="${escapeAttribute(center.name)}">${escapeHtml(center.name)} · ${escapeHtml(center.locality)}</option>`).join("");
+}
+
+function fillBasicSelect(select, values, includeAll, allLabelKey) {
+  if (!select) {
+    return;
+  }
+  const first = includeAll ? `<option value="">${escapeHtml(t(allLabelKey || "unassigned"))}</option>` : `<option value="">${escapeHtml(t("unassigned"))}</option>`;
+  select.innerHTML = first + values.map(value => `<option value="${escapeAttribute(value)}">${escapeHtml(value)}</option>`).join("");
+}
+
+function formatStudentSchoolLine(profileOrStudent) {
+  if (!profileOrStudent) {
+    return t("unassigned");
+  }
+  const center = profileOrStudent.schoolCenter || profileOrStudent.school_center || "Centro sin asignar";
+  const course = profileOrStudent.academicCourse || profileOrStudent.academic_course || profileOrStudent.course || (profileOrStudent.courses ? profileOrStudent.courses.name : "Curso sin asignar");
+  const stage = profileOrStudent.educationalStage || profileOrStudent.educational_stage || "";
+  return [center, stage, course].filter(Boolean).join(" · ");
+}
+
+function renderStudentSchoolPanel() {
+  if (!currentProfile || !studentSchoolForm) {
+    return;
+  }
+  initSchoolStaticSelectors();
+  studentSchoolCenterSelect.value = currentProfile.schoolCenter || "";
+  if (studentStudyTypeSelect) studentStudyTypeSelect.value = currentProfile.studyType || currentProfile.educationalStage || currentProfile.level || "";
+  studentEducationalStageSelect.value = currentProfile.educationalStage || currentProfile.level || currentProfile.studyType || "";
+  studentAcademicCourseSelect.value = currentProfile.academicCourse || currentProfile.course || "";
+}
+
+async function saveCurrentStudentSchoolProfile() {
+  if (!currentProfile || currentProfile.role === "teacher") {
+    return;
+  }
+  const { error } = await supabaseClient.rpc("update_own_school_profile", {
+    p_school_center: studentSchoolCenterSelect.value,
+    p_educational_stage: studentEducationalStageSelect.value,
+    p_academic_course: studentAcademicCourseSelect.value,
+    p_study_type: studentEducationalStageSelect.value
+  });
+  if (error) {
+    console.error(error);
+    showMessage(studentSchoolMessage, "No se pudo guardar el perfil escolar. Ejecuta la migración SQL.", "warning");
+    return;
+  }
+  currentProfile = await fetchProfile(currentUserId);
+  renderStudentDashboard();
+  showMessage(studentSchoolMessage, t("schoolProfileSaved"), "success");
+}
+
+function renderTeacherTargetFilters() {
+  fillSchoolSelect(teacherFilterCenter, true);
+  if (teacherFilterStudyType) fillBasicSelect(teacherFilterStudyType, EDUCATIONAL_STAGES, true, "allEducationalStages");
+  fillBasicSelect(teacherFilterAcademicCourse, ACADEMIC_COURSES, true, "allCourses");
+}
+
+function applyTeacherStudentFilter() {
+  if (!teacherStudentsList) {
+    return;
+  }
+  const center = teacherFilterCenter ? teacherFilterCenter.value : "";
+  const studyType = teacherFilterStudyType ? teacherFilterStudyType.value : "";
+  const course = teacherFilterAcademicCourse ? teacherFilterAcademicCourse.value : "";
+  teacherStudentsList.querySelectorAll("label.checkbox-card").forEach(function (label) {
+    const matchesCenter = !center || label.dataset.center === center;
+    const matchesStudy = !studyType || label.dataset.studyType === studyType;
+    const matchesCourse = !course || label.dataset.course === course;
+    const input = label.querySelector("input[type='checkbox']");
+    input.checked = matchesCenter && matchesStudy && matchesCourse;
+  });
+}
+
+function renderTeacherAlerts() {
+  if (!teacherAlertsList || !currentProfile || currentProfile.role !== "teacher") {
+    return;
+  }
+  const alerts = [];
+  const lastLogins = new Map();
+  recentActivity
+    .filter(item => item.action_type === "login")
+    .forEach(function (item) {
+      if (!lastLogins.has(item.profile_id)) {
+        lastLogins.set(item.profile_id, item.created_at);
+      }
+    });
+
+  const now = Date.now();
+  const inactive = teacherStudents.filter(function (student) {
+    const last = lastLogins.get(student.id);
+    if (!last) {
+      return true;
+    }
+    return now - new Date(last).getTime() > 5 * 24 * 60 * 60 * 1000;
+  }).slice(0, 8);
+
+  if (inactive.length) {
+    alerts.push({
+      title: t("inactiveStudents"),
+      items: inactive.map(student => `${student.nickname || student.display_name} · ${lastLogins.get(student.id) ? t("daysWithoutLogin", { count: Math.floor((now - new Date(lastLogins.get(student.id)).getTime()) / (24 * 60 * 60 * 1000)) }) : "sin registro de acceso"}`)
+    });
+  }
+
+  if (teacherDifficultSubjects.length) {
+    alerts.push({
+      title: t("difficultSubjectAlerts"),
+      items: teacherDifficultSubjects.slice(0, 8).map(item => `${item.profiles ? (item.profiles.nickname || item.profiles.display_name || item.profiles.username) : t("student")} · ${item.subjects ? item.subjects.name : t("subject")}${item.note ? `: ${item.note}` : ""}`)
+    });
+  }
+
+  const recentLowGrades = teacherGradeRecords.filter(function (item) {
+    const value = parseGradeNumber(item.grade_value);
+    const dateValue = item.grade_date || item.created_at;
+    return value !== null && value < 5 && now - new Date(dateValue).getTime() < 60 * 24 * 60 * 60 * 1000;
+  }).slice(0, 8);
+
+  if (recentLowGrades.length) {
+    alerts.push({
+      title: t("lowGradeAlerts"),
+      items: recentLowGrades.map(item => `${item.profiles ? (item.profiles.nickname || item.profiles.display_name || item.profiles.username) : t("student")} · ${item.subjects ? item.subjects.name : t("subject")} · ${item.grade_value}`)
+    });
+  }
+
+  const completionSet = new Set(teacherPostCompletions.map(item => `${item.profile_id}|${item.post_id}`));
+  const pendingByStudent = teacherStudents.map(function (student) {
+    const assignedPostIds = teacherPostAssignments.filter(item => item.profile_id === student.id).map(item => item.post_id);
+    const pending = teacherPosts.filter(post => assignedPostIds.includes(post.id) && !["announcement", "notes"].includes(post.post_type) && !completionSet.has(`${student.id}|${post.id}`));
+    return { student, pendingCount: pending.length };
+  }).filter(item => item.pendingCount > 0).sort((a, b) => b.pendingCount - a.pendingCount).slice(0, 8);
+
+  if (pendingByStudent.length) {
+    alerts.push({
+      title: t("pendingPostsAlerts"),
+      items: pendingByStudent.map(item => `${item.student.nickname || item.student.display_name} · ${t("pendingCount", { count: item.pendingCount })}`)
+    });
+  }
+
+  if (!alerts.length) {
+    teacherAlertsList.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noTeacherAlerts"))}</p></div>`;
+    return;
+  }
+
+  teacherAlertsList.innerHTML = alerts.map(function (alert) {
+    return `<article class="teacher-alert-card"><h3>${escapeHtml(alert.title)}</h3>${alert.items.map(item => `<p>${escapeHtml(item)}</p>`).join("")}</article>`;
+  }).join("");
+}
+
+function parseGradeNumber(value) {
+  const raw = String(value || "").replace(",", ".").match(/\d+(?:\.\d+)?/);
+  if (!raw) {
+    return null;
+  }
+  const num = Number(raw[0]);
+  return Number.isFinite(num) ? num : null;
+}
+
+async function promoteAllStudentsOneCourse() {
+  const { error } = await supabaseClient.rpc("promote_all_students_one_course");
+  if (error) {
+    console.error(error);
+    showMessage(promotionMessage, "No se pudo promocionar. Ejecuta la migración SQL.", "warning");
+    return;
+  }
+  teacherStudents = await fetchAllStudents();
+  renderTeacherStudents();
+  renderTeacherStudentHub();
+  renderTeacherAlerts();
+  showMessage(promotionMessage, t("promotionDone"), "success");
+}
+
+async function saveTeacherStudentSchoolProfile(studentId, formPrefix) {
+  const center = document.getElementById(`${formPrefix}Center`).value;
+  const stage = document.getElementById(`${formPrefix}Stage`).value;
+  const study = stage;
+  const course = document.getElementById(`${formPrefix}Course`).value;
+  const message = document.getElementById(`${formPrefix}Message`);
+
+  const { error } = await supabaseClient.rpc("teacher_update_student_school_profile", {
+    p_profile_id: studentId,
+    p_school_center: center,
+    p_educational_stage: stage,
+    p_academic_course: course,
+    p_study_type: study
+  });
+  if (error) {
+    console.error(error);
+    showMessage(message, "No se pudo guardar.", "warning");
+    return;
+  }
+  teacherStudents = await fetchAllStudents();
+  renderTeacherStudents();
+  renderTeacherStudentHub();
+  showMessage(message, t("schoolProfileSaved"), "success");
+}
+
+function renderInlineSchoolProfileForm(student, formPrefix) {
+  const center = student.school_center || "";
+  const stage = student.educational_stage || student.study_type || "";
+  const course = student.academic_course || (student.courses ? student.courses.name : "");
+  return `
+    <form id="${escapeAttribute(formPrefix)}Form" class="teacher-form compact-school-form">
+      <label>${escapeHtml(t("schoolCenter"))}<select id="${escapeAttribute(formPrefix)}Center">${schoolOptionsHtml(center, false)}</select></label>
+      <label>${escapeHtml(t("educationalStage"))}<select id="${escapeAttribute(formPrefix)}Stage">${basicOptionsHtml(EDUCATIONAL_STAGES, stage, false)}</select></label>
+      <label>${escapeHtml(t("academicCourse"))}<select id="${escapeAttribute(formPrefix)}Course">${basicOptionsHtml(ACADEMIC_COURSES, course, false)}</select></label>
+      <button type="submit" class="secondary-button">${escapeHtml(t("saveStudentSchoolData"))}</button>
+      <p id="${escapeAttribute(formPrefix)}Message" class="feedback"></p>
+    </form>
+  `;
+}
+
+function schoolOptionsHtml(selectedValue, includeAll) {
+  const first = includeAll ? `<option value="">${escapeHtml(t("allCenters"))}</option>` : `<option value="">${escapeHtml(t("unassigned"))}</option>`;
+  return first + TRIBECA_SCHOOL_CENTERS.map(function (center) {
+    const selected = center.name === selectedValue ? " selected" : "";
+    return `<option value="${escapeAttribute(center.name)}"${selected}>${escapeHtml(center.name)} · ${escapeHtml(center.locality)}</option>`;
+  }).join("");
+}
+
+function basicOptionsHtml(values, selectedValue, includeAll) {
+  const first = includeAll ? `<option value="">${escapeHtml(t("allCourses"))}</option>` : `<option value="">${escapeHtml(t("unassigned"))}</option>`;
+  return first + values.map(function (value) {
+    const selected = value === selectedValue ? " selected" : "";
+    return `<option value="${escapeAttribute(value)}"${selected}>${escapeHtml(value)}</option>`;
+  }).join("");
+}
+
 function renderTeacherSubjects() {
   const options = teacherSubjects.map(function (subject) {
     return `<option value="${subject.id}">${escapeHtml(subject.icon || "📘")} ${escapeHtml(subject.name)}</option>`;
@@ -3759,10 +4658,12 @@ function renderTeacherStudents() {
 
   if (teacherStudentFocusSelect) {
     teacherStudentFocusSelect.innerHTML = teacherStudents.map(function (student) {
-      const courseName = student.courses ? student.courses.name : "Curso sin asignar";
-      return `<option value="${student.id}">${escapeHtml(student.nickname || student.display_name)} · ${escapeHtml(courseName)}</option>`;
+      const courseName = student.academic_course || (student.courses ? student.courses.name : "Curso sin asignar");
+      const centerName = student.school_center || "Centro sin asignar";
+      return `<option value="${student.id}">${escapeHtml(student.nickname || student.display_name)} · ${escapeHtml(centerName)} · ${escapeHtml(courseName)}</option>`;
     }).join("");
   }
+  renderTeacherTargetFilters();
 }
 
 function createStudentCheckboxes(students) {
@@ -3771,14 +4672,16 @@ function createStudentCheckboxes(students) {
   }
 
   return students.map(function (student) {
-    const courseName = student.courses ? student.courses.name : "Curso sin asignar";
+    const courseName = student.academic_course || (student.courses ? student.courses.name : "Curso sin asignar");
+    const centerName = student.school_center || "Centro sin asignar";
+    const studyType = student.educational_stage || student.study_type || "";
 
     return `
-      <label class="checkbox-card">
+      <label class="checkbox-card" data-center="${escapeAttribute(centerName)}" data-study-type="${escapeAttribute(studyType)}" data-course="${escapeAttribute(courseName)}">
         <input type="checkbox" value="${student.id}" />
         <span>
           ${escapeHtml(student.nickname || student.display_name)}
-          <small>${escapeHtml(courseName)} · ${escapeHtml(student.username)}</small>
+          <small>${escapeHtml(centerName)} · ${escapeHtml(courseName)} · ${escapeHtml(student.username)}</small>
         </span>
       </label>
     `;
@@ -3842,80 +4745,128 @@ function renderTeacherOverview() {
   if (teacherMetricUnread) teacherMetricUnread.textContent = String(messages.filter(message => message.message_type === "mail" && message.recipient_id === currentUserId && !message.is_read).length);
 }
 
+
 function renderTeacherStudentHub() {
-  if (!teacherStudentFocusSelect || !teacherStudentFocusBody || !currentProfile || currentProfile.role !== "teacher") {
+  if (!teacherStudentFocusBody || !currentProfile || currentProfile.role !== "teacher") {
     return;
   }
 
-  const selectedId = teacherStudentFocusSelect.value || (teacherStudents[0] && teacherStudents[0].id) || "";
-
-  if (!selectedId) {
+  if (!teacherStudents || teacherStudents.length === 0) {
     teacherStudentFocusBody.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noRelatedItems"))}</p></div>`;
     return;
   }
 
-  teacherStudentFocusSelect.value = selectedId;
-  const student = teacherStudents.find(item => item.id === selectedId);
+  teacherStudentFocusBody.innerHTML = teacherStudents.map(function (student) {
+    const assignedPostIds = new Set(teacherPostAssignments.filter(item => item.profile_id === student.id).map(item => item.post_id));
+    const completionSet = new Set(teacherPostCompletions.filter(item => item.profile_id === student.id).map(item => item.post_id));
+    const pending = teacherPosts.filter(post => assignedPostIds.has(post.id) && !["announcement", "notes"].includes(post.post_type) && !completionSet.has(post.id)).length;
+    const needs = teacherDifficultSubjects.filter(item => item.profile_id === student.id).length;
+    const lows = teacherGradeRecords.filter(item => item.profile_id === student.id && parseGradeNumber(item.grade_value) !== null && parseGradeNumber(item.grade_value) < 5).length;
+    return `
+      <button type="button" class="teacher-student-card" data-student-id="${student.id}">
+        <div class="teacher-student-card-head">
+          <div class="teacher-student-avatar">${studentAvatarHtml(student)}</div>
+          <div>
+            <h3>${escapeHtml(student.nickname || student.display_name)}</h3>
+            <small>${escapeHtml(student.username || "")}</small>
+          </div>
+        </div>
+        <div class="student-card-facts">
+          <span>${escapeHtml(formatStudentSchoolLine(student))}</span>
+          <span>${escapeHtml(t("pendingTasks"))}: ${pending}</span>
+          <span>${escapeHtml(t("myDifficultSubjects"))}: ${needs}</span>
+          <span>${escapeHtml(t("lowGradeAlerts"))}: ${lows}</span>
+        </div>
+      </button>
+    `;
+  }).join("");
 
-  if (!student) {
-    teacherStudentFocusBody.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noRelatedItems"))}</p></div>`;
-    return;
+  teacherStudentFocusBody.querySelectorAll(".teacher-student-card").forEach(function (card) {
+    card.addEventListener("click", function () {
+      openTeacherStudentDetailWindow(card.dataset.studentId);
+    });
+  });
+}
+
+function studentAvatarHtml(student) {
+  const cached = studentAvatarUrlCache.get(student.id);
+  if (cached) {
+    return `<img src="${escapeAttribute(cached)}" alt="${escapeAttribute(t("profileImageAlt"))}" />`;
   }
+  if (student.avatar_type === "emoji" && student.avatar_value) {
+    return escapeHtml(student.avatar_value);
+  }
+  return escapeHtml(getInitials(student.nickname || student.display_name || student.username));
+}
 
-  const courseName = student.courses ? student.courses.name : "Curso sin asignar";
-  const assignedPostIds = new Set(teacherPostAssignments.filter(item => item.profile_id === selectedId).map(item => item.post_id));
-  const assignedEventIds = new Set(teacherEventAssignments.filter(item => item.profile_id === selectedId).map(item => item.event_id));
+async function preloadTeacherStudentAvatars() {
+  studentAvatarUrlCache = new Map();
+  for (const student of teacherStudents) {
+    if (student.avatar_type === "upload" && student.avatar_file_path) {
+      const { data } = await supabaseClient.storage.from(AVATAR_BUCKET).createSignedUrl(student.avatar_file_path, 3600);
+      if (data && data.signedUrl) {
+        studentAvatarUrlCache.set(student.id, data.signedUrl);
+      }
+    }
+  }
+}
 
-  const posts = teacherPosts.filter(post => assignedPostIds.has(post.id)).slice(0, 6);
-  const events = teacherEvents.filter(event => event.created_by === selectedId || assignedEventIds.has(event.id)).slice(0, 6);
-  const relatedMessages = messages
-    .filter(message => message.sender_id === selectedId || message.recipient_id === selectedId)
-    .slice(0, 6);
-  const studentNeeds = teacherDifficultSubjects.filter(item => item.profile_id === selectedId).slice(0, 6);
-  const studentGrades = teacherGradeRecords.filter(item => item.profile_id === selectedId).slice(0, 8);
+function openTeacherStudentDetailWindow(studentId) {
+  const student = teacherStudents.find(item => item.id === studentId);
+  if (!student || !panelWindowModal || !panelWindowBody || !panelWindowTitle) return;
 
-  teacherStudentFocusBody.innerHTML = `
+  closeFloatingPanelWindow(true);
+  closeTeacherPanelWindow(true);
+  panelWindowTitle.textContent = t("studentDetail");
+  const assignedPostIds = new Set(teacherPostAssignments.filter(item => item.profile_id === studentId).map(item => item.post_id));
+  const assignedEventIds = new Set(teacherEventAssignments.filter(item => item.profile_id === studentId).map(item => item.event_id));
+  const completionSet = new Set(teacherPostCompletions.filter(item => item.profile_id === studentId).map(item => item.post_id));
+  const posts = teacherPosts.filter(post => assignedPostIds.has(post.id)).slice(0, 8);
+  const pending = posts.filter(post => !["announcement", "notes"].includes(post.post_type) && !completionSet.has(post.id));
+  const events = teacherEvents.filter(event => event.created_by === studentId || assignedEventIds.has(event.id)).slice(0, 8);
+  const relatedMessages = messages.filter(message => message.sender_id === studentId || message.recipient_id === studentId).slice(0, 8);
+  const studentNeeds = teacherDifficultSubjects.filter(item => item.profile_id === studentId).slice(0, 8);
+  const studentGrades = teacherGradeRecords.filter(item => item.profile_id === studentId).slice(0, 8);
+  const movements = recentActivity.filter(item => item.profile_id === studentId).slice(0, 10);
+
+  panelWindowBody.innerHTML = `
     <div class="student-focus-head">
+      <div class="teacher-student-avatar">${studentAvatarHtml(student)}</div>
       <div>
         <h3>${escapeHtml(student.nickname || student.display_name)}</h3>
-        <p class="activity-meta">${escapeHtml(courseName)} · ${escapeHtml(student.username)}</p>
+        <p class="activity-meta">${escapeHtml(formatStudentSchoolLine(student))} · ${escapeHtml(student.username || "")}</p>
       </div>
-      <button type="button" class="secondary-button" id="focusOpenChatButton">${escapeHtml(t("openChatWithStudent"))}</button>
+      <button type="button" class="secondary-button" id="detailOpenChatButton">${escapeHtml(t("openChatWithStudent"))}</button>
     </div>
-    <div class="student-focus-grid">
-      <article class="student-focus-card">
-        <h4>${escapeHtml(t("assignedWork"))}</h4>
-        ${posts.length ? posts.map(post => `<p><strong>${escapeHtml(post.title)}</strong><br><small>${escapeHtml(post.subjects ? post.subjects.name : t("subject"))}</small></p>`).join("") : `<p>${escapeHtml(t("noRelatedItems"))}</p>`}
-      </article>
-      <article class="student-focus-card">
-        <h4>${escapeHtml(t("relatedEvents"))}</h4>
-        ${events.length ? events.map(event => `<p><strong>${escapeHtml(event.title)}</strong><br><small>${escapeHtml(formatDateTime(event.starts_at))}</small></p>`).join("") : `<p>${escapeHtml(t("noRelatedItems"))}</p>`}
-      </article>
-      <article class="student-focus-card">
-        <h4>${escapeHtml(t("relatedMessages"))}</h4>
-        ${relatedMessages.length ? relatedMessages.map(message => `<p><strong>${escapeHtml(getProfileName(message.sender_id))}</strong>: ${escapeHtml(shorten(message.body || message.subject, 70))}<br><small>${escapeHtml(formatDateTime(message.created_at))}</small></p>`).join("") : `<p>${escapeHtml(t("noRelatedItems"))}</p>`}
-      </article>
-      <article class="student-focus-card">
-        <h4>${escapeHtml(t("teacherStudentNeeds"))}</h4>
-        ${studentNeeds.length ? studentNeeds.map(item => `<p><strong>${escapeHtml(item.subjects ? item.subjects.name : t("subject"))}</strong><br><small>${escapeHtml(item.note || "")}</small></p>`).join("") : `<p>${escapeHtml(t("noStudentNeeds"))}</p>`}
-      </article>
-      <article class="student-focus-card">
-        <h4>${escapeHtml(t("teacherStudentGrades"))}</h4>
-        ${studentGrades.length ? studentGrades.map(item => `<p><strong>${escapeHtml(item.subjects ? item.subjects.name : t("subject"))}</strong>: ${escapeHtml(item.grade_value)}<br><small>${escapeHtml(readableGradeType(item.grade_type))} · ${escapeHtml(item.grade_date || formatDateKey(new Date(item.created_at)))}</small></p>`).join("") : `<p>${escapeHtml(t("noStudentGrades"))}</p>`}
-      </article>
+    <div class="student-detail-grid">
+      <article class="student-detail-card"><h4>${escapeHtml(t("schoolAndCourse"))}</h4>${renderInlineSchoolProfileForm(student, "detailSchool")}</article>
+      <article class="student-detail-card"><h4>${escapeHtml(t("pendingTasks"))}</h4>${pending.length ? pending.map(post => `<p><strong>${escapeHtml(post.title)}</strong><br><small>${escapeHtml(post.subjects ? post.subjects.name : t("subject"))}</small></p>`).join("") : `<p>${escapeHtml(t("noRelatedItems"))}</p>`}</article>
+      <article class="student-detail-card"><h4>${escapeHtml(t("assignedWork"))}</h4>${posts.length ? posts.map(post => `<p><strong>${escapeHtml(post.title)}</strong><br><small>${escapeHtml(readablePostType(post.post_type))}</small></p>`).join("") : `<p>${escapeHtml(t("noRelatedItems"))}</p>`}</article>
+      <article class="student-detail-card"><h4>${escapeHtml(t("relatedEvents"))}</h4>${events.length ? events.map(event => `<p><strong>${escapeHtml(event.title)}</strong><br><small>${escapeHtml(formatDateTime(event.starts_at))}</small></p>`).join("") : `<p>${escapeHtml(t("noRelatedItems"))}</p>`}</article>
+      <article class="student-detail-card"><h4>${escapeHtml(t("teacherStudentNeeds"))}</h4>${studentNeeds.length ? studentNeeds.map(item => `<p><strong>${escapeHtml(item.subjects ? item.subjects.name : t("subject"))}</strong><br><small>${escapeHtml(item.note || "")}</small></p>`).join("") : `<p>${escapeHtml(t("noStudentNeeds"))}</p>`}</article>
+      <article class="student-detail-card"><h4>${escapeHtml(t("teacherStudentGrades"))}</h4>${studentGrades.length ? studentGrades.map(item => `<p><strong>${escapeHtml(item.subjects ? item.subjects.name : t("subject"))}</strong>: ${escapeHtml(item.grade_value)}<br><small>${escapeHtml(readableGradeType(item.grade_type))} · ${escapeHtml(item.grade_date || formatDateKey(new Date(item.created_at)))}</small></p>`).join("") : `<p>${escapeHtml(t("noStudentGrades"))}</p>`}</article>
+      <article class="student-detail-card"><h4>${escapeHtml(t("relatedMessages"))}</h4>${relatedMessages.length ? relatedMessages.map(message => `<p><strong>${escapeHtml(getProfileName(message.sender_id))}</strong>: ${escapeHtml(shorten(message.body || message.subject, 90))}<br><small>${escapeHtml(formatDateTime(message.created_at))}</small></p>`).join("") : `<p>${escapeHtml(t("noRelatedItems"))}</p>`}</article>
+      <article class="student-detail-card"><h4>${escapeHtml(t("latestMovements"))}</h4>${movements.length ? movements.map(item => `<p><strong>${escapeHtml(readableActivityType(item.action_type))}</strong><br><small>${escapeHtml(formatDateTime(item.created_at))}</small></p>`).join("") : `<p>${escapeHtml(t("noActivity"))}</p>`}</article>
     </div>
   `;
+  panelWindowModal.classList.remove("hidden");
 
-  const focusOpenChatButton = document.getElementById("focusOpenChatButton");
-  if (focusOpenChatButton) {
-    focusOpenChatButton.addEventListener("click", function () {
-      if (!openChatIds.includes(selectedId)) {
-        openChatIds.push(selectedId);
-      }
-      activeChatId = selectedId;
+  const chatButton = document.getElementById("detailOpenChatButton");
+  if (chatButton) {
+    chatButton.addEventListener("click", function () {
+      if (!openChatIds.includes(studentId)) openChatIds.push(studentId);
+      activeChatId = studentId;
       renderChatTabs();
       renderChat();
       openFloatingPanelWindow("messages");
+    });
+  }
+  const detailForm = document.getElementById("detailSchoolForm");
+  if (detailForm) {
+    detailForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      await saveTeacherStudentSchoolProfile(studentId, "detailSchool");
+      openTeacherStudentDetailWindow(studentId);
     });
   }
 }
@@ -4117,6 +5068,48 @@ if (clearAllStudentsButton) {
   });
 }
 
+if (applyStudentFilterButton) {
+  applyStudentFilterButton.addEventListener("click", applyTeacherStudentFilter);
+}
+
+if (clearStudentFilterButton) {
+  clearStudentFilterButton.addEventListener("click", function () {
+    if (teacherStudentsList) {
+      teacherStudentsList.querySelectorAll("input[type='checkbox']").forEach(input => { input.checked = false; });
+    }
+  });
+}
+
+if (studentSchoolCard) {
+  studentSchoolCard.addEventListener("click", function () {
+    renderStudentSchoolPanel();
+    openFloatingPanelWindow("school");
+  });
+  studentSchoolCard.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      renderStudentSchoolPanel();
+      openFloatingPanelWindow("school");
+    }
+  });
+}
+
+if (studentSchoolForm) {
+  studentSchoolForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    await saveCurrentStudentSchoolProfile();
+  });
+}
+
+if (promoteStudentsButton) {
+  promoteStudentsButton.addEventListener("click", async function () {
+    if (!confirm(t("promoteConfirm"))) {
+      return;
+    }
+    await promoteAllStudentsOneCourse();
+  });
+}
+
 teacherPostForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
@@ -4198,6 +5191,11 @@ teacherPostForm.addEventListener("submit", async function (event) {
     showMessage(teacherPostMessage, "La publicación se creó, pero no se pudo asignar.", "warning");
     return;
   }
+
+  await Promise.all(selectedStudentIds.map(function (studentId) {
+    const notificationType = ["worksheet", "interactive_test", "challenge", "game"].includes(postType) ? "new_task" : (MATERIAL_POST_TYPES.includes(postType) ? "material" : "new_post");
+    return createInternalNotification(studentId, teacherTitle.value.trim(), "Tienes una nueva publicación disponible en Tribeca Aula.", notificationType, "feed");
+  }));
 
   teacherPostForm.reset();
   updateTeacherUnitControls();
@@ -4333,7 +5331,10 @@ deleteCoverButton.addEventListener("click", async function () {
 teacherEventForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
-  const selectedStudentIds = teacherStudents.map(student => student.id);
+  let selectedStudentIds = getCheckedStudentIds(teacherEventStudentsList);
+  if (selectedStudentIds.length === 0) {
+    selectedStudentIds = teacherStudents.map(student => student.id);
+  }
 
   if (selectedStudentIds.length === 0) {
     showMessage(teacherEventMessage, "Todavía no hay alumnado disponible.", "warning");
@@ -4377,6 +5378,11 @@ teacherEventForm.addEventListener("submit", async function (event) {
     return;
   }
 
+  await Promise.all(selectedStudentIds.map(function (studentId) {
+    const type = teacherEventType.value === "exam" ? "exam" : "event";
+    return createInternalNotification(studentId, teacherEventTitle.value.trim(), "Tienes una nueva fecha en el calendario de Tribeca Aula.", type, "calendar");
+  }));
+
   teacherEventForm.reset();
   teacherEvents = await fetchAllEvents();
   renderTeacherCalendar();
@@ -4404,6 +5410,8 @@ teacherBadgeForm.addEventListener("submit", async function (event) {
     return;
   }
 
+  const selectedBadge = teacherBadges.find(item => item.id === teacherBadge.value);
+  await createInternalNotification(teacherBadgeStudent.value, selectedBadge ? `${selectedBadge.emoji} ${selectedBadge.name}` : t("myBadges"), "Has conseguido un nuevo logro en Tribeca Aula.", "achievement", "badges");
   teacherBadgeForm.reset();
   showMessage(teacherBadgeMessage, "Insignia asignada correctamente.", "success");
 });
@@ -5004,6 +6012,7 @@ messageForm.addEventListener("submit", async function (event) {
     return;
   }
 
+  await createInternalNotification(messageRecipient.value, messageSubject.value.trim() || t("messages"), "Hay un nuevo mensaje disponible en Tribeca Aula.", "message", "messages");
   await recordActivityEvent("message_sent", {});
   messageForm.reset();
   messages = await fetchMessages();
@@ -5233,6 +6242,22 @@ function setupRealtimeSubscriptions() {
         renderTeacherStudentHub();
       }
     })
+    .on("postgres_changes", { event: "*", schema: "public", table: "platform_notifications" }, async function () {
+      platformNotifications = await fetchPlatformNotifications();
+      renderNotifications();
+    })
+    .on("postgres_changes", { event: "*", schema: "public", table: "password_reset_requests" }, async function () {
+      if (currentProfile && currentProfile.role === "teacher") {
+        teacherPasswordRequests = await fetchTeacherPasswordRequests();
+        renderTeacherRecoveryRequests();
+      }
+    })
+    .on("postgres_changes", { event: "*", schema: "public", table: "student_quick_help_requests" }, async function () {
+      if (currentProfile && currentProfile.role === "teacher") {
+        teacherQuickHelpRequests = await fetchTeacherQuickHelpRequests();
+        renderTeacherRecoveryRequests();
+      }
+    })
     .on("postgres_changes", { event: "*", schema: "public", table: "calendar_event_assignments" }, async function () {
       await reloadCalendarData();
       if (currentProfile && currentProfile.role === "teacher") {
@@ -5285,9 +6310,15 @@ function startRefreshTimer() {
     if (currentProfile && currentProfile.role === "teacher") {
       recentActivity = await fetchRecentActivity();
       teacherEventAssignments = await fetchCalendarEventAssignments();
+      platformNotifications = await fetchPlatformNotifications();
+      teacherPasswordRequests = await fetchTeacherPasswordRequests();
+      teacherQuickHelpRequests = await fetchTeacherQuickHelpRequests();
       renderTeacherOverview();
       renderRecentActivity();
       renderTeacherStudentHub();
+      renderTeacherAlerts();
+      renderNotifications();
+      renderTeacherRecoveryRequests();
     }
   }, 30000);
 }
@@ -5450,7 +6481,12 @@ profileForm.addEventListener("submit", async function (event) {
 
   if (file) {
     if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
-      showMessage(profileMessage, "La imagen debe ser PNG, JPG, JPEG o WEBP.", "warning");
+      showMessage(profileMessage, t("profilePhotoInvalidType"), "warning");
+      return;
+    }
+
+    if (file.size > PROFILE_IMAGE_MAX_BYTES) {
+      showMessage(profileMessage, t("profilePhotoTooLarge"), "warning");
       return;
     }
 
@@ -5468,7 +6504,7 @@ profileForm.addEventListener("submit", async function (event) {
 
     if (uploadError) {
       console.error(uploadError);
-      showMessage(profileMessage, "No se pudo subir la imagen de perfil.", "warning");
+      showMessage(profileMessage, t("profilePhotoUploadError"), "warning");
       return;
     }
 
@@ -5511,8 +6547,55 @@ profileForm.addEventListener("submit", async function (event) {
     renderStudentDashboard();
   }
 
-  showMessage(profileMessage, t("savedProfile"), "success");
+  showMessage(profileMessage, file ? t("profilePhotoUploaded") : t("savedProfile"), "success");
 });
+
+if (profileAvatarFile) {
+  profileAvatarFile.addEventListener("change", function () {
+    const file = profileAvatarFile.files[0];
+    if (!file) return;
+    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
+      showMessage(profileMessage, t("profilePhotoInvalidType"), "warning");
+      profileAvatarFile.value = "";
+      return;
+    }
+    if (file.size > PROFILE_IMAGE_MAX_BYTES) {
+      showMessage(profileMessage, t("profilePhotoTooLarge"), "warning");
+      profileAvatarFile.value = "";
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function () {
+      profileAvatarPreview.innerHTML = `<img src="${escapeAttribute(reader.result)}" alt="${escapeAttribute(t("profileImageAlt"))}" />`;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+if (deleteProfilePhotoButton) {
+  deleteProfilePhotoButton.addEventListener("click", async function () {
+    if (!currentProfile) return;
+    selectedAvatarType = "emoji";
+    selectedAvatarValue = "💡";
+    selectedAvatarFilePath = "";
+    const { error } = await supabaseClient.rpc("update_own_profile_settings", {
+      p_nickname: profileNickname.value.trim(),
+      p_avatar_type: "emoji",
+      p_avatar_value: "💡",
+      p_avatar_file_path: ""
+    });
+    if (error) {
+      console.error(error);
+      showMessage(profileMessage, t("profilePhotoDeleteError"), "warning");
+      return;
+    }
+    profileAvatarFile.value = "";
+    currentProfile = await fetchProfile(currentUserId);
+    renderProfilePanel();
+    if (currentProfile.role !== "teacher") renderStudentDashboard();
+    showMessage(profileMessage, t("profilePhotoDeleted"), "success");
+  });
+}
 
 function renderProfilePanel() {
   profileNickname.value = currentProfile.nickname || "";
@@ -5524,6 +6607,8 @@ function renderProfilePanel() {
 
   renderAvatarChoices();
   renderProfileAvatar();
+  renderProfileAccountInfo();
+  renderStudentActivitySummary();
 }
 
 async function renderProfileAvatar() {
@@ -5557,10 +6642,50 @@ function renderAvatarChoices() {
       selectedAvatarType = "emoji";
       selectedAvatarValue = button.dataset.avatar;
       selectedAvatarFilePath = "";
+      if (profileAvatarFile) profileAvatarFile.value = "";
       profileAvatarPreview.textContent = selectedAvatarValue;
       renderAvatarChoices();
     });
   });
+}
+
+
+
+function renderProfileAccountInfo() {
+  if (!profileAccountInfo || !currentProfile) return;
+  const accessEmail = `${currentProfile.username}@tribeca-aula.local`;
+  const lastPresence = presence.find(item => item.profile_id === currentUserId);
+  const lastAccess = lastPresence && lastPresence.last_seen ? formatDateTime(lastPresence.last_seen) : t("currentSession") || "Sesión actual";
+  const subjectsLabel = currentSubjects && currentSubjects.length ? currentSubjects.map(s => s.name).join(", ") : (currentProfile.role === "teacher" ? "Panel docente" : t("unassigned"));
+  profileAccountInfo.innerHTML = [
+    [t("officialName"), currentProfile.displayName || currentProfile.name],
+    [t("visibleName"), currentProfile.nickname || currentProfile.name],
+    [t("accessEmail"), accessEmail],
+    [t("accountCreated"), currentProfile.createdAt ? formatDate(currentProfile.createdAt) : t("unassigned")],
+    [t("lastAccess"), lastAccess],
+    [t("currentCourse"), currentProfile.academicCourse || currentProfile.course || t("unassigned")],
+    [t("assignedSubjects"), subjectsLabel]
+  ].map(row => `<div class="profile-info-row"><span>${escapeHtml(row[0])}</span><strong>${escapeHtml(row[1])}</strong></div>`).join("");
+}
+
+function renderStudentActivitySummary() {
+  if (!studentActivitySummary || !currentProfile) return;
+  document.querySelectorAll(".student-only-profile-card").forEach(function(card){ card.classList.toggle("hidden", currentProfile.role === "teacher"); });
+  if (currentProfile.role === "teacher") return;
+  const completionSet = new Set(currentPostCompletions.map(item => item.post_id));
+  const actionable = currentPosts.filter(post => !["announcement", "notes"].includes(post.post_type));
+  const pending = actionable.filter(post => !completionSet.has(post.id)).length;
+  const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  const completedThisWeek = currentPostCompletions.filter(item => new Date(item.completed_at).getTime() >= weekAgo).length;
+  const nextEvents = currentEvents.filter(event => new Date(event.starts_at).getTime() >= Date.now()).slice(0, 2).map(event => event.title).join(", ") || t("noEvents");
+  studentActivitySummary.innerHTML = [
+    [t("completedThisWeek"), `${completedThisWeek}`],
+    [t("pendingTasks"), `${pending}`],
+    [t("nextEvents"), nextEvents],
+    [t("streak"), t("streakDays", { count: currentStreak || 0 })],
+    [t("currentLevel"), currentBadgeAwards.length >= 8 ? "Avanzado" : currentBadgeAwards.length >= 3 ? "En progreso" : "Inicio"],
+    [t("accumulatedPoints"), `${currentBadgeAwards.length * 10}`]
+  ].map(row => `<div class="profile-info-row"><span>${escapeHtml(row[0])}</span><strong>${escapeHtml(row[1])}</strong></div>`).join("");
 }
 
 function getCheckedStudentIds(container) {
@@ -5586,6 +6711,8 @@ function validateMaterialFile(file) {
 function readablePostType(type) {
   const labels = {
     announcement: t("postTypeAnnouncement"),
+    news: t("postTypeNews"),
+    notice: t("postTypeNotice"),
     notes: t("postTypeNotes"),
     worksheet: t("postTypeWorksheet"),
     interactive_test: t("postTypeTest"),
@@ -5948,6 +7075,15 @@ function openTeacherPanelWindow(panelId, titleKey) {
   if (panelId === "teacherGroupsPanel") {
     renderTeacherGroups();
   }
+  if (panelId === "teacherAlertsPanel") {
+    renderTeacherAlerts();
+  }
+  if (panelId === "teacherRecoveryPanel") {
+    renderTeacherRecoveryRequests();
+  }
+  if (panelId === "teacherOverviewPanel") {
+    renderTeacherOverview();
+  }
 
   applyI18n();
 }
@@ -6013,6 +7149,17 @@ function openFloatingPanelWindow(panelKey) {
     title = t("messages");
   }
 
+  if (panelKey === "school") {
+    panelId = "studentSchoolPanel";
+    title = t("schoolProfileTitle");
+    renderStudentSchoolPanel();
+  }
+
+  if (panelKey === "notifications") {
+    panelId = "notificationCenterPanel";
+    title = t("notificationCenter");
+  }
+
   if (!panelId) {
     return;
   }
@@ -6044,6 +7191,14 @@ function openFloatingPanelWindow(panelKey) {
   if (panelKey === "messages") {
     renderMessages();
     updateUnreadBadges();
+  }
+
+  if (panelKey === "school") {
+    renderStudentSchoolPanel();
+  }
+
+  if (panelKey === "notifications") {
+    renderNotifications();
   }
 
   applyI18n();
@@ -6093,7 +7248,7 @@ teacherPanelButtons.forEach(function (button) {
   });
 });
 
-[quickCalendarLink, quickUpcomingLink, quickMessagesLink].forEach(function (link) {
+[quickCalendarLink, quickUpcomingLink, quickMessagesLink, quickNotificationsLink].forEach(function (link) {
   if (link) {
     link.addEventListener("click", handlePanelLinkClick);
   }
@@ -6156,6 +7311,112 @@ if (gradeRecordForm) {
   });
 }
 
+
+
+if (markAllNotificationsReadButton) {
+  markAllNotificationsReadButton.addEventListener("click", markAllNotificationsRead);
+}
+
+if (emailPrefsForm) {
+  emailPrefsForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const selectedTypes = Array.from(emailPrefsTypes.querySelectorAll("input[type='checkbox']:checked")).map(input => input.value);
+    const { error } = await supabaseClient.from("notification_email_preferences").upsert({
+      profile_id: currentUserId,
+      enabled: emailPrefsEnabled.checked,
+      student_email: emailPrefsStudent.value.trim(),
+      family_email: emailPrefsFamily.value.trim(),
+      send_to: emailPrefsRecipient.value,
+      frequency: emailPrefsFrequency.value,
+      types: selectedTypes,
+      updated_at: new Date().toISOString()
+    });
+    if (error) {
+      console.error(error);
+      showMessage(emailPrefsMessage, "No se pudieron guardar las preferencias.", "warning");
+      return;
+    }
+    emailPreferences = await fetchEmailPreferences();
+    renderEmailPreferences();
+    showMessage(emailPrefsMessage, t("emailPrefsSaved"), "success");
+  });
+}
+
+if (privacyPrefsForm) {
+  privacyPrefsForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const { error } = await supabaseClient.from("privacy_authorizations").upsert({
+      profile_id: currentUserId,
+      platform_use: privacyPlatformUse.checked,
+      email_contact: privacyEmailContact.checked,
+      family_contact: privacyFamilyContact.checked,
+      profile_image: privacyProfileImage.checked,
+      updated_at: new Date().toISOString()
+    });
+    if (error) {
+      console.error(error);
+      showMessage(privacyPrefsMessage, "No se pudieron guardar las autorizaciones.", "warning");
+      return;
+    }
+    privacyPreferences = await fetchPrivacyPreferences();
+    showMessage(privacyPrefsMessage, t("privacyPrefsSaved"), "success");
+  });
+}
+
+if (requestPasswordHelpButton) {
+  requestPasswordHelpButton.addEventListener("click", async function () {
+    const { error } = await supabaseClient.from("password_reset_requests").insert({ profile_id: currentUserId });
+    if (error) {
+      console.error(error);
+      showMessage(passwordHelpMessage, "No se pudo enviar la solicitud.", "warning");
+      return;
+    }
+    const teacher = contacts.find(item => item.role === "teacher") || contacts[0];
+    if (teacher) {
+      await createInternalNotification(teacher.id, t("passwordHelpRequests"), `${currentProfile.name} solicita ayuda para recuperar su contraseña.`, "password", "profile");
+    }
+    showMessage(passwordHelpMessage, t("passwordHelpSent"), "success");
+  });
+}
+
+if (quickNeedText && quickNeedCounter) {
+  quickNeedText.addEventListener("input", function () {
+    quickNeedCounter.textContent = `${quickNeedText.value.length}/300`;
+  });
+}
+
+if (quickNeedForm) {
+  quickNeedForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const { error } = await supabaseClient.from("student_quick_help_requests").insert({
+      profile_id: currentUserId,
+      need_type: quickNeedType.value,
+      body: quickNeedText.value.trim()
+    });
+    if (error) {
+      console.error(error);
+      showMessage(quickNeedMessage, "No se pudo enviar el aviso.", "warning");
+      return;
+    }
+    const teacher = contacts.find(item => item.role === "teacher") || contacts[0];
+    if (teacher) {
+      await createInternalNotification(teacher.id, t("quickMessageTeacher"), `${currentProfile.name}: ${quickNeedText.value.trim() || quickNeedType.value}`, "quick_need", "messages");
+    }
+    quickNeedForm.reset();
+    quickNeedCounter.textContent = "0/300";
+    showMessage(quickNeedMessage, t("quickNeedSent"), "success");
+  });
+}
+
+if (toggleTeacherFeedButton && teacherChronologicalFeedPanel) {
+  toggleTeacherFeedButton.addEventListener("click", function () {
+    const expanded = teacherChronologicalFeedPanel.classList.toggle("is-expanded");
+    teacherChronologicalFeedPanel.classList.toggle("is-collapsed", !expanded);
+    toggleTeacherFeedButton.setAttribute("aria-expanded", String(expanded));
+    toggleTeacherFeedButton.textContent = expanded ? "⌃" : "⌄";
+  });
+}
+
 fontSizeSelect.addEventListener("change", function () {
   document.documentElement.style.setProperty("--base-size", fontSizeSelect.value);
   saveUiSettings();
@@ -6177,7 +7438,7 @@ languageSelect.addEventListener("change", function () {
   saveUiSettings();
 
   if (openedFloatingPanel && panelWindowTitle) {
-    panelWindowTitle.textContent = openedFloatingPanel.id === "communicationSection" ? t("messages") : t("calendar");
+    panelWindowTitle.textContent = openedFloatingPanel.id === "communicationSection" ? t("messages") : (openedFloatingPanel.id === "notificationCenterPanel" ? t("notificationCenter") : t("calendar"));
   }
 
   if (currentUserId) {

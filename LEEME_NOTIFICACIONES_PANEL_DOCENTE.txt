@@ -1,0 +1,22 @@
+ACTUALIZACIÓN: INTERFAZ, PERFIL, FEED Y MATERIALES
+
+Orden recomendado:
+1. Ejecutar en Supabase el archivo SQL incluido, si todavía no se ejecutó la migración anterior.
+2. Sustituir index.html, style.css y script.js.
+3. Publicar en Netlify con una carpeta limpia que contenga solo esos tres archivos.
+
+Cambios principales:
+- Se corrigen nombres técnicos que aparecían sin traducir en la vista docente y en el perfil.
+- Se elimina el apartado de privacidad/autorizaciones del perfil.
+- Se añaden muchos más iconos de perfil.
+- La subida de foto de perfil indica formato y tamaño máximo: PNG, JPG o WEBP, hasta 2 MB.
+- La plataforma avisa cuando la foto de perfil se sube correctamente.
+- Se añade opción para eliminar foto de perfil y aviso de eliminación correcta.
+- El calendario mantiene sombreado el día actual, pero elimina el texto “Hoy”.
+- “latestFeedPosts” pasa a llamarse “Feed de noticias y anuncios”.
+- El Feed solo muestra publicaciones de tipo anuncio, noticia o aviso.
+- Se crean en la interfaz las categorías Anuncio, Noticia y Aviso.
+- El material o recurso de materia no aparece en el Feed.
+- Si hay material nuevo en una materia, aparece una notificación dentro del recuadro de esa materia.
+- La notificación de material nuevo desaparece cuando el alumno abre el material.
+- En Centro, etapa y curso se elimina “Tipo de estudios”, porque duplicaba la etapa educativa.
