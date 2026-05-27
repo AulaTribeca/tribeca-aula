@@ -475,7 +475,6 @@
             <h2 id="createPostTitle" data-i18n="newPost">Nueva publicación</h2>
 
             <form id="teacherPostForm" class="teacher-form">
-              <input type="hidden" id="teacherPostEditId" value="" />
               <section class="teacher-toolbox compact-panel">
                 <h3 data-i18n="templates">Plantillas</h3>
                 <label for="postTemplateSelect" data-i18n="useTemplate">Usar plantilla</label>
@@ -544,7 +543,8 @@
 
               <label for="teacherFile" data-i18n="optionalFile">Archivo PDF, imagen o vídeo, opcional</label>
               <input type="file" id="teacherFile" accept="application/pdf,image/png,image/jpeg,image/webp,video/mp4" />
-              <p id="teacherCurrentFileNotice" class="form-help hidden"></p>
+              <p class="form-help" data-i18n="inlineImageHelp">Si subes una imagen, aparecerá visible dentro de la publicación sin que el alumnado tenga que abrirla aparte.</p>
+              <p id="teacherFileEditHint" class="form-help hidden" data-i18n="keepCurrentFileHelp">Si no eliges un archivo nuevo, se conservará el archivo actual de la publicación.</p>
 
               <fieldset class="student-picker">
                 <legend data-i18n="assignByGroups">Asignar por grupos</legend>
@@ -561,9 +561,9 @@
                 <div id="teacherStudentsList" class="checkbox-grid"></div>
               </fieldset>
 
-              <div class="post-form-actions">
+              <div class="form-actions-row">
                 <button type="submit" id="teacherPostSubmitButton" class="primary-button" data-i18n="publishAction">Publicar</button>
-                <button type="button" id="teacherCancelEditPostButton" class="secondary-button hidden" data-i18n="cancelEditPost">Cancelar edición</button>
+                <button type="button" id="cancelPostEditButton" class="secondary-button hidden" data-i18n="cancelEdit">Cancelar edición</button>
               </div>
               <p id="teacherPostMessage" class="feedback" role="status" aria-live="polite"></p>
             </form>
@@ -973,94 +973,5 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
-
-  <script>
-    (function () {
-      const SUPABASE_URL = "https://wjprzmqbsvdcpwlblupl.supabase.co";
-      const SUPABASE_ANON_KEY = "sb_publishable_qdOyqOCZFeKqEmLXtN5Nkw_JbMmetWP";
-
-      function setEmergencyLoginMessage(message, type) {
-        const loginError = document.getElementById("loginError");
-        if (!loginError) return;
-        loginError.textContent = message;
-        loginError.classList.remove("success", "warning");
-        if (type) loginError.classList.add(type);
-      }
-
-      function setEmergencyButtonLoading(isLoading) {
-        const button = document.getElementById("loginButton");
-        if (!button) return;
-        button.disabled = isLoading;
-        button.textContent = isLoading ? "Entrando..." : "Entrar";
-      }
-
-      async function emergencyLogin(event) {
-        const form = event.target;
-        if (!form || form.id !== "loginForm") return;
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        const usernameInput = document.getElementById("username");
-        const passwordInput = document.getElementById("password");
-        const username = usernameInput ? usernameInput.value.trim().toLowerCase() : "";
-        const password = passwordInput ? passwordInput.value.trim() : "";
-
-        if (!username || !password) {
-          setEmergencyLoginMessage("Escribe tu usuario y contraseña.", "warning");
-          return false;
-        }
-
-        if (!window.supabase || !window.supabase.createClient) {
-          setEmergencyLoginMessage("No se ha cargado Supabase. Recarga la página y prueba de nuevo.", "warning");
-          return false;
-        }
-
-        setEmergencyButtonLoading(true);
-        setEmergencyLoginMessage("");
-
-        try {
-          const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-          const email = username.includes("@") ? username : `${username}@tribeca-aula.local`;
-          const result = await client.auth.signInWithPassword({ email, password });
-
-          if (result.error || !result.data || !result.data.user) {
-            setEmergencyButtonLoading(false);
-            setEmergencyLoginMessage("Usuario o contraseña incorrectos.", "warning");
-            return false;
-          }
-
-          if (typeof window.loadUserData === "function") {
-            await window.loadUserData(result.data.user.id);
-            if (typeof window.playNotificationTone === "function") window.playNotificationTone("login");
-            setEmergencyButtonLoading(false);
-            return false;
-          }
-
-          setEmergencyLoginMessage("Inicio de sesión correcto. Recargando el aula...", "success");
-          window.location.reload();
-          return false;
-        } catch (error) {
-          console.error("Error de inicio de sesión:", error);
-          setEmergencyButtonLoading(false);
-          setEmergencyLoginMessage("No se pudo iniciar sesión. Recarga la página y prueba otra vez.", "warning");
-          return false;
-        }
-      }
-
-      function installEmergencyLoginGuard() {
-        const form = document.getElementById("loginForm");
-        if (!form || form.dataset.emergencyLoginGuard === "1") return;
-        form.dataset.emergencyLoginGuard = "1";
-        form.addEventListener("submit", emergencyLogin, true);
-      }
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", installEmergencyLoginGuard);
-      } else {
-        installEmergencyLoginGuard();
-      }
-    })();
-  </script>
 </body>
 </html>

@@ -1,0 +1,30 @@
+TRIBECA AULA - FIX PUBLICACIONES Y PANEL DOCENTE
+
+No hace falta ejecutar SQL.
+
+Cambios aplicados:
+
+1. Modo docente, publicaciones
+- Añadido botón Editar en las publicaciones ya creadas.
+- Al pulsar Editar se abre la herramienta Nueva publicación en modo edición.
+- Permite modificar: asignatura, unidad, tipo, título, texto, ideas clave, enlace, destinatarios y archivo.
+- Si no eliges archivo nuevo al editar, se conserva el archivo anterior.
+- Si eliges archivo nuevo, sustituye al anterior.
+- El botón pasa a Guardar cambios durante la edición.
+- Añadido botón Cancelar edición.
+
+2. Imágenes insertadas en publicaciones
+- Si la publicación tiene una imagen subida, aparece visible dentro de la tarjeta de la publicación.
+- El alumnado no tiene que hacer clic para verla.
+- En la vista completa de la publicación se mantiene la imagen grande.
+
+3. Panel de herramientas de profesora
+- Corregido el problema por el que algunas herramientas podían mostrar contenido residual de la ficha del alumno demo.
+- Cada herramienta limpia la ventana antes de abrirse.
+- Cada botón de Herramientas de profesora abre su panel correspondiente.
+
+Orden de uso:
+1. Sustituir index.html, style.css y script.js.
+2. Publicar en Netlify con una carpeta limpia que contenga solo esos tres archivos.
+3. Probar primero con una publicación de imagen y luego con Editar.
+

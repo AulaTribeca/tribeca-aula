@@ -1360,18 +1360,6 @@ Object.keys(i18nStudentEnhancements).forEach((lang) => {
   i18n[lang] = { ...(i18n[lang] || i18n.es), ...i18nStudentEnhancements[lang] };
 });
 
-
-// Refuerzos de traducción para la edición de publicaciones.
-Object.values(translations).forEach(function (bundle) {
-  bundle.editPost = bundle.editPost || "Editar";
-  bundle.updatePost = bundle.updatePost || "Guardar cambios";
-  bundle.cancelEditPost = bundle.cancelEditPost || "Cancelar edición";
-  bundle.editingPostNotice = bundle.editingPostNotice || "Estás editando una publicación ya publicada. Si subes un archivo nuevo, sustituirá al anterior.";
-  bundle.currentAttachedFile = bundle.currentAttachedFile || "Archivo actual: {file}";
-  bundle.postUpdated = bundle.postUpdated || "Publicación actualizada correctamente.";
-  bundle.postUpdateError = bundle.postUpdateError || "No se pudo actualizar la publicación.";
-});
-
 function t(key, params = {}) {
   const dictionary = i18n[state.lang] || i18n.es;
   let value = dictionary[key] || i18n.es[key] || key;
@@ -1714,7 +1702,15 @@ const tribecaFinalCleanLabels = {
   postTypeNotes: "Material o recurso",
   postTypeAnnouncement: "Anuncio",
   postTypeNews: "Noticia",
-  postTypeNotice: "Aviso"
+  postTypeNotice: "Aviso",
+  edit: "Editar",
+  editPost: "Editar publicación",
+  savePostChanges: "Guardar cambios",
+  cancelEdit: "Cancelar edición",
+  postUpdated: "Publicación actualizada correctamente.",
+  postUpdateError: "No se pudo actualizar la publicación.",
+  inlineImageHelp: "Si subes una imagen, aparecerá visible dentro de la publicación sin que el alumnado tenga que abrirla aparte.",
+  keepCurrentFileHelp: "Si no eliges un archivo nuevo, se conservará el archivo actual de la publicación."
 };
 Object.keys(i18n).forEach(function (lang) {
   i18n[lang] = Object.assign({}, i18n[lang], tribecaFinalCleanLabels);
@@ -1866,6 +1862,8 @@ let openedTeacherPanel = null;
 let openedTeacherPanelPlaceholder = null;
 let openedFloatingPanel = null;
 let openedFloatingPanelPlaceholder = null;
+let editingPostId = null;
+let editingPostOriginalContent = null;
 
 const contentPanel = document.getElementById("contentPanel");
 const contentTitle = document.getElementById("contentTitle");
@@ -1884,10 +1882,9 @@ const teacherBody = document.getElementById("teacherBody");
 const teacherKeyPoints = document.getElementById("teacherKeyPoints");
 const teacherUrl = document.getElementById("teacherUrl");
 const teacherFile = document.getElementById("teacherFile");
-const teacherPostEditId = document.getElementById("teacherPostEditId");
+const teacherFileEditHint = document.getElementById("teacherFileEditHint");
 const teacherPostSubmitButton = document.getElementById("teacherPostSubmitButton");
-const teacherCancelEditPostButton = document.getElementById("teacherCancelEditPostButton");
-const teacherCurrentFileNotice = document.getElementById("teacherCurrentFileNotice");
+const cancelPostEditButton = document.getElementById("cancelPostEditButton");
 const teacherStudentsList = document.getElementById("teacherStudentsList");
 const teacherPostMessage = document.getElementById("teacherPostMessage");
 const postTemplateSelect = document.getElementById("postTemplateSelect");
@@ -2480,29 +2477,6 @@ async function fetchUnitsForSubject(subjectId) {
   return data || [];
 }
 
-
-async function addSignedPreviewUrls(posts) {
-  const items = posts || [];
-  await Promise.all(items.map(async function (post) {
-    const content = post && post.content ? post.content : {};
-    if (!content.file_path || !["image/png", "image/jpeg", "image/webp"].includes(content.file_mime_type)) {
-      return;
-    }
-    try {
-      const { data, error } = await supabaseClient
-        .storage
-        .from(STORAGE_BUCKET)
-        .createSignedUrl(content.file_path, 3600);
-      if (!error && data && data.signedUrl) {
-        post.content = { ...content, signed_file_url: data.signedUrl };
-      }
-    } catch (error) {
-      console.warn("No se pudo preparar la imagen insertada:", error);
-    }
-  }));
-  return items;
-}
-
 async function fetchStudentPosts() {
   const { data, error } = await supabaseClient
     .from("posts")
@@ -2514,7 +2488,7 @@ async function fetchStudentPosts() {
     return [];
   }
 
-  return addSignedPreviewUrls(data || []);
+  return data || [];
 }
 
 async function fetchStudentEvents() {
@@ -2676,7 +2650,7 @@ async function fetchAllPosts() {
     return [];
   }
 
-  return addSignedPreviewUrls(data || []);
+  return data || [];
 }
 
 async function fetchAllEvents() {
@@ -3538,17 +3512,50 @@ function renderPostList(posts, container, emptyMessage, teacherMode) {
     });
   });
 
+  container.querySelectorAll(".edit-post-button").forEach(function (button) {
+    button.addEventListener("click", async function () {
+      await startEditingPost(button.dataset.postId);
+    });
+  });
+
   container.querySelectorAll(".delete-post-button").forEach(function (button) {
     button.addEventListener("click", async function () {
       await deletePost(button.dataset.postId);
     });
   });
 
-  container.querySelectorAll(".edit-post-button").forEach(function (button) {
-    button.addEventListener("click", function () {
-      startEditPost(button.dataset.postId);
-    });
-  });
+  loadInlinePostImages(container);
+}
+
+
+async function loadInlinePostImages(container) {
+  if (!container || !supabaseClient) {
+    return;
+  }
+
+  const targets = Array.from(container.querySelectorAll(".post-inline-image[data-post-id]"));
+
+  for (const target of targets) {
+    const post = currentPosts.find(item => item.id === target.dataset.postId)
+      || teacherPosts.find(item => item.id === target.dataset.postId);
+
+    if (!post || !post.content || !post.content.file_path) {
+      continue;
+    }
+
+    try {
+      const { data } = await supabaseClient
+        .storage
+        .from(STORAGE_BUCKET)
+        .createSignedUrl(post.content.file_path, 3600);
+
+      if (data && data.signedUrl) {
+        target.innerHTML = `<img src="${escapeAttribute(data.signedUrl)}" alt="${escapeAttribute(post.title)}" loading="lazy" />`;
+      }
+    } catch (error) {
+      console.warn("No se pudo cargar la imagen de la publicación", error);
+    }
+  }
 }
 
 function createPostCard(post, teacherMode) {
@@ -3556,10 +3563,9 @@ function createPostCard(post, teacherMode) {
   const subjectName = post.subjects && post.subjects.name ? post.subjects.name : t("subject");
   const unitName = post.subject_units && post.subject_units.title ? post.subject_units.title : "";
   const date = formatDate(post.created_at);
+
   const content = post.content || {};
-  const imagePreview = content.signed_file_url && ["image/png", "image/jpeg", "image/webp"].includes(content.file_mime_type)
-    ? `<button type="button" class="post-image-preview open-post-button" data-post-id="${post.id}" aria-label="${escapeAttribute(t("open"))}"><img src="${escapeAttribute(content.signed_file_url)}" alt="${escapeAttribute(post.title)}" /></button>`
-    : "";
+  const hasInlineImage = content.file_path && ["image/png", "image/jpeg", "image/webp"].includes(content.file_mime_type);
 
   return `
     <article class="post-card">
@@ -3571,13 +3577,13 @@ function createPostCard(post, teacherMode) {
         <span class="post-date">${escapeHtml(date)}</span>
       </div>
       <h3>${escapeHtml(post.title)}</h3>
-      ${imagePreview}
+      ${hasInlineImage ? `<div class="post-inline-image" data-post-id="${escapeAttribute(post.id)}" aria-label="Imagen insertada en la publicación"></div>` : ""}
       <p>${escapeHtml(shorten(post.body, 190))}</p>
       <div class="post-actions">
         <button type="button" class="primary-button open-post-button" data-post-id="${post.id}">
           ${escapeHtml(t("open"))}
         </button>
-        ${teacherMode ? `<button type="button" class="secondary-button edit-post-button" data-post-id="${post.id}">${escapeHtml(t("editPost"))}</button>` : ""}
+        ${teacherMode ? `<button type="button" class="secondary-button edit-post-button" data-post-id="${post.id}">${escapeHtml(t("edit"))}</button>` : ""}
         ${teacherMode ? `<button type="button" class="secondary-button delete-post-button" data-post-id="${post.id}">${escapeHtml(t("delete"))}</button>` : ""}
       </div>
     </article>
@@ -5328,6 +5334,120 @@ function renderTeacherBadges() {
   }).join("");
 }
 
+
+async function startEditingPost(postId) {
+  const post = teacherPosts.find(item => item.id === postId);
+  if (!post) {
+    return;
+  }
+
+  editingPostId = post.id;
+  editingPostOriginalContent = post.content || {};
+
+  openTeacherPanelWindow("teacherPostToolPanel", "editPost");
+
+  if (teacherSubject) {
+    teacherSubject.value = post.subject_id || teacherSubject.value;
+  }
+
+  if (teacherUnitMode && teacherUnitExisting && teacherUnitNew) {
+    if (post.unit_id) {
+      teacherUnitMode.value = "existing";
+      await updateTeacherUnitControls();
+      teacherUnitExisting.value = post.unit_id;
+    } else {
+      teacherUnitMode.value = "none";
+      teacherUnitNew.value = "";
+      await updateTeacherUnitControls();
+    }
+  }
+
+  if (teacherPostType) teacherPostType.value = post.post_type || "announcement";
+  if (teacherTitle) teacherTitle.value = post.title || "";
+  if (teacherBody) teacherBody.value = post.body || "";
+  if (teacherKeyPoints) teacherKeyPoints.value = Array.isArray(editingPostOriginalContent.key_points) ? editingPostOriginalContent.key_points.join("\n") : "";
+  if (teacherUrl) teacherUrl.value = editingPostOriginalContent.url || "";
+  if (teacherFile) teacherFile.value = "";
+  if (teacherFileEditHint) teacherFileEditHint.classList.remove("hidden");
+  if (teacherPostSubmitButton) teacherPostSubmitButton.textContent = t("savePostChanges");
+  if (cancelPostEditButton) cancelPostEditButton.classList.remove("hidden");
+
+  const assignedIds = new Set(teacherPostAssignments.filter(item => item.post_id === post.id).map(item => item.profile_id));
+  if (teacherGroupsList) {
+    teacherGroupsList.querySelectorAll("input[type='checkbox']").forEach(input => { input.checked = false; });
+  }
+  if (teacherStudentsList) {
+    teacherStudentsList.querySelectorAll("input[type='checkbox']").forEach(function (input) {
+      input.checked = assignedIds.has(input.value);
+    });
+  }
+
+  showMessage(teacherPostMessage, "Editando publicación. Guarda los cambios cuando termines.", "success");
+}
+
+function resetPostEditMode() {
+  editingPostId = null;
+  editingPostOriginalContent = null;
+  if (teacherFileEditHint) teacherFileEditHint.classList.add("hidden");
+  if (teacherPostSubmitButton) teacherPostSubmitButton.textContent = t("publishAction");
+  if (cancelPostEditButton) cancelPostEditButton.classList.add("hidden");
+  if (teacherGroupsList) {
+    teacherGroupsList.querySelectorAll("input[type='checkbox']").forEach(input => { input.checked = false; });
+  }
+}
+
+async function updateExistingPost(postId, payload, selectedStudentIds, newFileData) {
+  const previousContent = editingPostOriginalContent || {};
+
+  const { error: postError } = await supabaseClient
+    .from("posts")
+    .update(payload)
+    .eq("id", postId);
+
+  if (postError) {
+    console.error(postError);
+    showMessage(teacherPostMessage, t("postUpdateError"), "warning");
+    return false;
+  }
+
+  const { error: deleteAssignmentsError } = await supabaseClient
+    .from("post_assignments")
+    .delete()
+    .eq("post_id", postId);
+
+  if (deleteAssignmentsError) {
+    console.error(deleteAssignmentsError);
+    showMessage(teacherPostMessage, "La publicación se actualizó, pero no se pudieron actualizar los destinatarios.", "warning");
+    return false;
+  }
+
+  if (selectedStudentIds.length > 0) {
+    const assignments = selectedStudentIds.map(function (studentId) {
+      return { post_id: postId, profile_id: studentId };
+    });
+
+    const { error: assignmentError } = await supabaseClient
+      .from("post_assignments")
+      .insert(assignments);
+
+    if (assignmentError) {
+      console.error(assignmentError);
+      showMessage(teacherPostMessage, "La publicación se actualizó, pero no se pudo reasignar.", "warning");
+      return false;
+    }
+  }
+
+  if (newFileData && newFileData.filePath && previousContent.file_path && previousContent.file_path !== newFileData.filePath) {
+    await supabaseClient.storage.from(STORAGE_BUCKET).remove([previousContent.file_path]);
+  }
+
+  teacherPostAssignments = await fetchPostAssignments();
+  teacherPosts = await fetchAllPosts();
+  renderTeacherOverview();
+  renderTeacherPosts();
+  return true;
+}
+
 function renderTeacherPosts() {
   renderPostList(teacherPosts, teacherPostsList, t("noPostsCreated"), true);
 }
@@ -5499,168 +5619,12 @@ if (promoteStudentsButton) {
   });
 }
 
-
-function resetTeacherPostEditMode() {
-  if (teacherPostEditId) teacherPostEditId.value = "";
-  if (teacherPostSubmitButton) {
-    teacherPostSubmitButton.textContent = t("publishAction");
-    teacherPostSubmitButton.dataset.i18n = "publishAction";
-  }
-  if (teacherCancelEditPostButton) teacherCancelEditPostButton.classList.add("hidden");
-  if (teacherCurrentFileNotice) {
-    teacherCurrentFileNotice.textContent = "";
-    teacherCurrentFileNotice.classList.add("hidden");
-  }
-  const createPostTitle = document.getElementById("createPostTitle");
-  if (createPostTitle) {
-    createPostTitle.textContent = t("newPost");
-    createPostTitle.dataset.i18n = "newPost";
-  }
-}
-
-function startEditPost(postId) {
-  const post = teacherPosts.find(item => item.id === postId);
-  if (!post) return;
-  openTeacherPanelWindow("teacherPostToolPanel", "editPost");
-
-  if (teacherPostEditId) teacherPostEditId.value = post.id;
-  if (teacherSubject) teacherSubject.value = post.subject_id || "";
-  updateTeacherUnitControls();
-  if (teacherPostType) teacherPostType.value = post.post_type || "announcement";
-  if (teacherTitle) teacherTitle.value = post.title || "";
-  if (teacherBody) teacherBody.value = post.body || "";
-  const content = post.content || {};
-  if (teacherKeyPoints) teacherKeyPoints.value = Array.isArray(content.key_points) ? content.key_points.join("\n") : "";
-  if (teacherUrl) teacherUrl.value = content.url || "";
-  if (teacherFile) teacherFile.value = "";
-
-  if (post.unit_id) {
-    if (teacherUnitMode) teacherUnitMode.value = "existing";
-    updateTeacherUnitControls();
-    if (teacherUnitExisting) teacherUnitExisting.value = post.unit_id;
-  } else {
-    if (teacherUnitMode) teacherUnitMode.value = "none";
-    updateTeacherUnitControls();
-  }
-
-  const assignedIds = new Set(teacherPostAssignments.filter(item => item.post_id === post.id).map(item => item.profile_id));
-  if (teacherStudentsList) {
-    teacherStudentsList.querySelectorAll("input[type='checkbox']").forEach(function(input) {
-      input.checked = assignedIds.has(input.value);
-    });
-  }
-
-  if (teacherPostSubmitButton) {
-    teacherPostSubmitButton.textContent = t("updatePost");
-    teacherPostSubmitButton.dataset.i18n = "updatePost";
-  }
-  if (teacherCancelEditPostButton) teacherCancelEditPostButton.classList.remove("hidden");
-  if (teacherCurrentFileNotice) {
-    const fileName = content.file_name || content.file_path || "";
-    teacherCurrentFileNotice.textContent = fileName ? t("currentAttachedFile", { file: fileName }) : t("editingPostNotice");
-    teacherCurrentFileNotice.classList.remove("hidden");
-  }
-  const createPostTitle = document.getElementById("createPostTitle");
-  if (createPostTitle) {
-    createPostTitle.textContent = t("editPost");
-    createPostTitle.dataset.i18n = "editPost";
-  }
-  if (teacherPostMessage) showMessage(teacherPostMessage, t("editingPostNotice"), "info");
-}
-
-async function saveEditedPost(postId, selectedStudentIds, unitId, fileData) {
-  const existingPost = teacherPosts.find(item => item.id === postId);
-  if (!existingPost) {
-    showMessage(teacherPostMessage, t("postUpdateError"), "warning");
-    return false;
-  }
-
-  const previousContent = existingPost.content || {};
-  const keyPoints = teacherKeyPoints.value
-    .split("\n")
-    .map(line => line.trim())
-    .filter(Boolean);
-
-  const content = {
-    ...previousContent,
-    key_points: keyPoints,
-    url: teacherUrl.value.trim()
-  };
-
-  if (fileData && fileData.filePath) {
-    if (previousContent.file_path) {
-      await supabaseClient.storage.from(STORAGE_BUCKET).remove([previousContent.file_path]);
-    }
-    content.file_path = fileData.filePath;
-    content.file_name = fileData.fileName;
-    content.file_mime_type = fileData.fileMimeType;
-    delete content.signed_file_url;
-  }
-
-  const { error: updateError } = await supabaseClient
-    .from("posts")
-    .update({
-      subject_id: teacherSubject.value,
-      unit_id: unitId || null,
-      title: teacherTitle.value.trim(),
-      body: teacherBody.value.trim(),
-      post_type: teacherPostType.value,
-      content,
-      is_published: true
-    })
-    .eq("id", postId);
-
-  if (updateError) {
-    console.error(updateError);
-    showMessage(teacherPostMessage, t("postUpdateError"), "warning");
-    return false;
-  }
-
-  const { error: deleteAssignmentsError } = await supabaseClient
-    .from("post_assignments")
-    .delete()
-    .eq("post_id", postId);
-
-  if (deleteAssignmentsError) {
-    console.error(deleteAssignmentsError);
-    showMessage(teacherPostMessage, "La publicación se actualizó, pero no se pudieron renovar los destinatarios.", "warning");
-    return false;
-  }
-
-  const assignments = selectedStudentIds.map(function (studentId) {
-    return { post_id: postId, profile_id: studentId };
-  });
-
-  if (assignments.length) {
-    const { error: assignmentError } = await supabaseClient
-      .from("post_assignments")
-      .insert(assignments);
-
-    if (assignmentError) {
-      console.error(assignmentError);
-      showMessage(teacherPostMessage, "La publicación se actualizó, pero no se pudo reasignar.", "warning");
-      return false;
-    }
-  }
-
-  teacherPostAssignments = await fetchPostAssignments();
-  teacherPosts = await fetchAllPosts();
-  renderTeacherPosts();
-  renderTeacherOverview();
-  renderTeacherStudentHub();
-  resetTeacherPostEditMode();
-  teacherPostForm.reset();
-  updateTeacherUnitControls();
-  showMessage(teacherPostMessage, t("postUpdated"), "success");
-  return true;
-}
-
-if (teacherCancelEditPostButton) {
-  teacherCancelEditPostButton.addEventListener("click", function () {
+if (cancelPostEditButton) {
+  cancelPostEditButton.addEventListener("click", function () {
     teacherPostForm.reset();
+    resetPostEditMode();
     updateTeacherUnitControls();
-    resetTeacherPostEditMode();
-    showMessage(teacherPostMessage, "", "info");
+    showMessage(teacherPostMessage, "Edición cancelada.", "success");
   });
 }
 
@@ -5674,7 +5638,6 @@ teacherPostForm.addEventListener("submit", async function (event) {
     return;
   }
 
-  const editPostId = teacherPostEditId ? teacherPostEditId.value.trim() : "";
   const postType = teacherPostType.value;
   const url = teacherUrl.value.trim();
 
@@ -5701,30 +5664,43 @@ teacherPostForm.addEventListener("submit", async function (event) {
     .map(line => line.trim())
     .filter(Boolean);
 
-  if (editPostId) {
-    await saveEditedPost(editPostId, selectedStudentIds, unitId, fileData);
-    return;
-  }
-
+  const previousContent = editingPostOriginalContent || {};
   const content = {
     key_points: keyPoints,
     url,
-    file_path: fileData.filePath,
-    file_name: fileData.fileName,
-    file_mime_type: fileData.fileMimeType
+    file_path: fileData.filePath || previousContent.file_path || "",
+    file_name: fileData.fileName || previousContent.file_name || "",
+    file_mime_type: fileData.fileMimeType || previousContent.file_mime_type || ""
   };
+
+  const postPayload = {
+    subject_id: teacherSubject.value,
+    unit_id: unitId,
+    title: teacherTitle.value.trim(),
+    body: teacherBody.value.trim(),
+    post_type: postType,
+    content,
+    is_published: true
+  };
+
+  if (editingPostId) {
+    const updated = await updateExistingPost(editingPostId, postPayload, selectedStudentIds, fileData);
+    if (!updated) {
+      return;
+    }
+
+    teacherPostForm.reset();
+    resetPostEditMode();
+    updateTeacherUnitControls();
+    showMessage(teacherPostMessage, t("postUpdated"), "success");
+    return;
+  }
 
   const { data: createdPost, error: postError } = await supabaseClient
     .from("posts")
     .insert({
-      subject_id: teacherSubject.value,
-      unit_id: unitId,
-      created_by: currentUserId,
-      title: teacherTitle.value.trim(),
-      body: teacherBody.value.trim(),
-      post_type: postType,
-      content,
-      is_published: true
+      ...postPayload,
+      created_by: currentUserId
     })
     .select("id")
     .single();
@@ -5758,11 +5734,10 @@ teacherPostForm.addEventListener("submit", async function (event) {
   }));
 
   teacherPostForm.reset();
-  resetTeacherPostEditMode();
+  resetPostEditMode();
   updateTeacherUnitControls();
   teacherUnits = await fetchUnitsForSubjects(teacherSubjects.map(subject => subject.id));
   teacherPosts = await fetchAllPosts();
-  teacherPostAssignments = await fetchPostAssignments();
   renderTeacherPosts();
 
   showMessage(teacherPostMessage, "Publicación creada y asignada correctamente.", "success");
@@ -7785,6 +7760,7 @@ function openTeacherPanelWindow(panelId, titleKey) {
   closeFloatingPanelWindow(true);
   closeTeacherPanelWindow(true);
 
+  panelWindowBody.innerHTML = "";
   openedTeacherPanel = panel;
   openedTeacherPanelPlaceholder = document.createComment(`placeholder-${panelId}`);
   panel.parentNode.insertBefore(openedTeacherPanelPlaceholder, panel);
@@ -7811,17 +7787,6 @@ function openTeacherPanelWindow(panelId, titleKey) {
   }
   if (panelId === "teacherOverviewPanel") {
     renderTeacherOverview();
-  }
-  if (panelId === "teacherPostToolPanel") {
-    renderTeacherStudents();
-    renderTeacherTargetFilters();
-    updateTeacherUnitControls();
-  }
-  if (panelId === "teacherStudentAdminPanel") {
-    renderTeacherStudents();
-  }
-  if (panelId === "subjectCoverPanel") {
-    renderTeacherSubjects();
   }
 
   applyI18n();
@@ -7854,6 +7819,7 @@ function openGenericPanelWindow(panel, title, onOpen) {
   closeFloatingPanelWindow(true);
   closeTeacherPanelWindow(true);
 
+  panelWindowBody.innerHTML = "";
   openedFloatingPanel = panel;
   openedFloatingPanelPlaceholder = document.createComment(`placeholder-${panel.id}`);
   panel.parentNode.insertBefore(openedFloatingPanelPlaceholder, panel);
@@ -7916,6 +7882,7 @@ function openFloatingPanelWindow(panelKey) {
 
   closeFloatingPanelWindow(true);
 
+  panelWindowBody.innerHTML = "";
   openedFloatingPanel = panel;
   openedFloatingPanelPlaceholder = document.createComment(`placeholder-${panelId}`);
   panel.parentNode.insertBefore(openedFloatingPanelPlaceholder, panel);
@@ -7994,12 +7961,8 @@ function handlePanelLinkClick(event) {
 }
 
 teacherPanelButtons.forEach(function (button) {
-  button.addEventListener("click", function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-    const panelId = button.dataset.teacherPanel;
-    if (!panelId) return;
-    openTeacherPanelWindow(panelId, button.dataset.teacherTitleKey);
+  button.addEventListener("click", function () {
+    openTeacherPanelWindow(button.dataset.teacherPanel, button.dataset.teacherTitleKey);
   });
 });
 

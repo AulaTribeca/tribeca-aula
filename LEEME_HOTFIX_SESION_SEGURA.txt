@@ -1,0 +1,9 @@
+HOTFIX SESIÓN SEGURA
+
+No ejecuta SQL.
+
+Sustituye index.html, style.css y script.js.
+Publica en Netlify con una carpeta limpia que contenga solo esos tres archivos.
+Abre la web con ?v=sesionsegura1
+
+Este hotfix evita que un error secundario del panel docente o del panel de alumno bloquee el inicio de sesión.
