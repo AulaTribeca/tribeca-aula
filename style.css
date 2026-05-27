@@ -3210,12 +3210,12 @@ body.dark-mode .quick-need-message-card {
 .nudge-hand {
   display: inline-block;
   transform-origin: 70% 70%;
-  animation: handWave 0.9s ease-in-out 3;
+  animation: handWave 0.5s ease-in-out 3;
   font-size: 1.25rem;
 }
 
 #nudgeButton.nudge-sent {
-  animation: nudgeButtonPop 0.85s ease-out;
+  animation: nudgeButtonPop 1.5s ease-out;
 }
 
 .chat-form {

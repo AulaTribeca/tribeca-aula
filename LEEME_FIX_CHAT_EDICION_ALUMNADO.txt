@@ -1,0 +1,24 @@
+TRIBECA AULA: CORRECCIÓN RÁPIDA DE CHAT Y EDICIÓN DE ALUMNADO
+
+Archivos incluidos:
+- index.html
+- style.css
+- script.js
+- supabase_migracion_fix_edicion_alumnado.sql
+
+Qué corrige:
+1. Panel docente:
+   - Corrige el guardado de centro educativo, etapa, curso y horario de asistencia a Tribeca Aula.
+   - Añade el campo de horario en la ficha completa del alumno/a.
+   - Muestra un aviso claro si falta la migración SQL o si no se guardan los datos.
+
+2. Chat:
+   - La mano del toque se mueve durante 1,5 segundos.
+   - Se elimina el botón “Abrir conversación”.
+   - El contacto se abre al seleccionar a la persona.
+   - “Contacto” pasa a llamarse “Personas conectadas”.
+
+Orden recomendado:
+1. Ejecuta en Supabase el archivo supabase_migracion_fix_edicion_alumnado.sql solo si sigue fallando el guardado de centro, etapa o curso desde el panel docente.
+2. Sustituye index.html, style.css y script.js.
+3. Publica en Netlify con una carpeta limpia que contenga solo index.html, style.css y script.js.

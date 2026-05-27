@@ -118,7 +118,7 @@ const i18n = {
     markRead: "Marcar recibidos como leídos",
     quickCalendar: "Calendario",
     instantChat: "Chat instantáneo",
-    contact: "Contacto",
+    contact: "Contacto", connectedPeople: "Personas conectadas",
     writeMessage: "Escribe un mensaje...",
     send: "Enviar",
     legalNotice: "Aviso legal",
@@ -259,7 +259,7 @@ const i18n = {
     markRead: "Marcar recibidas como lidas",
     quickCalendar: "Calendario",
     instantChat: "Chat instantáneo",
-    contact: "Contacto",
+    contact: "Contacto", connectedPeople: "Personas conectadas",
     writeMessage: "Escribe unha mensaxe...",
     send: "Enviar",
     legalNotice: "Aviso legal",
@@ -394,7 +394,7 @@ const i18n = {
     markRead: "Mark received as read",
     quickCalendar: "Calendar",
     instantChat: "Instant chat",
-    contact: "Contact",
+    contact: "Contact", connectedPeople: "Connected people",
     writeMessage: "Write a message...",
     send: "Send",
     legalNotice: "Legal notice",
@@ -529,7 +529,7 @@ const i18n = {
     markRead: "Marquer les reçus comme lus",
     quickCalendar: "Calendrier",
     instantChat: "Chat instantané",
-    contact: "Contact",
+    contact: "Contact", connectedPeople: "Connected people",
     writeMessage: "Écrire un message...",
     send: "Envoyer",
     legalNotice: "Mentions légales",
@@ -664,7 +664,7 @@ const i18n = {
     markRead: "Oznacz odebrane jako przeczytane",
     quickCalendar: "Kalendarz",
     instantChat: "Czat na żywo",
-    contact: "Kontakt",
+    contact: "Kontakt", connectedPeople: "Połączone osoby",
     writeMessage: "Napisz wiadomość...",
     send: "Wyślij",
     legalNotice: "Nota prawna",
@@ -718,7 +718,7 @@ const i18nExtra = {
     statusOffline: "🔴 No conectado",
     statusStudying: "🟣 Estudiando, no molestar",
     statusWorking: "🟠 Trabajando, solo mensajes importantes",
-    openConversation: "Abrir conversación",
+    openConversation: "Abrir conversación", connectedPeople: "Personas conectadas",
     quickEmojis: "Emojis rápidos",
     nudge: "👋 Toque",
     subjectWindowLabel: "Asignatura",
@@ -1591,7 +1591,7 @@ const tribecaInterfaceLabels = {
     statusWorking: "Trabajando",
     statusOffline: "Desconectado",
     sound: "Sonido",
-    openConversation: "Abrir conversación",
+    openConversation: "Abrir conversación", connectedPeople: "Personas conectadas",
     openMessages: "Abrir mensajes",
     openCalendar: "Abrir calendario",
     openUnreadMessages: "Abrir mensajes no leídos",
@@ -1676,9 +1676,11 @@ const tribecaFinalCleanLabels = {
   studentCreateAuthError: "No se pudo crear la cuenta de acceso. Revisa que el usuario no exista ya y que Supabase permita altas con email local.",
   studentCreateProfileError: "La cuenta se creó, pero no se pudo completar el perfil. Revisa la migración SQL.",
   tribecaSchedule: "Horario en Tribeca Aula",
+  tribecaSchedulePlaceholder: "Ej.: lunes y miércoles, 17:00-18:00",
   schedulePlaceholder: "Ej.: lunes y miércoles, 17:00-18:00",
   noTribecaSchedule: "Sin horario de asistencia indicado",
   studentSchoolReadonly: "Estos datos los gestiona la profesora desde el panel docente.",
+  studentSchoolSaveError: "No se pudo guardar. Ejecuta la migración SQL de gestión de alumnado o revisa permisos de profesora.",
   schoolProfileIntro: "Estos datos los actualiza la profesora para que publicaciones, avisos y materiales lleguen correctamente.",
   saveStudentSchoolData: "Guardar centro, curso y horario",
   schoolProfileSaved: "Datos escolares guardados correctamente.",
@@ -4771,27 +4773,34 @@ async function promoteAllStudentsOneCourse() {
 }
 
 async function saveTeacherStudentSchoolProfile(studentId, formPrefix) {
-  const center = document.getElementById(`${formPrefix}Center`).value;
-  const stage = document.getElementById(`${formPrefix}Stage`).value;
-  const study = stage;
-  const course = document.getElementById(`${formPrefix}Course`).value;
+  const centerInput = document.getElementById(`${formPrefix}Center`);
+  const stageInput = document.getElementById(`${formPrefix}Stage`);
+  const courseInput = document.getElementById(`${formPrefix}Course`);
+  const scheduleInput = document.getElementById(`${formPrefix}Schedule`);
   const message = document.getElementById(`${formPrefix}Message`);
+  const center = centerInput ? centerInput.value : "";
+  const stage = stageInput ? stageInput.value : "";
+  const study = stage;
+  const course = courseInput ? courseInput.value : "";
+  const schedule = scheduleInput ? scheduleInput.value.trim() : "";
 
   const { error } = await supabaseClient.rpc("teacher_update_student_school_profile", {
     p_profile_id: studentId,
     p_school_center: center,
     p_educational_stage: stage,
     p_academic_course: course,
-    p_study_type: study
+    p_study_type: study,
+    p_class_schedule: schedule
   });
   if (error) {
     console.error(error);
-    showMessage(message, "No se pudo guardar.", "warning");
+    showMessage(message, t("studentSchoolSaveError") || "No se pudo guardar. Ejecuta la migración SQL de gestión de alumnado.", "warning");
     return;
   }
   teacherStudents = await fetchAllStudents();
   renderTeacherStudents();
   renderTeacherStudentHub();
+  renderTeacherStudentAdminList();
   showMessage(message, t("schoolProfileSaved"), "success");
 }
 
@@ -4799,11 +4808,13 @@ function renderInlineSchoolProfileForm(student, formPrefix) {
   const center = student.school_center || "";
   const stage = student.educational_stage || student.study_type || "";
   const course = student.academic_course || (student.courses ? student.courses.name : "");
+  const schedule = student.class_schedule || "";
   return `
     <form id="${escapeAttribute(formPrefix)}Form" class="teacher-form compact-school-form">
       <label>${escapeHtml(t("schoolCenter"))}<select id="${escapeAttribute(formPrefix)}Center">${schoolOptionsHtml(center, false)}</select></label>
       <label>${escapeHtml(t("educationalStage"))}<select id="${escapeAttribute(formPrefix)}Stage">${basicOptionsHtml(EDUCATIONAL_STAGES, stage, false)}</select></label>
       <label>${escapeHtml(t("academicCourse"))}<select id="${escapeAttribute(formPrefix)}Course">${basicOptionsHtml(ACADEMIC_COURSES, course, false)}</select></label>
+      <label>${escapeHtml(t("tribecaSchedule"))}<textarea id="${escapeAttribute(formPrefix)}Schedule" rows="2" placeholder="${escapeAttribute(t("tribecaSchedulePlaceholder"))}">${escapeHtml(schedule)}</textarea></label>
       <button type="submit" class="secondary-button">${escapeHtml(t("saveStudentSchoolData"))}</button>
       <p id="${escapeAttribute(formPrefix)}Message" class="feedback"></p>
     </form>
@@ -6403,26 +6414,28 @@ if (openUnreadMessagesButton) {
   });
 }
 
-openChatTabsButton.addEventListener("click", function () {
-  const selectedIds = Array.from(chatContact.selectedOptions).map(option => option.value);
+if (openChatTabsButton) {
+  openChatTabsButton.addEventListener("click", function () {
+    const selectedIds = Array.from(chatContact.selectedOptions).map(option => option.value);
 
-  selectedIds.forEach(function (id) {
-    if (!openChatIds.includes(id)) {
-      openChatIds.push(id);
+    selectedIds.forEach(function (id) {
+      if (!openChatIds.includes(id)) {
+        openChatIds.push(id);
+      }
+    });
+
+    if (!activeChatId && openChatIds.length > 0) {
+      activeChatId = openChatIds[0];
     }
+
+    if (selectedIds.length > 0) {
+      activeChatId = selectedIds[0];
+    }
+
+    renderChatTabs();
+    renderChat();
   });
-
-  if (!activeChatId && openChatIds.length > 0) {
-    activeChatId = openChatIds[0];
-  }
-
-  if (selectedIds.length > 0) {
-    activeChatId = selectedIds[0];
-  }
-
-  renderChatTabs();
-  renderChat();
-});
+}
 
 chatForm.addEventListener("submit", async function (event) {
   event.preventDefault();
@@ -6445,7 +6458,7 @@ nudgeButton.addEventListener("click", async function () {
   }
 
   nudgeButton.classList.add("nudge-sent");
-  setTimeout(() => nudgeButton.classList.remove("nudge-sent"), 900);
+  setTimeout(() => nudgeButton.classList.remove("nudge-sent"), 1500);
   await sendChatMessage(recipients, "👋", "nudge");
   playNotificationTone("nudge");
 });
