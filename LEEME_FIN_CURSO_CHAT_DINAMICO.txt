@@ -1,0 +1,39 @@
+ACTUALIZACIÓN: FIN DE CURSO Y CHAT DINÁMICO
+
+Archivos que debes sustituir:
+- index.html
+- style.css
+- script.js
+
+No es necesario ejecutar SQL para esta actualización.
+
+Cambios incluidos:
+
+1. Calendario
+- El 19 de junio de 2026 aparece en todos los calendarios como “🎉🌴☀️🏖️ ¡Fin de curso!”.
+- El evento es visible para todo el alumnado y para la profesora.
+- No depende de Supabase: se añade como evento interno fijo de la plataforma para evitar duplicados o errores.
+
+2. Encabezado de verano
+- Desde el 19 de junio de 2026 hasta el 8 de septiembre de 2026 el icono de la bombilla se sustituye por un motivo de verano con sol, palmera y playa.
+- El 9 de septiembre de 2026 vuelve automáticamente el icono habitual de Tribeca Aula.
+
+3. Chat
+- El chat ya no abre automáticamente una conversación antigua al iniciar sesión.
+- Cada sesión empieza con el chat limpio: los mensajes anteriores no se muestran en el chat rápido para que el alumnado distinga mejor lo nuevo.
+- Las conversaciones pueden cerrarse con una X en cada pestaña.
+- Si llega un mensaje nuevo, la conversación se abre automáticamente y se marca como nueva.
+- Se añaden notificaciones visuales flotantes para mensajes, toques, conexión y desconexión.
+- Se añaden animaciones de entrada para mensajes nuevos.
+- El toque muestra una mano en movimiento durante unos segundos.
+- Se mejoran los sonidos: burbuja para mensaje, sonido diferente para toque, conexión, desconexión, inicio y cierre de sesión.
+- El aspecto del chat se ha hecho más limpio, parecido a una conversación de mensajería.
+
+Cómo publicar:
+1. Sustituye index.html, style.css y script.js.
+2. Crea una carpeta limpia con solo esos tres archivos.
+3. Súbela a Netlify desde Deploys.
+4. Comprueba con un perfil de alumna/o y con la profesora.
+
+Commit recomendado:
+Mejora fin de curso y chat dinámico

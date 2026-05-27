@@ -733,7 +733,13 @@ const i18nExtra = {
     noEventsDay: "No hay eventos para este día.",
     noEvents: "Sin eventos",
     noOpenChats: "No hay conversaciones abiertas.",
-    noChatMessages: "No hay mensajes de chat con este contacto.",
+    noChatMessages: "No hay mensajes nuevos en esta sesión con este contacto.",
+    chatSessionNotice: "Chat de esta sesión: los mensajes anteriores no se muestran aquí para que sea fácil distinguir lo nuevo.",
+    closeChat: "Cerrar chat",
+    newChatFrom: "Nuevo mensaje de {name}",
+    nudgeFrom: "Toque de {name}",
+    connectedNotice: "{name} se ha conectado",
+    disconnectedNotice: "{name} se ha desconectado",
     newMessage: "Nuevo mensaje",
     composeHelp: "Escribe el destinatario, el asunto y el contenido. El alumnado solo puede enviar mensajes a la profesora.",
     unreadShort: "{count} sin leer",
@@ -805,7 +811,13 @@ const i18nExtra = {
     noEventsDay: "Non hai eventos para este día.",
     noEvents: "Sen eventos",
     noOpenChats: "Non hai conversas abertas.",
-    noChatMessages: "Non hai mensaxes de chat con este contacto.",
+    noChatMessages: "Non hai mensaxes novas nesta sesión con este contacto.",
+    chatSessionNotice: "Chat desta sesión: as mensaxes anteriores non se amosan aquí para distinguir mellor o novo.",
+    closeChat: "Pechar chat",
+    newChatFrom: "Nova mensaxe de {name}",
+    nudgeFrom: "Toque de {name}",
+    connectedNotice: "{name} conectouse",
+    disconnectedNotice: "{name} desconectouse",
     newMessage: "Nova mensaxe",
     composeHelp: "Escribe o destinatario, o asunto e o contido. O alumnado só pode enviar mensaxes á profesora.",
     unreadShort: "{count} sen ler",
@@ -876,7 +888,13 @@ const i18nExtra = {
     noEventsDay: "There are no events for this day.",
     noEvents: "No events",
     noOpenChats: "There are no open conversations.",
-    noChatMessages: "There are no chat messages with this contact.",
+    noChatMessages: "There are no new messages in this session with this contact.",
+    chatSessionNotice: "Session chat: previous messages are not shown here so new messages are easier to identify.",
+    closeChat: "Close chat",
+    newChatFrom: "New message from {name}",
+    nudgeFrom: "Nudge from {name}",
+    connectedNotice: "{name} is online",
+    disconnectedNotice: "{name} is offline",
     newMessage: "New message",
     composeHelp: "Write the recipient, subject and content. Students can only send messages to the teacher.",
     unreadShort: "{count} unread",
@@ -948,7 +966,13 @@ const i18nExtra = {
     noEventsDay: "Il n’y a pas d’événements pour ce jour.",
     noEvents: "Aucun événement",
     noOpenChats: "Aucune conversation ouverte.",
-    noChatMessages: "Aucun message de chat avec ce contact.",
+    noChatMessages: "Aucun nouveau message dans cette session avec ce contact.",
+    chatSessionNotice: "Chat de cette session : les messages précédents ne sont pas affichés ici pour mieux repérer les nouveautés.",
+    closeChat: "Fermer le chat",
+    newChatFrom: "Nouveau message de {name}",
+    nudgeFrom: "Signal de {name}",
+    connectedNotice: "{name} est connecté",
+    disconnectedNotice: "{name} est déconnecté",
     newMessage: "Nouveau message",
     composeHelp: "Écris le destinataire, l’objet et le contenu. Les élèves peuvent seulement écrire à l’enseignante.",
     unreadShort: "{count} non lu(s)",
@@ -1020,7 +1044,13 @@ const i18nExtra = {
     noEventsDay: "Brak wydarzeń na ten dzień.",
     noEvents: "Brak wydarzeń",
     noOpenChats: "Brak otwartych rozmów.",
-    noChatMessages: "Brak wiadomości czatu z tym kontaktem.",
+    noChatMessages: "Brak nowych wiadomości w tej sesji z tym kontaktem.",
+    chatSessionNotice: "Czat tej sesji: wcześniejsze wiadomości nie są tu pokazywane, aby łatwiej rozpoznać nowe.",
+    closeChat: "Zamknij czat",
+    newChatFrom: "Nowa wiadomość od {name}",
+    nudgeFrom: "Sygnał od {name}",
+    connectedNotice: "{name} jest online",
+    disconnectedNotice: "{name} jest offline",
     newMessage: "Nowa wiadomość",
     composeHelp: "Wpisz odbiorcę, temat i treść. Uczniowie mogą pisać tylko do nauczycielki.",
     unreadShort: "{count} nieprzeczytane",
@@ -1777,6 +1807,8 @@ const studentEducationalStageSelect = document.getElementById("studentEducationa
 const studentAcademicCourseSelect = document.getElementById("studentAcademicCourseSelect");
 const studentSchoolMessage = document.getElementById("studentSchoolMessage");
 const academicYearBanner = document.getElementById("academicYearBanner");
+const brandLogo = document.querySelector(".brand-logo");
+const defaultBrandLogoMarkup = brandLogo ? brandLogo.innerHTML : "";
 
 const subjectsContainer = document.getElementById("subjectsContainer");
 const studentEventSubject = document.getElementById("studentEventSubject");
@@ -1993,6 +2025,9 @@ let previousChatMessageIds = new Set();
 let previousOnlineIds = new Set();
 let communicationInitialized = false;
 let currentStreak = 0;
+const chatSessionStartedAt = new Date();
+let sessionUnreadChatIds = new Set();
+let animatedChatMessageIds = new Set();
 
 let selectedAvatarType = "emoji";
 let selectedAvatarValue = "💡";
@@ -2452,16 +2487,16 @@ async function fetchStudentEvents() {
     return [];
   }
 
-  return filterEventsForCurrentProfile(data || []);
+  return withSystemCalendarEvents(filterEventsForCurrentProfile(data || []));
 }
 
 function filterEventsForCurrentProfile(events) {
-  if (!currentProfile || currentProfile.role === "teacher") return events || [];
+  if (!currentProfile || currentProfile.role === "teacher") return withSystemCalendarEvents(events || []);
   return (events || []).filter(function(event) {
     if (event.created_by === currentUserId) return true;
     if (event.visibility_scope === "all" || !event.visibility_scope) return true;
     if (Array.isArray(event.affected_school_centers) && event.affected_school_centers.includes(currentProfile.schoolCenter)) return true;
-    return true; // RLS ya aplica asignaciones; mantener compatibilidad con esquemas antiguos.
+    return false;
   });
 }
 
@@ -2615,7 +2650,7 @@ async function fetchAllEvents() {
     return [];
   }
 
-  return data || [];
+  return withSystemCalendarEvents(data || []);
 }
 
 async function fetchPostAssignments() {
@@ -4024,7 +4059,7 @@ function readableEventOwner(event) {
 }
 
 function canManageCalendarEvent(event) {
-  if (!currentProfile || !event) {
+  if (!currentProfile || !event || event.system_event) {
     return false;
   }
 
@@ -4377,12 +4412,39 @@ function readableGradeType(type) {
 
 function updateAcademicYearBanner() {
   if (!academicYearBanner) {
+    applySeasonalHeaderLogo();
     return;
   }
   const label = getAcademicYearLabel(new Date());
   academicYearBanner.textContent = label.isPreparation
     ? t("academicYearPreparation", { year: label.label })
     : t("academicYear", { year: label.label });
+  applySeasonalHeaderLogo();
+}
+
+function applySeasonalHeaderLogo() {
+  if (!brandLogo) {
+    return;
+  }
+
+  const todayKey = formatDateKey(new Date());
+  const summerMode = todayKey >= "2026-06-19" && todayKey < "2026-09-09";
+
+  if (summerMode) {
+    brandLogo.classList.add("summer-logo");
+    brandLogo.setAttribute("aria-label", "Tribeca Aula en modo verano");
+    brandLogo.innerHTML = `
+      <text x="8" y="28" class="summer-logo-emoji">☀️</text>
+      <text x="25" y="34" class="summer-logo-emoji">🌴</text>
+      <text x="8" y="54" class="summer-logo-emoji">🏖️</text>
+    `;
+  } else {
+    brandLogo.classList.remove("summer-logo");
+    brandLogo.setAttribute("aria-label", "Logo de Tribeca Aula");
+    if (defaultBrandLogoMarkup) {
+      brandLogo.innerHTML = defaultBrandLogoMarkup;
+    }
+  }
 }
 
 function getAcademicYearLabel(date) {
@@ -4393,6 +4455,36 @@ function getAcademicYearLabel(date) {
   const endYear = startYear + 1;
   const label = `${startYear}/${String(endYear).slice(2)}`;
   return { label, isPreparation };
+}
+
+function getSystemCalendarEvents() {
+  return [
+    {
+      id: "system-fin-curso-2026",
+      subject_id: null,
+      title: "🎉🌴☀️🏖️ ¡Fin de curso!",
+      description: "Fin del curso escolar. Tribeca Aula entra en ambiente de verano hasta el inicio del curso 2026/27.",
+      event_type: "important",
+      starts_at: "2026-06-19T10:00:00",
+      created_by: null,
+      created_at: "2026-06-19T10:00:00",
+      visibility_scope: "all",
+      affected_school_centers: [],
+      system_event: true,
+      subjects: { name: "Tribeca Aula", code: "TRIBECA", icon: "🏖️" }
+    }
+  ];
+}
+
+function withSystemCalendarEvents(events) {
+  const base = Array.isArray(events) ? events.slice() : [];
+  const existingIds = new Set(base.map(event => event.id));
+  getSystemCalendarEvents().forEach(function (event) {
+    if (!existingIds.has(event.id)) {
+      base.push(event);
+    }
+  });
+  return base.sort((a, b) => new Date(a.starts_at) - new Date(b.starts_at));
 }
 
 function initSchoolStaticSelectors() {
@@ -5657,10 +5749,8 @@ async function loadCommunication() {
   presence = await fetchPresence();
   unreadCount = countUnreadMail();
 
-  if (openChatIds.length === 0 && contacts.length > 0) {
-    openChatIds = [contacts[0].id];
-    activeChatId = contacts[0].id;
-  }
+  openChatIds = [];
+  activeChatId = "";
 
   renderContactSelectors();
   setMessageView(currentMessageView || "inbox");
@@ -6101,16 +6191,40 @@ function renderChatTabs() {
       return "";
     }
 
+    const unread = sessionUnreadChatIds.has(id);
+
     return `
-      <button type="button" class="chat-tab ${id === activeChatId ? "active" : ""}" data-contact-id="${id}">
-        <span class="status-dot ${presenceClass(id)}"></span>${escapeHtml(contact.name)}
-      </button>
+      <div class="chat-tab-wrap ${id === activeChatId ? "active" : ""} ${unread ? "has-unread" : ""}">
+        <button type="button" class="chat-tab" data-contact-id="${id}">
+          <span class="status-dot ${presenceClass(id)}"></span>
+          <span>${escapeHtml(contact.name)}</span>
+          ${unread ? `<span class="chat-tab-badge">${escapeHtml(t("newMessage"))}</span>` : ""}
+        </button>
+        <button type="button" class="chat-tab-close" data-contact-id="${id}" aria-label="${escapeAttribute(t("closeChat"))}">×</button>
+      </div>
     `;
   }).join("");
 
   chatTabs.querySelectorAll(".chat-tab").forEach(function (button) {
     button.addEventListener("click", function () {
       activeChatId = button.dataset.contactId;
+      sessionUnreadChatIds.delete(activeChatId);
+      replyToMessageId = "";
+      renderReplyPreview();
+      renderChatTabs();
+      renderChat();
+    });
+  });
+
+  chatTabs.querySelectorAll(".chat-tab-close").forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      event.stopPropagation();
+      const id = button.dataset.contactId;
+      openChatIds = openChatIds.filter(item => item !== id);
+      sessionUnreadChatIds.delete(id);
+      if (activeChatId === id) {
+        activeChatId = openChatIds[0] || "";
+      }
       replyToMessageId = "";
       renderReplyPreview();
       renderChatTabs();
@@ -6131,8 +6245,11 @@ function renderChat() {
     return;
   }
 
+  sessionUnreadChatIds.delete(selectedContactId);
+
   const chat = messages
     .filter(message => ["chat", "nudge"].includes(message.message_type))
+    .filter(message => new Date(message.created_at) >= chatSessionStartedAt)
     .filter(message =>
       (message.sender_id === currentUserId && message.recipient_id === selectedContactId)
       || (message.sender_id === selectedContactId && message.recipient_id === currentUserId)
@@ -6148,23 +6265,23 @@ function renderChat() {
     return;
   }
 
-  chatMessages.innerHTML = `<p class="chat-live-note">${escapeHtml(t("realtimeActive"))}</p>` + chat.map(function (message) {
+  chatMessages.innerHTML = `<p class="chat-live-note">${escapeHtml(t("chatSessionNotice"))}</p>` + chat.map(function (message) {
     const mine = message.sender_id === currentUserId;
     const reply = message.reply_to ? chat.find(item => item.id === message.reply_to) : null;
 
     if (message.message_type === "nudge") {
       return `
-        <div class="chat-message nudge ${mine ? "mine" : ""}">
-          <p>${mine ? "Has enviado un toque" : "👋 Te han enviado un toque"}</p>
+        <div class="chat-message nudge ${mine ? "mine" : ""} ${animatedChatMessageIds.has(message.id) ? "is-new" : ""}">
+          <p><span class="nudge-hand">👋</span> ${mine ? "Has enviado un toque" : "Te han enviado un toque"}</p>
           <small>${escapeHtml(formatDateTime(message.created_at))}</small>
         </div>
       `;
     }
 
     return `
-      <div class="chat-message ${mine ? "mine" : ""}">
+      <div class="chat-message ${mine ? "mine" : ""} ${animatedChatMessageIds.has(message.id) ? "is-new" : ""}">
         ${reply ? `<div class="reply-box"><strong>${escapeHtml(getProfileName(reply.sender_id))}:</strong> ${escapeHtml(shorten(reply.body, 80))}</div>` : ""}
-        <p><strong>${mine ? "Yo" : escapeHtml(getProfileName(message.sender_id))}</strong></p>
+        <div class="chat-bubble-head"><strong>${mine ? "Yo" : escapeHtml(getProfileName(message.sender_id))}</strong><small>${escapeHtml(formatTimeOnly(message.created_at))}</small></div>
         <p>${escapeHtml(message.body)}</p>
         ${message.reaction_emoji ? `<span class="chat-reaction">${escapeHtml(message.reaction_emoji)}</span>` : ""}
         <div class="chat-message-actions">
@@ -6173,7 +6290,7 @@ function renderChat() {
           <button type="button" class="react-chat-button" data-message-id="${message.id}" data-emoji="❤️">❤️</button>
           <button type="button" class="react-chat-button" data-message-id="${message.id}" data-emoji="🔥">🔥</button>
         </div>
-        <small>${escapeHtml(formatDateTime(message.created_at))}</small>
+        <small class="chat-date-full">${escapeHtml(formatDateTime(message.created_at))}</small>
       </div>
     `;
   }).join("");
@@ -6192,6 +6309,9 @@ function renderChat() {
   });
 
   chatMessages.scrollTop = chatMessages.scrollHeight;
+  setTimeout(function () {
+    chat.forEach(message => animatedChatMessageIds.delete(message.id));
+  }, 1600);
 }
 
 function renderReplyPreview() {
@@ -6324,6 +6444,8 @@ nudgeButton.addEventListener("click", async function () {
     return;
   }
 
+  nudgeButton.classList.add("nudge-sent");
+  setTimeout(() => nudgeButton.classList.remove("nudge-sent"), 900);
   await sendChatMessage(recipients, "👋", "nudge");
   playNotificationTone("nudge");
 });
@@ -6577,9 +6699,14 @@ function detectNewChatActivity(newMessages, newPresence) {
       if (otherId && !openChatIds.includes(otherId)) {
         openChatIds.push(otherId);
       }
+      if (otherId) {
+        sessionUnreadChatIds.add(otherId);
+      }
+      animatedChatMessageIds.add(message.id);
       if (!activeChatId) {
         activeChatId = otherId;
       }
+      showChatNotice(message.message_type === "nudge" ? t("nudgeFrom", { name: getProfileName(message.sender_id) }) : t("newChatFrom", { name: getProfileName(message.sender_id) }), message.message_type);
     });
     renderChatTabs();
     renderChat();
@@ -6597,14 +6724,41 @@ function detectNewChatActivity(newMessages, newPresence) {
 
   if (someoneNewOnline) {
     playNotificationTone("presenceOn");
+    const id = [...newOnlineIds].find(item => item !== currentUserId && !previousOnlineIds.has(item));
+    if (id) showChatNotice(t("connectedNotice", { name: getProfileName(id) }), "presenceOn");
   }
 
   if (someoneWentOffline) {
     playNotificationTone("presenceOff");
+    const id = [...previousOnlineIds].find(item => item !== currentUserId && !newOnlineIds.has(item));
+    if (id) showChatNotice(t("disconnectedNotice", { name: getProfileName(id) }), "presenceOff");
   }
 
   previousChatMessageIds = new Set(newMessages.map(message => message.id));
   previousOnlineIds = newOnlineIds;
+}
+
+function showChatNotice(text, type) {
+  let stack = document.getElementById("chatNoticeStack");
+  if (!stack) {
+    stack = document.createElement("div");
+    stack.id = "chatNoticeStack";
+    stack.className = "chat-notice-stack";
+    document.body.appendChild(stack);
+  }
+
+  const icon = type === "nudge" ? "👋" : type === "presenceOn" ? "🟢" : type === "presenceOff" ? "🔴" : "💬";
+  const notice = document.createElement("div");
+  notice.className = `chat-notice chat-notice-${type || "chat"}`;
+  notice.innerHTML = `<span>${icon}</span><strong>${escapeHtml(text)}</strong>`;
+  stack.appendChild(notice);
+
+  setTimeout(function () {
+    notice.classList.add("leaving");
+    setTimeout(function () {
+      notice.remove();
+    }, 360);
+  }, 3500);
 }
 
 function playNotificationTone(type) {
@@ -6618,26 +6772,29 @@ function playNotificationTone(type) {
     const oscillator = audioContext.createOscillator();
     const gain = audioContext.createGain();
 
-    const frequencies = {
-      chat: 660,
-      nudge: 880,
-      presence: 520,
-      presenceOn: 560,
-      presenceOff: 330,
-      login: 740,
-      logout: 260
+    const toneMap = {
+      chat: { frequency: 720, second: 960, duration: 0.18, type: "sine" },
+      nudge: { frequency: 880, second: 1170, duration: 0.26, type: "triangle" },
+      presence: { frequency: 520, second: 640, duration: 0.20, type: "sine" },
+      presenceOn: { frequency: 520, second: 700, duration: 0.22, type: "sine" },
+      presenceOff: { frequency: 360, second: 260, duration: 0.24, type: "sine" },
+      login: { frequency: 740, second: 980, duration: 0.24, type: "sine" },
+      logout: { frequency: 330, second: 260, duration: 0.24, type: "sine" }
     };
 
-    oscillator.type = "sine";
-    oscillator.frequency.value = frequencies[type] || 660;
+    const tone = toneMap[type] || toneMap.chat;
+    oscillator.type = tone.type;
+    oscillator.frequency.value = tone.frequency;
+    oscillator.frequency.setValueAtTime(tone.frequency, audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(tone.second, audioContext.currentTime + tone.duration * 0.55);
     gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.12, audioContext.currentTime + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.22);
+    gain.gain.exponentialRampToValueAtTime(type === "chat" ? 0.09 : 0.13, audioContext.currentTime + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + tone.duration);
 
     oscillator.connect(gain);
     gain.connect(audioContext.destination);
     oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.24);
+    oscillator.stop(audioContext.currentTime + tone.duration + 0.02);
   } catch (error) {
     console.warn("No se pudo reproducir sonido:", error);
   }
