@@ -1,0 +1,14 @@
+TRIBECA AULA - FIX PUBLICACIONES EDITABLES E IMÁGENES
+
+Cambios incluidos:
+- La profesora puede editar publicaciones ya publicadas desde el listado de publicaciones.
+- Las publicaciones con imagen adjunta muestran la imagen ya visible en la tarjeta, sin tener que abrir primero la publicación.
+- Si se edita una publicación y se sube una nueva imagen o archivo, sustituye al archivo anterior.
+- Se corrige el problema de las tarjetas de herramientas docentes que abrían una ventana equivocada o el perfil del alumno demo.
+- Cada herramienta docente vuelve a abrir su panel correspondiente: nueva publicación, calendario, grupos, actividad, chats, alertas, vista general, imagen de asignatura, insignias, recuperación y gestión de alumnado.
+
+Orden de uso:
+1. Sustituir index.html, style.css y script.js.
+2. No ejecutar SQL.
+3. Publicar en Netlify con una carpeta limpia que contenga solo index.html, style.css y script.js.
+4. Probar como profesora: abrir cada herramienta y editar una publicación existente.
