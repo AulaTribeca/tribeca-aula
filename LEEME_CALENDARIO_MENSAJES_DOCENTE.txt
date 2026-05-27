@@ -1,0 +1,32 @@
+TRIBECA AULA: CALENDARIO, MENSAJES Y PANEL DOCENTE
+
+Orden recomendado:
+
+1. En Supabase, abre SQL Editor > New query.
+2. Copia y ejecuta todo el contenido de:
+   supabase_migracion_calendario_mensajes_docente.sql
+
+3. Sustituye en tu carpeta de publicación estos tres archivos:
+   index.html
+   style.css
+   script.js
+
+4. Publica de nuevo en Netlify usando la carpeta limpia o ZIP con index.html, style.css y script.js.
+   No hace falta volver a tocar GitHub Pages.
+
+Cambios incluidos:
+
+- El alumnado puede ver sus eventos personales y los eventos publicados por la profesora.
+- El alumnado puede editar y eliminar solo sus propios eventos personales.
+- La profesora puede ver eventos creados por el alumnado y eventos publicados por ella.
+- El chat usa Supabase Realtime cuando está disponible y mantiene un refresco periódico de seguridad.
+- El aviso de privacidad del chat indica que la conversación es visible solo entre alumnado y profesora.
+- Se mejora el diseño del chat con burbujas más parecidas a WhatsApp.
+- El panel de profesora incluye vista individual de alumnado: publicaciones, eventos y mensajes relacionados.
+- Se añade botón para comprimir o expandir la vista docente.
+- Se mantienen Calendario y Mensajes ocultos hasta pulsar su botón.
+- Se amplían traducciones de textos que quedaban fijos.
+
+Nota importante:
+
+Si la parte de Realtime no se activa por permisos de Supabase, el aula seguirá funcionando con refresco automático cada 30 segundos. Aun así, lo recomendable es ejecutar el SQL completo para añadir las tablas a la publicación realtime.

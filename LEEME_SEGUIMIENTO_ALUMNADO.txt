@@ -1,0 +1,24 @@
+Actualización de Tribeca Aula: seguimiento del alumnado y mejoras de calendario
+
+Orden de uso:
+1. Ejecutar en Supabase SQL Editor el archivo supabase_migracion_seguimiento_alumnado.sql.
+2. Sustituir en la carpeta de publicación los tres archivos: index.html, style.css y script.js.
+3. Publicar de nuevo en Netlify arrastrando una carpeta limpia que contenga solo index.html, style.css y script.js.
+
+Cambios incluidos:
+- El refresco auxiliar del chat pasa de 0,2 segundos a 1 segundo.
+- En el calendario grande y pequeño se resalta visualmente el día actual y aparece la etiqueta “Hoy”.
+- En el panel de alumno desaparecen “Mi progreso” y “Mi forma de trabajo”.
+- Junto al saludo aparece la fecha completa del día.
+- Mis insignias se abre en ventana para ver detalle, motivo y fecha.
+- Nuevo panel “Mis materias con dificultades”. El alumnado puede añadir y eliminar materias en las que necesita refuerzo.
+- Nuevo panel “Mis calificaciones”. El alumnado puede registrar notas del centro escolar por materia y tipo.
+- La profesora ve dificultades y calificaciones en la vista individual de cada alumno/a.
+- Cada materia muestra una barra de progreso según publicaciones completables asignadas y completadas.
+- Las publicaciones de tipo juego, vídeo, desafío, boletín, test o videoclase pueden marcarse como completadas.
+
+No cambia:
+- Usuarios.
+- Contraseñas.
+- Modo de entrada.
+- URL de Netlify.

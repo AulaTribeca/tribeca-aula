@@ -70,9 +70,8 @@
 
   <nav id="quickNav" class="quick-nav hidden" aria-label="Navegación rápida">
     <a href="#subjectsPanel" data-i18n="mySubjects">Mis materias</a>
-    <a href="#" id="quickCalendarLink" data-open-panel="calendar" data-i18n="calendar">Calendario</a>
-    <a href="#" id="quickUpcomingLink" data-open-panel="calendar">
-      <span data-i18n="upcomingEvents">Eventos próximos</span>
+    <a href="#" id="quickCalendarLink" data-open-panel="calendar">
+      <span data-i18n="calendar">Calendario</span>
       <span id="quickUpcomingBadge" class="notification-badge hidden">0</span>
     </a>
     <a href="#" id="quickMessagesLink" data-open-panel="messages">
@@ -167,34 +166,35 @@
           <div>
             <p class="eyebrow" data-i18n="myClassroom">Mi aula</p>
             <h2 id="studentDashboardTitle"><span data-i18n="hello">Hola</span>, <span id="studentName">alumno/a</span></h2>
+            <p id="studentTodayDate" class="student-date-line"></p>
             <p id="studentCourse" class="student-meta"></p>
           </div>
         </div>
 
-        <section class="grid dashboard-summary" aria-label="Resumen del aula">
-          <article class="card">
+        <section class="grid dashboard-summary student-summary-compact" aria-label="Resumen del aula">
+          <article class="card summary-card">
             <h3 data-i18n="myCourse">Mi curso</h3>
             <p id="courseCardText">Curso no cargado.</p>
           </article>
 
-          <article class="card">
-            <h3 data-i18n="myProgress">Mi progreso</h3>
-            <p id="progressText">Todavía no hay progreso registrado.</p>
-            <div class="progress-bar" aria-label="Progreso de actividades">
-              <div id="progressFill" class="progress-fill"></div>
-            </div>
-          </article>
-
-          <article class="card">
+          <article class="card summary-card clickable-card" id="studentBadgesCard" role="button" tabindex="0">
             <h3 data-i18n="myBadges">Mis insignias</h3>
             <div id="badgesContainer" class="badges">
               <p class="empty-state" data-i18n="noBadges">Aún no hay insignias conseguidas.</p>
             </div>
+            <p class="card-hint" data-i18n="openBadgesHint">Abrir detalle de insignias</p>
           </article>
 
-          <article class="card">
-            <h3 data-i18n="myWorkStyle">Mi forma de trabajo</h3>
-            <p id="learningSettingsText">Ajustes no cargados.</p>
+          <article class="card summary-card clickable-card" id="studentDifficultSubjectsCard" role="button" tabindex="0">
+            <h3 data-i18n="myDifficultSubjects">Mis materias con dificultades</h3>
+            <p id="difficultSubjectsSummary" class="compact-card-text" data-i18n="difficultSubjectsHelp">Indica dónde necesitas más refuerzo.</p>
+            <p class="card-hint" data-i18n="openDifficultSubjectsHint">Abrir y actualizar</p>
+          </article>
+
+          <article class="card summary-card clickable-card" id="studentGradesCard" role="button" tabindex="0">
+            <h3 data-i18n="myGrades">Mis calificaciones</h3>
+            <p id="gradesSummary" class="compact-card-text" data-i18n="gradesHelp">Registra tus notas del centro escolar.</p>
+            <p class="card-hint" data-i18n="openGradesHint">Abrir calificaciones</p>
           </article>
         </section>
 
@@ -264,22 +264,55 @@
             <p class="eyebrow" data-i18n="teacherPanel">Panel de profesora</p>
             <h2 id="teacherDashboardTitle" data-i18n="tribecaManagement">Gestión de Tribeca Aula</h2>
             <p class="student-meta" data-i18n="teacherIntro">Publicaciones, calendario, imágenes de materias, mensajes, chat e insignias.</p>
+            <div class="teacher-quick-actions" aria-label="Herramientas rápidas de profesora">
+              <button type="button" id="toggleTeacherCompactButton" class="secondary-button" data-i18n="compactTeacherView">Comprimir vista docente</button>
+              <button type="button" id="openTeacherMessagesButton" class="secondary-button" data-open-panel="messages" data-i18n="openMessages">Abrir mensajes</button>
+              <button type="button" id="openTeacherCalendarButton" class="secondary-button" data-open-panel="calendar" data-i18n="openCalendar">Abrir calendario</button>
+            </div>
           </div>
         </div>
 
-        <section class="teacher-grid">
-          <article class="panel classroom-composer" aria-labelledby="createPostTitle">
+        <section class="panel teacher-launch-panel" aria-labelledby="teacherToolsTitle">
+          <p class="eyebrow" data-i18n="teacherMode">Modo docente</p>
+          <h2 id="teacherToolsTitle" data-i18n="teacherTools">Herramientas de profesora</h2>
+          <p class="form-help" data-i18n="teacherToolsHelp">Accesos compactos. Cada apartado se abre en una ventana de trabajo para mantener el panel limpio.</p>
+          <div class="teacher-launch-grid">
+            <button type="button" class="teacher-launch-card" data-teacher-panel="teacherPostToolPanel" data-teacher-title-key="newPost">
+              <strong data-i18n="newPost">Nueva publicación</strong>
+              <span data-i18n="newPostHelp">Crear publicaciones, vídeos, juegos, desafíos o materiales.</span>
+            </button>
+            <button type="button" class="teacher-launch-card" data-teacher-panel="teacherEventToolPanel" data-teacher-title-key="newDate">
+              <strong data-i18n="newDate">Nueva fecha de calendario</strong>
+              <span data-i18n="newDateHelp">Publicar exámenes, entregas, avisos y excursiones.</span>
+            </button>
+            <button type="button" class="teacher-launch-card" data-teacher-panel="teacherGroupsPanel" data-teacher-title-key="studentGroups">
+              <strong data-i18n="studentGroups">Grupos de alumnado</strong>
+              <span data-i18n="studentGroupsHelpShort">Ver grupos para asignar con rapidez.</span>
+            </button>
+            <button type="button" class="teacher-launch-card" data-teacher-panel="teacherActivityPanel" data-teacher-title-key="classroomActivityTitle">
+              <strong data-i18n="classroomActivityTitle">Qué ha ocurrido en el aula</strong>
+              <span data-i18n="recentActivityHelpShort">Accesos, publicaciones consultadas y actividad reciente.</span>
+            </button>
+            <button type="button" class="teacher-launch-card" data-teacher-panel="teacherChatsPanel" data-teacher-title-key="classroomChats">
+              <strong data-i18n="classroomChats">Chats del aula</strong>
+              <span data-i18n="teacherSupervisionHelpShort">Conversaciones educativas abiertas con el alumnado.</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="teacher-grid teacher-collapsible teacher-window-source-group">
+          <article id="teacherPostToolPanel" class="panel classroom-composer teacher-window-source" aria-labelledby="createPostTitle">
             <p class="eyebrow" data-i18n="publish">Publicar</p>
             <h2 id="createPostTitle" data-i18n="newPost">Nueva publicación</h2>
 
             <form id="teacherPostForm" class="teacher-form">
               <section class="teacher-toolbox compact-panel">
                 <h3 data-i18n="templates">Plantillas</h3>
-                <label for="postTemplateSelect">Usar plantilla</label>
+                <label for="postTemplateSelect" data-i18n="useTemplate">Usar plantilla</label>
                 <select id="postTemplateSelect">
                   <option value="" data-i18n="noTemplate">Sin plantilla</option>
                 </select>
-                <button type="button" id="savePostTemplateButton" class="secondary-button">Guardar publicación como plantilla</button>
+                <button type="button" id="savePostTemplateButton" class="secondary-button" data-i18n="saveAsTemplate">Guardar publicación como plantilla</button>
               </section>
 
               <label for="teacherSubject" data-i18n="subject">Asignatura</label>
@@ -328,16 +361,16 @@
               <input type="file" id="teacherFile" accept="application/pdf,image/png,image/jpeg,image/webp,video/mp4" />
 
               <fieldset class="student-picker">
-                <legend>Asignar por grupos</legend>
-                <p class="form-help">Puedes seleccionar un curso o grupo completo y, si hace falta, ajustar después alumno por alumno.</p>
+                <legend data-i18n="assignByGroups">Asignar por grupos</legend>
+                <p class="form-help" data-i18n="assignByGroupsHelp">Puedes seleccionar un curso o grupo completo y, si hace falta, ajustar después alumno por alumno.</p>
                 <div id="teacherGroupsList" class="checkbox-grid group-grid"></div>
               </fieldset>
 
               <fieldset class="student-picker">
                 <legend data-i18n="assignToStudents">Asignar a alumnado</legend>
                 <div class="assignment-actions">
-                  <button type="button" id="selectAllStudentsButton" class="secondary-button">Seleccionar todos</button>
-                  <button type="button" id="clearAllStudentsButton" class="secondary-button">Limpiar selección</button>
+                  <button type="button" id="selectAllStudentsButton" class="secondary-button" data-i18n="selectAll">Seleccionar todos</button>
+                  <button type="button" id="clearAllStudentsButton" class="secondary-button" data-i18n="clearSelection">Limpiar selección</button>
                 </div>
                 <div id="teacherStudentsList" class="checkbox-grid"></div>
               </fieldset>
@@ -364,7 +397,7 @@
             </form>
           </article>
 
-          <article class="panel" aria-labelledby="createEventTitle">
+          <article id="teacherEventToolPanel" class="panel teacher-window-source" aria-labelledby="createEventTitle">
             <p class="eyebrow" data-i18n="calendar">Calendario</p>
             <h2 id="createEventTitle" data-i18n="newDate">Nueva fecha</h2>
 
@@ -420,17 +453,17 @@
           </article>
         </section>
 
-        <section class="panel teacher-god-panel" aria-labelledby="teacherOverviewTitle">
-          <p class="eyebrow">Modo docente</p>
-          <h2 id="teacherOverviewTitle">Vista general de aula</h2>
+        <section class="panel teacher-god-panel teacher-collapsible" aria-labelledby="teacherOverviewTitle">
+          <p class="eyebrow" data-i18n="teacherMode">Modo docente</p>
+          <h2 id="teacherOverviewTitle" data-i18n="teacherOverview">Vista general de aula</h2>
           <div class="teacher-dashboard-cards">
             <article class="teacher-mini-card">
               <strong id="teacherMetricStudents">0</strong>
-              <span>Alumnos</span>
+              <span data-i18n="students">Alumnos</span>
             </article>
             <article class="teacher-mini-card">
               <strong id="teacherMetricPosts">0</strong>
-              <span>Publicaciones</span>
+              <span data-i18n="posts">Publicaciones</span>
             </article>
             <article class="teacher-mini-card">
               <strong id="teacherMetricGroups">0</strong>
@@ -443,21 +476,30 @@
           </div>
         </section>
 
-        <section class="panel" aria-labelledby="teacherGroupsTitle">
+        <section class="panel teacher-student-hub teacher-collapsible" aria-labelledby="teacherStudentHubTitle">
+          <p class="eyebrow" data-i18n="studentProfiles">Perfiles del alumnado</p>
+          <h2 id="teacherStudentHubTitle" data-i18n="studentOverview">Vista individual del alumnado</h2>
+          <p class="form-help" data-i18n="studentOverviewHelp">Consulta de forma rápida sus eventos, publicaciones asignadas y mensajes relacionados contigo.</p>
+          <label for="teacherStudentFocusSelect" data-i18n="student">Alumno/a</label>
+          <select id="teacherStudentFocusSelect"></select>
+          <div id="teacherStudentFocusBody" class="student-focus-body"></div>
+        </section>
+
+        <section id="teacherGroupsPanel" class="panel teacher-collapsible teacher-window-source" aria-labelledby="teacherGroupsTitle">
           <p class="eyebrow" data-i18n="studentGroups">Grupos</p>
           <h2 id="teacherGroupsTitle" data-i18n="studentGroups">Grupos de alumnado</h2>
-          <p class="form-help">Los grupos permiten asignar materiales por curso o agrupación sin marcar alumno por alumno.</p>
+          <p class="form-help" data-i18n="studentGroupsHelp">Los grupos permiten asignar materiales por curso o agrupación sin marcar alumno por alumno.</p>
           <div id="teacherGroupSummary" class="group-summary-list"></div>
         </section>
 
-        <section class="panel" aria-labelledby="recentActivityTitle">
+        <section id="teacherActivityPanel" class="panel teacher-collapsible teacher-window-source" aria-labelledby="recentActivityTitle">
           <p class="eyebrow" data-i18n="recentActivity">Actividad reciente</p>
           <h2 id="recentActivityTitle" data-i18n="classroomActivityTitle">Qué ha ocurrido en el aula</h2>
           <p class="form-help" data-i18n="recentActivityHelp">Vista docente de accesos, consultas de publicaciones, eventos creados y tests completados.</p>
           <div id="recentActivityList" class="activity-list"></div>
         </section>
 
-        <section class="panel teacher-supervision-panel" aria-labelledby="chatSupervisionTitle">
+        <section id="teacherChatsPanel" class="panel teacher-supervision-panel teacher-collapsible teacher-window-source" aria-labelledby="chatSupervisionTitle">
           <p class="eyebrow" data-i18n="teacherSupervision">Supervisión docente</p>
           <h2 id="chatSupervisionTitle" data-i18n="classroomChats">Chats del aula</h2>
           <p class="form-help" data-i18n="teacherSupervisionHelp">Panel visible solo para la profesora. La supervisión debe entenderse como medida educativa y de convivencia, no como lectura oculta de carácter personal.</p>
@@ -477,7 +519,7 @@
           <div id="teacherMonthGrid" class="month-grid"></div>
         </section>
 
-        <section class="panel" aria-labelledby="teacherPostsTitle">
+        <section class="panel teacher-collapsible" aria-labelledby="teacherPostsTitle">
           <p class="eyebrow" data-i18n="history">Historial</p>
           <h2 id="teacherPostsTitle" data-i18n="posts">Publicaciones</h2>
           <button type="button" id="deleteSelectedPostsButton" class="secondary-button" data-i18n="deleteSelected">Borrar seleccionadas</button>
@@ -491,7 +533,7 @@
           <span data-i18n="messages">Mensajes</span>
           <span id="messageUnreadBadge" class="notification-badge hidden">0</span>
         </h2>
-        <p class="message-helper" data-i18n="mailboxHelp">Buzón interno del aula, con recibidos, enviados y redacción de mensajes.</p>
+        <p class="message-helper" data-i18n="inboxPrivacy">Buzón privado del aula: los mensajes solo son visibles entre la profesora y el alumno o alumna correspondiente.</p>
         <p id="messageUnreadNotice" class="message-alert hidden"></p>
         <div class="message-actions-row gmail-actions-top">
           <button type="button" id="openUnreadMessagesButton" class="secondary-button hidden" data-i18n="openUnreadMessages">Abrir mensajes nuevos</button>
@@ -550,8 +592,8 @@
           </label>
         </div>
 
-        <p class="chat-courtesy" data-i18n="chatCourtesy">
-          Usa el chat con responsabilidad, respeto y solo para cuestiones relacionadas con el trabajo del aula. La profesora puede supervisar las conversaciones con finalidad educativa, de seguridad y convivencia.
+        <p class="chat-courtesy" data-i18n="chatPrivacyNotice">
+          Usa el chat con responsabilidad y respeto. La conversación es visible solo entre el alumno o alumna y la profesora.
         </p>
 
         <label for="presenceStatusSelect" data-i18n="myStatus">Mi estado</label>
@@ -588,6 +630,57 @@
       </section>
     </aside>
   </main>
+
+  <section id="studentBadgesPanel" class="panel hidden floating-source-panel" aria-labelledby="studentBadgesPanelTitle">
+    <p class="eyebrow" data-i18n="myBadges">Mis insignias</p>
+    <h2 id="studentBadgesPanelTitle" data-i18n="badgeDetailTitle">Detalle de insignias</h2>
+    <p class="form-help" data-i18n="badgeMotivationText">Cada insignia reconoce un paso adelante. Lo importante es seguir construyendo constancia, comprensión y confianza.</p>
+    <div id="studentBadgesDetailList" class="detail-list"></div>
+  </section>
+
+  <section id="studentDifficultSubjectsPanel" class="panel hidden floating-source-panel" aria-labelledby="studentDifficultSubjectsTitle">
+    <p class="eyebrow" data-i18n="myDifficultSubjects">Mis materias con dificultades</p>
+    <h2 id="studentDifficultSubjectsTitle" data-i18n="difficultSubjectsTitle">Materias en las que necesito más apoyo</h2>
+    <p class="form-help" data-i18n="difficultSubjectsIntro">Marca las materias que te cuestan más. Esta información ayuda a orientar mejor el refuerzo.</p>
+    <form id="difficultSubjectForm" class="teacher-form">
+      <label for="difficultSubjectSelect" data-i18n="subject">Asignatura</label>
+      <select id="difficultSubjectSelect" required></select>
+      <label for="difficultSubjectNote" data-i18n="optionalNote">Nota opcional</label>
+      <textarea id="difficultSubjectNote" rows="2" data-i18n-placeholder="difficultSubjectNotePlaceholder" placeholder="Ejemplo: me cuestan los problemas, los verbos o la organización del estudio."></textarea>
+      <button type="submit" class="primary-button" data-i18n="addDifficultSubject">Añadir materia</button>
+      <p id="difficultSubjectMessage" class="feedback" role="status" aria-live="polite"></p>
+    </form>
+    <div id="difficultSubjectsList" class="detail-list"></div>
+  </section>
+
+  <section id="studentGradesPanel" class="panel hidden floating-source-panel" aria-labelledby="studentGradesTitle">
+    <p class="eyebrow" data-i18n="myGrades">Mis calificaciones</p>
+    <h2 id="studentGradesTitle" data-i18n="gradesTitle">Calificaciones del centro escolar</h2>
+    <p class="form-help" data-i18n="gradesIntro">Registra tus calificaciones para que podamos detectar avances, necesidades y prioridades de estudio.</p>
+    <form id="gradeRecordForm" class="teacher-form">
+      <label for="gradeSubjectSelect" data-i18n="subject">Asignatura</label>
+      <select id="gradeSubjectSelect" required></select>
+      <label for="gradeTypeSelect" data-i18n="gradeType">Tipo de calificación</label>
+      <select id="gradeTypeSelect" required>
+        <option value="exam" data-i18n="gradeExam">Examen</option>
+        <option value="assignment" data-i18n="gradeAssignment">Trabajo</option>
+        <option value="presentation" data-i18n="gradePresentation">Presentación</option>
+        <option value="reading_exam" data-i18n="gradeReadingExam">Examen de libro de lectura</option>
+        <option value="other" data-i18n="gradeOther">Otros</option>
+      </select>
+      <label for="gradeOtherTypeInput" data-i18n="specifyIfOther">Especifica si has elegido “otros”</label>
+      <input type="text" id="gradeOtherTypeInput" />
+      <label for="gradeValueInput" data-i18n="gradeValue">Calificación</label>
+      <input type="text" id="gradeValueInput" required placeholder="Ejemplo: 7,5" />
+      <label for="gradeDateInput" data-i18n="date">Fecha</label>
+      <input type="date" id="gradeDateInput" />
+      <label for="gradeNoteInput" data-i18n="optionalNote">Nota opcional</label>
+      <textarea id="gradeNoteInput" rows="2"></textarea>
+      <button type="submit" class="primary-button" data-i18n="addGrade">Añadir calificación</button>
+      <p id="gradeRecordMessage" class="feedback" role="status" aria-live="polite"></p>
+    </form>
+    <div id="gradeRecordsList" class="detail-list"></div>
+  </section>
 
 
   <div id="subjectModal" class="modal-overlay subject-window-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="subjectModalTitle">

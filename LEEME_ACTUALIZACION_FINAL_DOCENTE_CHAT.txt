@@ -1,0 +1,33 @@
+TRIBECA AULA - ACTUALIZACIÓN FINAL DE CALENDARIO, MENSAJES, CHAT Y PANEL DOCENTE
+
+Orden correcto:
+
+1. En Supabase, ejecuta el archivo:
+   supabase_migracion_calendario_mensajes_docente.sql
+
+2. Sustituye en tu carpeta local o carpeta de publicación estos tres archivos:
+   index.html
+   style.css
+   script.js
+
+3. Publica de nuevo en Netlify arrastrando una carpeta limpia que contenga solo:
+   index.html
+   style.css
+   script.js
+
+Cambios aplicados:
+
+- El botón “Eventos próximos” desaparece.
+- Las notificaciones de eventos próximos pasan al botón “Calendario”.
+- Los eventos publicados por la profesora quedan visibles para el alumnado, aunque alguna asignación anterior fallase.
+- El alumnado puede editar y eliminar solo sus propios eventos personales.
+- Se elimina el perfil interno duplicado de profesora asociado a tribecaacademia@gmail.com, sin tocar el sistema de entrada de usuarios.
+- El panel de profesora queda más compacto y práctico.
+- Nueva publicación, nueva fecha de calendario, grupos, actividad reciente y chats se abren en ventana de trabajo.
+- El chat mantiene pestañas por conversación.
+- Si llega un primer mensaje de chat, se abre automáticamente la conversación de esa persona.
+- El chat se refresca cada 0,2 segundos como apoyo al Realtime de Supabase.
+- Se añaden sonidos diferenciados para conexión, desconexión, mensaje, toque, inicio de sesión y cierre de sesión. Respetan el interruptor de sonido.
+
+Nota importante:
+El refresco cada 0,2 segundos es muy agresivo. Está aplicado porque se ha pedido expresamente. Si Supabase empieza a ralentizarse o limita peticiones, conviene subirlo a 1 segundo.

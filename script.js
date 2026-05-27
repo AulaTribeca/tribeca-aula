@@ -1209,6 +1209,127 @@ Object.keys(i18nCorrections).forEach((lang) => {
   i18n[lang] = { ...(i18n[lang] || i18n.es), ...i18nCorrections[lang] };
 });
 
+const i18nEnhancements = {
+  es: {
+    compactTeacherView: "Comprimir vista docente", expandTeacherView: "Expandir vista docente", openMessages: "Abrir mensajes", openCalendar: "Abrir calendario",
+    teacherMode: "Modo docente", teacherOverview: "Vista general de aula", students: "Alumnos",
+    studentProfiles: "Perfiles del alumnado", studentOverview: "Vista individual del alumnado",
+    studentOverviewHelp: "Consulta rápida de eventos, publicaciones asignadas y mensajes relacionados contigo.",
+    assignedWork: "Trabajos y publicaciones", relatedEvents: "Eventos relacionados", relatedMessages: "Mensajes", noRelatedItems: "No hay elementos relacionados todavía.",
+    useTemplate: "Usar plantilla", saveAsTemplate: "Guardar publicación como plantilla", assignByGroups: "Asignar por grupos",
+    assignByGroupsHelp: "Puedes seleccionar un curso o grupo completo y, si hace falta, ajustar después alumno por alumno.", selectAll: "Seleccionar todos", clearSelection: "Limpiar selección",
+    chatPrivacyNotice: "Usa el chat con responsabilidad y respeto. La conversación es visible solo entre el alumno o alumna y la profesora.",
+    editEvent: "Editar evento", deleteEvent: "Eliminar evento", saveEventChanges: "Guardar cambios", cancelEdit: "Cancelar edición", eventUpdated: "Evento actualizado.", eventDeleted: "Evento eliminado.", ownEvent: "Evento personal", teacherEvent: "Evento de profesora", cannotEditEvent: "Solo puedes editar o eliminar los eventos creados por ti.",
+    realtimeActive: "Mensajes instantáneos activos", conversationWith: "Conversación con {name}", openChatWithStudent: "Abrir chat",
+    inboxPrivacy: "Buzón privado del aula: los mensajes solo son visibles entre la profesora y el alumno o alumna correspondiente."
+  },
+  gl: {
+    compactTeacherView: "Comprimir vista docente", expandTeacherView: "Ampliar vista docente", openMessages: "Abrir mensaxes", openCalendar: "Abrir calendario",
+    teacherMode: "Modo docente", teacherOverview: "Vista xeral da aula", students: "Alumnado",
+    studentProfiles: "Perfís do alumnado", studentOverview: "Vista individual do alumnado",
+    studentOverviewHelp: "Consulta rápida de eventos, publicacións asignadas e mensaxes relacionadas contigo.",
+    assignedWork: "Traballos e publicacións", relatedEvents: "Eventos relacionados", relatedMessages: "Mensaxes", noRelatedItems: "Aínda non hai elementos relacionados.",
+    useTemplate: "Usar modelo", saveAsTemplate: "Gardar publicación como modelo", assignByGroups: "Asignar por grupos", assignByGroupsHelp: "Podes seleccionar un curso ou grupo completo e axustar despois alumno por alumno.", selectAll: "Seleccionar todo", clearSelection: "Limpar selección",
+    chatPrivacyNotice: "Usa o chat con responsabilidade e respecto. A conversa é visible só entre o alumno ou alumna e a profesora.",
+    editEvent: "Editar evento", deleteEvent: "Eliminar evento", saveEventChanges: "Gardar cambios", cancelEdit: "Cancelar edición", eventUpdated: "Evento actualizado.", eventDeleted: "Evento eliminado.", ownEvent: "Evento persoal", teacherEvent: "Evento da profesora", cannotEditEvent: "Só podes editar ou eliminar os eventos creados por ti.",
+    realtimeActive: "Mensaxes instantáneas activas", conversationWith: "Conversa con {name}", openChatWithStudent: "Abrir chat", inboxPrivacy: "Buzón privado da aula: as mensaxes só son visibles entre a profesora e o alumno ou alumna correspondente."
+  },
+  en: {
+    compactTeacherView: "Compress teacher view", expandTeacherView: "Expand teacher view", openMessages: "Open messages", openCalendar: "Open calendar",
+    teacherMode: "Teacher mode", teacherOverview: "Classroom overview", students: "Students",
+    studentProfiles: "Student profiles", studentOverview: "Individual student view", studentOverviewHelp: "Quick view of events, assigned posts and messages related to you.",
+    assignedWork: "Work and posts", relatedEvents: "Related events", relatedMessages: "Messages", noRelatedItems: "No related items yet.",
+    useTemplate: "Use template", saveAsTemplate: "Save post as template", assignByGroups: "Assign by groups", assignByGroupsHelp: "Select a whole course or group and then adjust students if needed.", selectAll: "Select all", clearSelection: "Clear selection",
+    chatPrivacyNotice: "Use the chat responsibly and respectfully. The conversation is visible only between the student and the teacher.",
+    editEvent: "Edit event", deleteEvent: "Delete event", saveEventChanges: "Save changes", cancelEdit: "Cancel editing", eventUpdated: "Event updated.", eventDeleted: "Event deleted.", ownEvent: "Personal event", teacherEvent: "Teacher event", cannotEditEvent: "You can only edit or delete events created by you.",
+    realtimeActive: "Instant messages active", conversationWith: "Conversation with {name}", openChatWithStudent: "Open chat", inboxPrivacy: "Private classroom mailbox: messages are visible only between the teacher and the corresponding student."
+  },
+  fr: {
+    compactTeacherView: "Compresser la vue enseignante", expandTeacherView: "Déployer la vue enseignante", openMessages: "Ouvrir les messages", openCalendar: "Ouvrir le calendrier",
+    teacherMode: "Mode enseignante", teacherOverview: "Vue générale de la classe", students: "Élèves",
+    studentProfiles: "Profils des élèves", studentOverview: "Vue individuelle des élèves", studentOverviewHelp: "Vue rapide des événements, publications attribuées et messages liés à vous.",
+    assignedWork: "Travaux et publications", relatedEvents: "Événements liés", relatedMessages: "Messages", noRelatedItems: "Aucun élément lié pour le moment.",
+    useTemplate: "Utiliser un modèle", saveAsTemplate: "Enregistrer comme modèle", assignByGroups: "Attribuer par groupes", assignByGroupsHelp: "Sélectionnez un cours ou groupe complet puis ajustez les élèves si besoin.", selectAll: "Tout sélectionner", clearSelection: "Effacer la sélection",
+    chatPrivacyNotice: "Utilisez le chat avec responsabilité et respect. La conversation est visible uniquement entre l’élève et l’enseignante.",
+    editEvent: "Modifier l’événement", deleteEvent: "Supprimer l’événement", saveEventChanges: "Enregistrer", cancelEdit: "Annuler", eventUpdated: "Événement mis à jour.", eventDeleted: "Événement supprimé.", ownEvent: "Événement personnel", teacherEvent: "Événement enseignante", cannotEditEvent: "Vous ne pouvez modifier ou supprimer que vos propres événements.",
+    realtimeActive: "Messages instantanés actifs", conversationWith: "Conversation avec {name}", openChatWithStudent: "Ouvrir le chat", inboxPrivacy: "Boîte privée de la classe : les messages ne sont visibles qu’entre l’enseignante et l’élève concerné."
+  },
+  pl: {
+    compactTeacherView: "Zwiń widok nauczycielki", expandTeacherView: "Rozwiń widok nauczycielki", openMessages: "Otwórz wiadomości", openCalendar: "Otwórz kalendarz",
+    teacherMode: "Tryb nauczycielki", teacherOverview: "Widok klasy", students: "Uczniowie",
+    studentProfiles: "Profile uczniów", studentOverview: "Widok indywidualny ucznia", studentOverviewHelp: "Szybki widok wydarzeń, przypisanych wpisów i wiadomości powiązanych z Tobą.",
+    assignedWork: "Prace i wpisy", relatedEvents: "Powiązane wydarzenia", relatedMessages: "Wiadomości", noRelatedItems: "Brak powiązanych elementów.",
+    useTemplate: "Użyj szablonu", saveAsTemplate: "Zapisz wpis jako szablon", assignByGroups: "Przypisz według grup", assignByGroupsHelp: "Możesz wybrać cały kurs lub grupę, a potem dostosować uczniów.", selectAll: "Zaznacz wszystko", clearSelection: "Wyczyść wybór",
+    chatPrivacyNotice: "Używaj czatu odpowiedzialnie i z szacunkiem. Rozmowa jest widoczna tylko między uczniem a nauczycielką.",
+    editEvent: "Edytuj wydarzenie", deleteEvent: "Usuń wydarzenie", saveEventChanges: "Zapisz zmiany", cancelEdit: "Anuluj edycję", eventUpdated: "Wydarzenie zaktualizowane.", eventDeleted: "Wydarzenie usunięte.", ownEvent: "Wydarzenie osobiste", teacherEvent: "Wydarzenie nauczycielki", cannotEditEvent: "Możesz edytować lub usuwać tylko własne wydarzenia.",
+    realtimeActive: "Wiadomości natychmiastowe aktywne", conversationWith: "Rozmowa z {name}", openChatWithStudent: "Otwórz czat", inboxPrivacy: "Prywatna skrzynka klasy: wiadomości są widoczne tylko między nauczycielką a odpowiednim uczniem."
+  }
+};
+Object.keys(i18nEnhancements).forEach((lang) => {
+  i18n[lang] = { ...(i18n[lang] || i18n.es), ...i18nEnhancements[lang] };
+});
+
+const i18nStudentEnhancements = {
+  es: {
+    today: "Hoy",
+    badgeDetailTitle: "Detalle de insignias",
+    badgeMotivationText: "Cada insignia reconoce un paso adelante. Lo importante es seguir construyendo constancia, comprensión y confianza.",
+    noBadgeDetail: "Todavía no hay insignias. La primera llegará cuando completes una actividad o consigas un objetivo.",
+    badgeReason: "Motivo",
+    badgeDate: "Fecha",
+    myDifficultSubjects: "Mis materias con dificultades",
+    difficultSubjectsTitle: "Materias en las que necesito más apoyo",
+    difficultSubjectsIntro: "Marca las materias que te cuestan más. Esta información ayuda a orientar mejor el refuerzo.",
+    difficultSubjectsHelp: "Indica dónde necesitas más refuerzo.",
+    openDifficultSubjectsHint: "Abrir y actualizar",
+    difficultSubjectNotePlaceholder: "Ejemplo: me cuestan los problemas, los verbos o la organización del estudio.",
+    addDifficultSubject: "Añadir materia",
+    remove: "Eliminar",
+    noDifficultSubjects: "No has indicado materias con dificultad especial.",
+    difficultSubjectSaved: "Materia añadida a tus necesidades de refuerzo.",
+    difficultSubjectDeleted: "Materia eliminada.",
+    myGrades: "Mis calificaciones",
+    gradesTitle: "Calificaciones del centro escolar",
+    gradesIntro: "Registra tus calificaciones para detectar avances, necesidades y prioridades de estudio.",
+    gradesHelp: "Registra tus notas del centro escolar.",
+    openGradesHint: "Abrir calificaciones",
+    gradeType: "Tipo de calificación",
+    gradeExam: "Examen",
+    gradeAssignment: "Trabajo",
+    gradePresentation: "Presentación",
+    gradeReadingExam: "Examen de libro de lectura",
+    gradeOther: "Otros",
+    specifyIfOther: "Especifica si has elegido otros",
+    gradeValue: "Calificación",
+    addGrade: "Añadir calificación",
+    noGrades: "Todavía no has registrado calificaciones.",
+    gradeSaved: "Calificación guardada.",
+    gradeDeleted: "Calificación eliminada.",
+    optionalNote: "Nota opcional",
+    subjectProgress: "Progreso",
+    noProgressYet: "Sin actividades completadas todavía",
+    completePost: "Marcar como completada",
+    postCompleted: "Actividad marcada como completada.",
+    postCompletionError: "No se pudo marcar como completada.",
+    openBadgesHint: "Abrir detalle de insignias",
+    teacherStudentNeeds: "Necesidades indicadas por el alumnado",
+    teacherStudentGrades: "Calificaciones registradas",
+    noStudentNeeds: "No ha indicado materias con dificultad especial.",
+    noStudentGrades: "No ha registrado calificaciones."
+  },
+  gl: {
+    today: "Hoxe", badgeDetailTitle: "Detalle de insignias", badgeMotivationText: "Cada insignia recoñece un paso adiante. O importante é seguir construíndo constancia, comprensión e confianza.", noBadgeDetail: "Aínda non hai insignias.", badgeReason: "Motivo", badgeDate: "Data", myDifficultSubjects: "Materias con dificultades", difficultSubjectsTitle: "Materias nas que necesito máis apoio", difficultSubjectsIntro: "Marca as materias que che custan máis.", difficultSubjectsHelp: "Indica onde precisas máis reforzo.", openDifficultSubjectsHint: "Abrir e actualizar", difficultSubjectNotePlaceholder: "Exemplo: cústanme os problemas ou a organización do estudo.", addDifficultSubject: "Engadir materia", remove: "Eliminar", noDifficultSubjects: "Non indicaches materias con dificultade especial.", difficultSubjectSaved: "Materia engadida.", difficultSubjectDeleted: "Materia eliminada.", myGrades: "As miñas cualificacións", gradesTitle: "Cualificacións do centro escolar", gradesIntro: "Rexistra as túas cualificacións para detectar avances e necesidades.", gradesHelp: "Rexistra as túas notas.", openGradesHint: "Abrir cualificacións", gradeType: "Tipo de cualificación", gradeExam: "Exame", gradeAssignment: "Traballo", gradePresentation: "Presentación", gradeReadingExam: "Exame de libro de lectura", gradeOther: "Outros", specifyIfOther: "Especifica se escolliches outros", gradeValue: "Cualificación", addGrade: "Engadir cualificación", noGrades: "Aínda non rexistraches cualificacións.", gradeSaved: "Cualificación gardada.", gradeDeleted: "Cualificación eliminada.", optionalNote: "Nota opcional", subjectProgress: "Progreso", noProgressYet: "Sen actividades completadas", completePost: "Marcar como completada", postCompleted: "Actividade marcada como completada.", postCompletionError: "Non se puido marcar como completada.", openBadgesHint: "Abrir detalle de insignias", teacherStudentNeeds: "Necesidades indicadas polo alumnado", teacherStudentGrades: "Cualificacións rexistradas", noStudentNeeds: "Non indicou materias con dificultade especial.", noStudentGrades: "Non rexistrou cualificacións."
+  },
+  en: {
+    today: "Today", badgeDetailTitle: "Badge details", badgeMotivationText: "Each badge recognises progress. The important thing is to keep building consistency, understanding and confidence.", noBadgeDetail: "No badges yet.", badgeReason: "Reason", badgeDate: "Date", myDifficultSubjects: "Subjects I find difficult", difficultSubjectsTitle: "Subjects where I need more support", difficultSubjectsIntro: "Select the subjects you find harder.", difficultSubjectsHelp: "Tell us where you need more support.", openDifficultSubjectsHint: "Open and update", difficultSubjectNotePlaceholder: "Example: word problems, verbs or study organisation.", addDifficultSubject: "Add subject", remove: "Remove", noDifficultSubjects: "No difficult subjects selected yet.", difficultSubjectSaved: "Subject added.", difficultSubjectDeleted: "Subject removed.", myGrades: "My grades", gradesTitle: "School grades", gradesIntro: "Record your school grades to spot progress and priorities.", gradesHelp: "Record your school marks.", openGradesHint: "Open grades", gradeType: "Type of grade", gradeExam: "Exam", gradeAssignment: "Assignment", gradePresentation: "Presentation", gradeReadingExam: "Reading book exam", gradeOther: "Other", specifyIfOther: "Specify if you chose other", gradeValue: "Grade", addGrade: "Add grade", noGrades: "No grades recorded yet.", gradeSaved: "Grade saved.", gradeDeleted: "Grade deleted.", optionalNote: "Optional note", subjectProgress: "Progress", noProgressYet: "No completed activities yet", completePost: "Mark as completed", postCompleted: "Activity marked as completed.", postCompletionError: "Could not mark it as completed.", openBadgesHint: "Open badge details", teacherStudentNeeds: "Needs reported by students", teacherStudentGrades: "Recorded grades", noStudentNeeds: "No difficult subjects reported.", noStudentGrades: "No grades recorded."
+  },
+  fr: { today: "Aujourd’hui", badgeDetailTitle: "Détail des badges", badgeMotivationText: "Chaque badge reconnaît un progrès.", noBadgeDetail: "Aucun badge pour le moment.", badgeReason: "Motif", badgeDate: "Date", myDifficultSubjects: "Matières difficiles", difficultSubjectsTitle: "Matières où j’ai besoin d’aide", difficultSubjectsIntro: "Indique les matières les plus difficiles.", difficultSubjectsHelp: "Indique où tu as besoin d’aide.", openDifficultSubjectsHint: "Ouvrir et mettre à jour", addDifficultSubject: "Ajouter une matière", remove: "Supprimer", noDifficultSubjects: "Aucune matière indiquée.", difficultSubjectSaved: "Matière ajoutée.", difficultSubjectDeleted: "Matière supprimée.", myGrades: "Mes notes", gradesTitle: "Notes scolaires", gradesIntro: "Enregistre tes notes.", gradesHelp: "Enregistre tes notes.", openGradesHint: "Ouvrir les notes", gradeType: "Type de note", gradeExam: "Examen", gradeAssignment: "Travail", gradePresentation: "Présentation", gradeReadingExam: "Examen de livre", gradeOther: "Autre", specifyIfOther: "Précise si autre", gradeValue: "Note", addGrade: "Ajouter une note", noGrades: "Aucune note enregistrée.", gradeSaved: "Note enregistrée.", gradeDeleted: "Note supprimée.", optionalNote: "Note optionnelle", subjectProgress: "Progrès", noProgressYet: "Aucune activité terminée", completePost: "Marquer comme terminée", postCompleted: "Activité marquée comme terminée.", postCompletionError: "Impossible de terminer.", openBadgesHint: "Ouvrir le détail", teacherStudentNeeds: "Besoins indiqués", teacherStudentGrades: "Notes enregistrées", noStudentNeeds: "Aucun besoin indiqué.", noStudentGrades: "Aucune note enregistrée." },
+  pl: { today: "Dzisiaj", badgeDetailTitle: "Szczegóły odznak", badgeMotivationText: "Każda odznaka oznacza postęp.", noBadgeDetail: "Brak odznak.", badgeReason: "Powód", badgeDate: "Data", myDifficultSubjects: "Trudniejsze przedmioty", difficultSubjectsTitle: "Przedmioty, w których potrzebuję wsparcia", difficultSubjectsIntro: "Wybierz trudniejsze przedmioty.", difficultSubjectsHelp: "Wskaż, gdzie potrzebujesz wsparcia.", openDifficultSubjectsHint: "Otwórz i zaktualizuj", addDifficultSubject: "Dodaj przedmiot", remove: "Usuń", noDifficultSubjects: "Brak wskazanych przedmiotów.", difficultSubjectSaved: "Dodano przedmiot.", difficultSubjectDeleted: "Usunięto przedmiot.", myGrades: "Moje oceny", gradesTitle: "Oceny szkolne", gradesIntro: "Zapisz swoje oceny.", gradesHelp: "Zapisz oceny.", openGradesHint: "Otwórz oceny", gradeType: "Typ oceny", gradeExam: "Sprawdzian", gradeAssignment: "Praca", gradePresentation: "Prezentacja", gradeReadingExam: "Test z lektury", gradeOther: "Inne", specifyIfOther: "Doprecyzuj", gradeValue: "Ocena", addGrade: "Dodaj ocenę", noGrades: "Brak ocen.", gradeSaved: "Ocena zapisana.", gradeDeleted: "Ocena usunięta.", optionalNote: "Notatka opcjonalna", subjectProgress: "Postęp", noProgressYet: "Brak ukończonych aktywności", completePost: "Oznacz jako ukończone", postCompleted: "Aktywność ukończona.", postCompletionError: "Nie udało się oznaczyć.", openBadgesHint: "Otwórz szczegóły", teacherStudentNeeds: "Wskazane potrzeby", teacherStudentGrades: "Zapisane oceny", noStudentNeeds: "Brak wskazanych potrzeb.", noStudentGrades: "Brak ocen." }
+};
+Object.keys(i18nStudentEnhancements).forEach((lang) => {
+  i18n[lang] = { ...(i18n[lang] || i18n.es), ...i18nStudentEnhancements[lang] };
+});
+
 function t(key, params = {}) {
   const dictionary = i18n[state.lang] || i18n.es;
   let value = dictionary[key] || i18n.es[key] || key;
@@ -1243,7 +1364,27 @@ function applyI18n() {
   } else {
     authButton.textContent = t("loginAction");
   }
+
+  if (toggleTeacherCompactButton) {
+    toggleTeacherCompactButton.textContent = document.body.classList.contains("teacher-compact-mode")
+      ? t("expandTeacherView")
+      : t("compactTeacherView");
+  }
 }
+
+
+
+Object.keys(i18n).forEach(function (lang) {
+  i18n[lang] = Object.assign({
+    teacherTools: "Herramientas de profesora",
+    teacherToolsHelp: "Accesos compactos. Cada apartado se abre en una ventana de trabajo.",
+    newPostHelp: "Crear publicaciones, vídeos, juegos, desafíos o materiales.",
+    newDateHelp: "Publicar exámenes, entregas, avisos y excursiones.",
+    studentGroupsHelpShort: "Ver grupos para asignar con rapidez.",
+    recentActivityHelpShort: "Accesos, publicaciones consultadas y actividad reciente.",
+    teacherSupervisionHelpShort: "Conversaciones educativas abiertas con el alumnado."
+  }, i18n[lang]);
+});
 
 const loginForm = document.getElementById("loginForm");
 const loginButton = document.getElementById("loginButton");
@@ -1283,6 +1424,30 @@ const learningSettingsText = document.getElementById("learningSettingsText");
 const progressText = document.getElementById("progressText");
 const progressFill = document.getElementById("progressFill");
 const badgesContainer = document.getElementById("badgesContainer");
+const studentTodayDate = document.getElementById("studentTodayDate");
+const studentBadgesCard = document.getElementById("studentBadgesCard");
+const studentDifficultSubjectsCard = document.getElementById("studentDifficultSubjectsCard");
+const studentGradesCard = document.getElementById("studentGradesCard");
+const studentBadgesPanel = document.getElementById("studentBadgesPanel");
+const studentBadgesDetailList = document.getElementById("studentBadgesDetailList");
+const studentDifficultSubjectsPanel = document.getElementById("studentDifficultSubjectsPanel");
+const difficultSubjectForm = document.getElementById("difficultSubjectForm");
+const difficultSubjectSelect = document.getElementById("difficultSubjectSelect");
+const difficultSubjectNote = document.getElementById("difficultSubjectNote");
+const difficultSubjectMessage = document.getElementById("difficultSubjectMessage");
+const difficultSubjectsList = document.getElementById("difficultSubjectsList");
+const difficultSubjectsSummary = document.getElementById("difficultSubjectsSummary");
+const studentGradesPanel = document.getElementById("studentGradesPanel");
+const gradeRecordForm = document.getElementById("gradeRecordForm");
+const gradeSubjectSelect = document.getElementById("gradeSubjectSelect");
+const gradeTypeSelect = document.getElementById("gradeTypeSelect");
+const gradeOtherTypeInput = document.getElementById("gradeOtherTypeInput");
+const gradeValueInput = document.getElementById("gradeValueInput");
+const gradeDateInput = document.getElementById("gradeDateInput");
+const gradeNoteInput = document.getElementById("gradeNoteInput");
+const gradeRecordMessage = document.getElementById("gradeRecordMessage");
+const gradeRecordsList = document.getElementById("gradeRecordsList");
+const gradesSummary = document.getElementById("gradesSummary");
 
 const subjectsContainer = document.getElementById("subjectsContainer");
 const studentEventSubject = document.getElementById("studentEventSubject");
@@ -1321,6 +1486,9 @@ const panelWindowModal = document.getElementById("panelWindowModal");
 const panelWindowTitle = document.getElementById("panelWindowTitle");
 const panelWindowBody = document.getElementById("panelWindowBody");
 const closePanelWindow = document.getElementById("closePanelWindow");
+const teacherPanelButtons = document.querySelectorAll(".teacher-launch-card[data-teacher-panel]");
+let openedTeacherPanel = null;
+let openedTeacherPanelPlaceholder = null;
 let openedFloatingPanel = null;
 let openedFloatingPanelPlaceholder = null;
 
@@ -1355,6 +1523,11 @@ const teacherMetricUnread = document.getElementById("teacherMetricUnread");
 const teacherGroupSummary = document.getElementById("teacherGroupSummary");
 const recentActivityList = document.getElementById("recentActivityList");
 const teacherChatOverview = document.getElementById("teacherChatOverview");
+const toggleTeacherCompactButton = document.getElementById("toggleTeacherCompactButton");
+const teacherStudentFocusSelect = document.getElementById("teacherStudentFocusSelect");
+const teacherStudentFocusBody = document.getElementById("teacherStudentFocusBody");
+const openTeacherMessagesButton = document.getElementById("openTeacherMessagesButton");
+const openTeacherCalendarButton = document.getElementById("openTeacherCalendarButton");
 
 const coverSubjectSelect = document.getElementById("coverSubjectSelect");
 const coverImageFile = document.getElementById("coverImageFile");
@@ -1431,6 +1604,9 @@ let currentPosts = [];
 let currentEvents = [];
 let currentBadgeAwards = [];
 let currentUnits = [];
+let currentPostCompletions = [];
+let currentDifficultSubjects = [];
+let currentGradeRecords = [];
 
 let teacherSubjects = [];
 let teacherStudents = [];
@@ -1441,6 +1617,12 @@ let teacherUnits = [];
 let postTemplates = [];
 let studentGroups = [];
 let recentActivity = [];
+let teacherPostAssignments = [];
+let teacherEventAssignments = [];
+let teacherPostCompletions = [];
+let teacherDifficultSubjects = [];
+let teacherGradeRecords = [];
+let calendarEditEventId = "";
 
 let contacts = [];
 let messages = [];
@@ -1468,6 +1650,7 @@ let studentCalendarDate = new Date();
 let teacherCalendarDate = new Date();
 let railCalendarDate = new Date();
 let refreshTimer = null;
+let chatFastRefreshTimer = null;
 
 const avatarChoices = [
   "💡", "📚", "🌟", "🌍", "🧠", "🎨", "🚀", "😎",
@@ -1540,6 +1723,7 @@ loginForm.addEventListener("submit", async function (event) {
   }
 
   await loadUserData(data.user.id);
+  playNotificationTone("login");
   setLoginLoading(false);
 });
 
@@ -1562,11 +1746,13 @@ profileButton.addEventListener("click", function () {
 
 async function logout() {
   if (currentUserId) {
+    playNotificationTone("logout");
     await updatePresence("offline");
   }
 
   await supabaseClient.auth.signOut();
   clearInterval(refreshTimer);
+  clearInterval(chatFastRefreshTimer);
   if (realtimeChannel) {
     supabaseClient.removeChannel(realtimeChannel);
     realtimeChannel = null;
@@ -1628,6 +1814,7 @@ async function loadUserData(userId) {
 
   if (profile.role === "teacher") {
     await loadTeacherPanel();
+    document.body.classList.add("teacher-compact-mode");
     teacherDashboardSection.classList.remove("hidden");
     studentDashboardSection.classList.add("hidden");
   } else {
@@ -1640,6 +1827,7 @@ async function loadUserData(userId) {
   if (currentProfile && currentProfile.role === "teacher") {
     renderTeacherOverview();
     renderTeacherChatOverview();
+    renderTeacherStudentHub();
   }
   await recordActivityEvent("login", {});
   communicationSection.classList.add("hidden");
@@ -1693,6 +1881,9 @@ async function loadStudentPanel() {
   currentUnits = await fetchUnitsForSubjects(currentSubjects.map(subject => subject.id));
   currentEvents = await fetchStudentEvents();
   currentBadgeAwards = await fetchStudentBadgeAwards(currentProfile.id);
+  currentPostCompletions = await fetchPostCompletions(currentProfile.id);
+  currentDifficultSubjects = await fetchStudentDifficultSubjects(currentProfile.id);
+  currentGradeRecords = await fetchStudentGradeRecords(currentProfile.id);
   currentStreak = await fetchCurrentStreak();
 
   renderStudentDashboard();
@@ -1703,11 +1894,16 @@ async function loadTeacherPanel() {
   teacherSubjects = await addSignedCoverUrls(teacherSubjects);
   teacherStudents = await fetchAllStudents();
   teacherPosts = await fetchAllPosts();
+  teacherPostAssignments = await fetchPostAssignments();
   teacherUnits = await fetchUnitsForSubjects(teacherSubjects.map(subject => subject.id));
   postTemplates = await fetchPostTemplates();
   studentGroups = await fetchStudentGroups();
   recentActivity = await fetchRecentActivity();
   teacherEvents = await fetchAllEvents();
+  teacherEventAssignments = await fetchCalendarEventAssignments();
+  teacherPostCompletions = await fetchPostCompletions();
+  teacherDifficultSubjects = await fetchAllDifficultSubjects();
+  teacherGradeRecords = await fetchAllGradeRecords();
   teacherBadges = await fetchAllBadges();
 
   renderTeacherSubjects();
@@ -1720,6 +1916,7 @@ async function loadTeacherPanel() {
   renderTeacherCalendar();
   renderRecentActivity();
   renderTeacherChatOverview();
+  renderTeacherStudentHub();
 }
 
 async function fetchStudentSubjects(userId) {
@@ -1819,6 +2016,85 @@ async function fetchStudentBadgeAwards(userId) {
   return data || [];
 }
 
+async function fetchPostCompletions(profileId = "") {
+  let query = supabaseClient
+    .from("post_completions")
+    .select("post_id, profile_id, completed_at");
+
+  if (profileId) {
+    query = query.eq("profile_id", profileId);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error cargando actividades completadas:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function fetchStudentDifficultSubjects(profileId) {
+  const { data, error } = await supabaseClient
+    .from("student_difficult_subjects")
+    .select("id, profile_id, subject_id, note, created_at, subjects(id, name, icon)")
+    .eq("profile_id", profileId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error cargando materias con dificultad:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function fetchAllDifficultSubjects() {
+  const { data, error } = await supabaseClient
+    .from("student_difficult_subjects")
+    .select("id, profile_id, subject_id, note, created_at, subjects(id, name, icon), profiles(display_name, nickname, username)")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error cargando dificultades del alumnado:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function fetchStudentGradeRecords(profileId) {
+  const { data, error } = await supabaseClient
+    .from("student_grade_records")
+    .select("id, profile_id, subject_id, grade_type, other_type, grade_value, grade_date, note, created_at, subjects(id, name, icon)")
+    .eq("profile_id", profileId)
+    .order("grade_date", { ascending: false })
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error cargando calificaciones:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function fetchAllGradeRecords() {
+  const { data, error } = await supabaseClient
+    .from("student_grade_records")
+    .select("id, profile_id, subject_id, grade_type, other_type, grade_value, grade_date, note, created_at, subjects(id, name, icon), profiles(display_name, nickname, username)")
+    .order("grade_date", { ascending: false })
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error cargando calificaciones del alumnado:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
 async function fetchAllSubjects() {
   const { data, error } = await supabaseClient
     .from("subjects")
@@ -1872,6 +2148,32 @@ async function fetchAllEvents() {
 
   if (error) {
     console.error("Error cargando eventos:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function fetchPostAssignments() {
+  const { data, error } = await supabaseClient
+    .from("post_assignments")
+    .select("post_id, profile_id");
+
+  if (error) {
+    console.error("Error cargando asignaciones de publicaciones:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+async function fetchCalendarEventAssignments() {
+  const { data, error } = await supabaseClient
+    .from("calendar_event_assignments")
+    .select("event_id, profile_id");
+
+  if (error) {
+    console.error("Error cargando asignaciones de calendario:", error);
     return [];
   }
 
@@ -1966,15 +2268,14 @@ async function addSignedCoverUrls(subjects) {
 
 function renderStudentDashboard() {
   studentName.textContent = currentProfile.name;
+  if (studentTodayDate) {
+    studentTodayDate.textContent = formatFullTodayDate();
+  }
   studentCourse.textContent = `${currentProfile.level}, ${currentProfile.course}`;
   courseCardText.textContent = currentProfile.course;
 
-  learningSettingsText.textContent = currentProfile.learningSettings.length > 0
-    ? currentProfile.learningSettings.join(". ") + "."
-    : t("noWorkSettings");
-
   renderBadges();
-  renderProgress();
+  renderStudentSummaryCards();
   renderSubjects();
   renderStudentSubjectSelect();
   renderStudentCalendar();
@@ -2019,6 +2320,122 @@ function renderBadges() {
   });
 }
 
+function renderStudentSummaryCards() {
+  if (difficultSubjectsSummary) {
+    difficultSubjectsSummary.textContent = currentDifficultSubjects.length > 0
+      ? currentDifficultSubjects.map(item => item.subjects ? item.subjects.name : t("subject")).join(", ")
+      : t("difficultSubjectsHelp");
+  }
+
+  if (gradesSummary) {
+    gradesSummary.textContent = currentGradeRecords.length > 0
+      ? `${currentGradeRecords.length} registro(s)`
+      : t("gradesHelp");
+  }
+}
+
+function renderStudentSubjectSelect() {
+  const options = currentSubjects.map(function (subject) {
+    return `<option value="${subject.id}">${escapeHtml(subject.icon || "📘")} ${escapeHtml(subject.name)}</option>`;
+  }).join("");
+
+  studentEventSubject.innerHTML = options;
+  if (difficultSubjectSelect) {
+    difficultSubjectSelect.innerHTML = options;
+  }
+  if (gradeSubjectSelect) {
+    gradeSubjectSelect.innerHTML = options;
+  }
+  if (dayEventSubject) {
+    dayEventSubject.innerHTML = options;
+  }
+}
+
+function renderStudentBadgesDetail() {
+  if (!studentBadgesDetailList) {
+    return;
+  }
+
+  if (currentBadgeAwards.length === 0) {
+    studentBadgesDetailList.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noBadgeDetail"))}</p></div>`;
+    return;
+  }
+
+  studentBadgesDetailList.innerHTML = currentBadgeAwards.map(function (award) {
+    const badge = award.badges || {};
+    const reason = award.note || badge.description || t("badgeMotivationText");
+    return `
+      <article class="detail-card">
+        <div class="detail-card-heading">
+          <span class="badge-emoji">${escapeHtml(badge.emoji || "🏅")}</span>
+          <strong>${escapeHtml(badge.name || t("myBadges"))}</strong>
+        </div>
+        <p><strong>${escapeHtml(t("badgeReason"))}:</strong> ${escapeHtml(reason)}</p>
+        <p class="activity-meta"><strong>${escapeHtml(t("badgeDate"))}:</strong> ${escapeHtml(formatDateTime(award.awarded_at))}</p>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderDifficultSubjectsPanel() {
+  if (!difficultSubjectsList) {
+    return;
+  }
+
+  if (currentDifficultSubjects.length === 0) {
+    difficultSubjectsList.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noDifficultSubjects"))}</p></div>`;
+    return;
+  }
+
+  difficultSubjectsList.innerHTML = currentDifficultSubjects.map(function (item) {
+    const subject = item.subjects || {};
+    return `
+      <article class="detail-card">
+        <div class="detail-card-heading"><strong>${escapeHtml(subject.icon || "📘")} ${escapeHtml(subject.name || t("subject"))}</strong></div>
+        <p>${escapeHtml(item.note || "")}</p>
+        <button type="button" class="secondary-button delete-difficult-subject-button" data-id="${item.id}">${escapeHtml(t("remove"))}</button>
+      </article>
+    `;
+  }).join("");
+
+  difficultSubjectsList.querySelectorAll(".delete-difficult-subject-button").forEach(function (button) {
+    button.addEventListener("click", async function () {
+      await deleteDifficultSubject(button.dataset.id);
+    });
+  });
+}
+
+function renderGradeRecordsPanel() {
+  if (!gradeRecordsList) {
+    return;
+  }
+
+  if (currentGradeRecords.length === 0) {
+    gradeRecordsList.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noGrades"))}</p></div>`;
+    return;
+  }
+
+  gradeRecordsList.innerHTML = currentGradeRecords.map(function (item) {
+    const subject = item.subjects || {};
+    const gradeType = item.grade_type === "other" ? (item.other_type || t("gradeOther")) : readableGradeType(item.grade_type);
+    return `
+      <article class="detail-card">
+        <div class="detail-card-heading"><strong>${escapeHtml(subject.icon || "📘")} ${escapeHtml(subject.name || t("subject"))}</strong></div>
+        <p><strong>${escapeHtml(gradeType)}:</strong> ${escapeHtml(item.grade_value)}</p>
+        <p class="activity-meta">${escapeHtml(item.grade_date || formatDateKey(new Date(item.created_at)))}</p>
+        ${item.note ? `<p>${escapeHtml(item.note)}</p>` : ""}
+        <button type="button" class="secondary-button delete-grade-record-button" data-id="${item.id}">${escapeHtml(t("remove"))}</button>
+      </article>
+    `;
+  }).join("");
+
+  gradeRecordsList.querySelectorAll(".delete-grade-record-button").forEach(function (button) {
+    button.addEventListener("click", async function () {
+      await deleteGradeRecord(button.dataset.id);
+    });
+  });
+}
+
 function renderSubjects() {
   subjectsContainer.innerHTML = "";
 
@@ -2042,6 +2459,8 @@ function renderSubjects() {
       ? `background-image: url('${escapeAttribute(subject.coverUrl)}');`
       : `background-color: ${escapeAttribute(subject.cover_color || "#b58b5b")};`;
 
+    const subjectProgress = calculateSubjectProgress(subject.id);
+
     card.innerHTML = `
       <div class="subject-cover" style="${backgroundStyle}">
         <span class="subject-course-pill">${escapeHtml(currentProfile.course)}</span>
@@ -2050,6 +2469,11 @@ function renderSubjects() {
       <div class="subject-card-body">
         <h3>${escapeHtml(subject.name)}</h3>
         <p>${escapeHtml(t("assignedPosts", { count: subjectPosts.length }))} · ${subjectUnits.length} unidad(es)</p>
+        <div class="subject-progress" aria-label="${escapeAttribute(t("subjectProgress"))}">
+          <div class="subject-progress-text"><span>${escapeHtml(t("subjectProgress"))}</span><strong>${subjectProgress.percentage}%</strong></div>
+          <div class="progress-bar small"><div class="progress-fill" style="width: ${subjectProgress.percentage}%"></div></div>
+          <p class="activity-meta">${escapeHtml(subjectProgress.label)}</p>
+        </div>
         <button type="button" class="secondary-button open-subject-button" data-subject-id="${subject.id}">
           ${escapeHtml(t("openSubject"))}
         </button>
@@ -2069,15 +2493,27 @@ function renderSubjects() {
   });
 }
 
-function renderStudentSubjectSelect() {
-  const options = currentSubjects.map(function (subject) {
-    return `<option value="${subject.id}">${escapeHtml(subject.icon || "📘")} ${escapeHtml(subject.name)}</option>`;
-  }).join("");
+function getActionablePostsForSubject(subjectId) {
+  return currentPosts.filter(function (post) {
+    return post.subject_id === subjectId && !["announcement", "notes"].includes(post.post_type);
+  });
+}
 
-  studentEventSubject.innerHTML = options;
-  if (dayEventSubject) {
-    dayEventSubject.innerHTML = options;
+function calculateSubjectProgress(subjectId) {
+  const actionablePosts = getActionablePostsForSubject(subjectId);
+
+  if (actionablePosts.length === 0) {
+    return { percentage: 0, label: t("noProgressYet") };
   }
+
+  const completedPostIds = new Set(currentPostCompletions.map(item => item.post_id));
+  const completed = actionablePosts.filter(post => completedPostIds.has(post.id)).length;
+  const percentage = Math.round((completed / actionablePosts.length) * 100);
+
+  return {
+    percentage,
+    label: `${completed}/${actionablePosts.length} completada(s)`
+  };
 }
 
 function renderStudentWall() {
@@ -2245,6 +2681,7 @@ function renderSubjectUnits(subjectUnits, subjectPosts, container) {
     `;
   }
 
+
   html += `</div>`;
   container.innerHTML = html;
 
@@ -2381,7 +2818,7 @@ async function openPost(post) {
         <a class="external-link" href="${escapeHtml(content.url)}" target="_blank" rel="noopener noreferrer">
           ${escapeHtml(t("openTest"))}
         </a>
-        ${currentProfile && currentProfile.role !== "teacher" ? `<button type="button" class="primary-button complete-test-button" data-post-id="${post.id}">Marcar test como completado</button>` : ""}
+        ${currentProfile && currentProfile.role !== "teacher" ? `<button type="button" class="primary-button complete-post-button" data-post-id="${post.id}">${escapeHtml(t("completePost"))}</button>` : ""}
       `;
     } else if (post.post_type === "video_class") {
       html += `
@@ -2419,6 +2856,11 @@ async function openPost(post) {
     }
   }
 
+  if (currentProfile && currentProfile.role !== "teacher" && !["announcement", "notes", "interactive_test"].includes(post.post_type)) {
+    const alreadyCompleted = currentPostCompletions.some(item => item.post_id === post.id);
+    html += `<button type="button" class="primary-button complete-post-button" data-post-id="${post.id}" ${alreadyCompleted ? "disabled" : ""}>${escapeHtml(alreadyCompleted ? t("postCompleted") : t("completePost"))}</button>`;
+  }
+
   html += `</div>`;
 
   let targetBody = contentBody;
@@ -2442,9 +2884,9 @@ async function openPost(post) {
     contentPanel.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  targetBody.querySelectorAll(".complete-test-button").forEach(function (button) {
+  targetBody.querySelectorAll(".complete-post-button").forEach(function (button) {
     button.addEventListener("click", async function () {
-      await completeInteractiveTest(button.dataset.postId);
+      await completePostForCurrentStudent(button.dataset.postId);
     });
   });
 
@@ -2458,26 +2900,33 @@ async function openPost(post) {
   }
 }
 
-async function completeInteractiveTest(postId) {
+async function completePostForCurrentStudent(postId) {
   if (!currentProfile || currentProfile.role === "teacher") {
     return;
   }
 
-  const { error } = await supabaseClient.rpc("complete_interactive_test_post", {
+  const { error } = await supabaseClient.rpc("complete_assigned_post", {
     p_post_id: postId
   });
 
   if (error) {
     console.error(error);
-    alert(t("testCompletionError"));
+    alert(t("postCompletionError"));
     return;
   }
 
-  await recordActivityEvent("interactive_test_completed", { postId });
-  await registerLearningAction("interactive_test_completed");
+  const post = currentPosts.find(item => item.id === postId);
+  await recordActivityEvent(post && post.post_type === "interactive_test" ? "interactive_test_completed" : "post_completed", {
+    postId,
+    subjectId: post ? post.subject_id : null,
+    metadata: { title: post ? post.title : "" }
+  });
+  await registerLearningAction("post_completed");
   currentBadgeAwards = await fetchStudentBadgeAwards(currentProfile.id);
+  currentPostCompletions = await fetchPostCompletions(currentProfile.id);
   renderBadges();
-  alert(t("testCompleted"));
+  renderSubjects();
+  alert(t("postCompleted"));
 }
 
 async function deletePost(postId) {
@@ -2553,6 +3002,8 @@ function renderStudentCalendar() {
     .slice(0, 6);
 
   renderCalendarList(upcoming, studentCalendarList, t("noDates"));
+  renderRightRailCalendar();
+  updateUpcomingBadge();
 }
 
 function renderTeacherCalendar() {
@@ -2567,7 +3018,7 @@ function renderRightRailCalendar() {
 }
 
 function updateUpcomingBadge() {
-  if (!quickUpcomingBadge || !quickUpcomingLink) {
+  if (!quickUpcomingBadge || !quickCalendarLink) {
     return;
   }
 
@@ -2581,8 +3032,9 @@ function updateUpcomingBadge() {
     return date >= now && date <= weekEnd;
   }).length;
 
-  quickUpcomingLink.setAttribute("href", "#");
-  quickUpcomingLink.dataset.openPanel = "calendar";
+  quickCalendarLink.setAttribute("href", "#");
+  quickCalendarLink.dataset.openPanel = "calendar";
+  quickCalendarLink.setAttribute("title", count > 0 ? `${count} evento(s) próximo(s)` : t("calendar"));
 
   if (count > 0) {
     quickUpcomingBadge.textContent = String(count);
@@ -2620,13 +3072,15 @@ function renderMonthCalendar(events, gridElement, titleElement, selectedDate, co
     const isWeekend = day.getDay() === 0 || day.getDay() === 6;
     const isHoliday = GALICIA_HOLIDAYS_2026.has(formatDateKey(day));
     const hasImportant = dayEvents.some(event => event.event_type === "important");
+    const isToday = isSameDay(day, new Date());
 
     const classes = [
       "month-day",
       isMuted ? "is-muted" : "",
       isWeekend ? "is-weekend" : "",
       isHoliday ? "is-holiday" : "",
-      hasImportant ? "has-important" : ""
+      hasImportant ? "has-important" : "",
+      isToday ? "is-today" : ""
     ].filter(Boolean).join(" ");
 
     const dayTooltip = createDayTooltip(dayEvents);
@@ -2640,6 +3094,7 @@ function renderMonthCalendar(events, gridElement, titleElement, selectedDate, co
         title="${escapeAttribute(dayTooltip)}"
         aria-label="${escapeAttribute(dayTooltip || t("viewEventsForDay", { date: formatDateKey(day) }))}">
         <span class="month-number">${day.getDate()}</span>
+        ${isToday ? `<span class="today-label">${escapeHtml(t("today"))}</span>` : ""}
         ${visibleEvents.map(event => compact
           ? `<span class="month-event ${calendarEventClass(event)}" title="${escapeAttribute(event.title)}"></span>`
           : `<span class="month-event ${calendarEventClass(event)}">${escapeHtml(shorten(event.title, 18))}</span>`
@@ -2674,9 +3129,11 @@ function openDayModal(dayKey, sourceEvents) {
   }).format(day);
 
   renderCalendarList(dayEvents, dayModalEvents, t("noEventsDay"));
+  calendarEditEventId = "";
   dayEventMessage.textContent = "";
   dayEventForm.reset();
   dayEventTimeInput.value = "18:00";
+  setDayEventFormMode(false);
 
   if (currentProfile && currentProfile.role !== "teacher") {
     dayEventType.value = "other";
@@ -2787,9 +3244,192 @@ function renderCalendarList(events, container, emptyMessage) {
         </div>
         <h3>${escapeHtml(event.title)}</h3>
         <p>${escapeHtml(event.description || "")}</p>
+        <p class="activity-meta">${escapeHtml(event.created_by === currentUserId && currentProfile.role !== "teacher" ? t("ownEvent") : readableEventOwner(event))}</p>
+        ${calendarEventActions(event)}
       </article>
     `;
   }).join("");
+
+  container.querySelectorAll(".edit-calendar-event-button").forEach(function (button) {
+    button.addEventListener("click", function () {
+      startEditingCalendarEvent(button.dataset.eventId);
+    });
+  });
+
+  container.querySelectorAll(".delete-calendar-event-button").forEach(function (button) {
+    button.addEventListener("click", async function () {
+      await deleteCalendarEvent(button.dataset.eventId);
+    });
+  });
+}
+
+function readableEventOwner(event) {
+  if (!event.created_by) {
+    return "";
+  }
+
+  if (event.created_by === currentUserId && currentProfile.role !== "teacher") {
+    return t("ownEvent");
+  }
+
+  const owner = teacherStudents.find(student => student.id === event.created_by);
+  if (owner) {
+    return `${t("student")}: ${owner.nickname || owner.display_name}`;
+  }
+
+  return t("teacherEvent");
+}
+
+function canManageCalendarEvent(event) {
+  if (!currentProfile || !event) {
+    return false;
+  }
+
+  if (currentProfile.role === "teacher") {
+    return event.created_by === currentUserId;
+  }
+
+  return event.created_by === currentUserId;
+}
+
+function calendarEventActions(event) {
+  if (!canManageCalendarEvent(event)) {
+    return "";
+  }
+
+  return `
+    <div class="calendar-card-actions">
+      <button type="button" class="secondary-button edit-calendar-event-button" data-event-id="${event.id}">${escapeHtml(t("editEvent"))}</button>
+      <button type="button" class="secondary-button delete-calendar-event-button" data-event-id="${event.id}">${escapeHtml(t("deleteEvent"))}</button>
+    </div>
+  `;
+}
+
+function setDayEventFormMode(isEditing) {
+  if (!dayEventForm) {
+    return;
+  }
+
+  const submitButton = dayEventForm.querySelector("button[type='submit']");
+  if (submitButton) {
+    submitButton.textContent = isEditing ? t("saveEventChanges") : t("addToMyCalendar");
+  }
+
+  let cancelButton = document.getElementById("cancelCalendarEditButton");
+
+  if (isEditing && !cancelButton) {
+    cancelButton = document.createElement("button");
+    cancelButton.type = "button";
+    cancelButton.id = "cancelCalendarEditButton";
+    cancelButton.className = "secondary-button";
+    cancelButton.textContent = t("cancelEdit");
+    cancelButton.addEventListener("click", function () {
+      calendarEditEventId = "";
+      dayEventForm.reset();
+      dayEventTimeInput.value = "18:00";
+      setDayEventFormMode(false);
+    });
+    submitButton.insertAdjacentElement("afterend", cancelButton);
+  }
+
+  if (!isEditing && cancelButton) {
+    cancelButton.remove();
+  }
+}
+
+function findCalendarEventById(eventId) {
+  return [...currentEvents, ...teacherEvents].find(event => event.id === eventId);
+}
+
+function startEditingCalendarEvent(eventId) {
+  const event = findCalendarEventById(eventId);
+
+  if (!event || !canManageCalendarEvent(event)) {
+    showMessage(dayEventMessage, t("cannotEditEvent"), "warning");
+    return;
+  }
+
+  const dayKey = formatDateKey(new Date(event.starts_at));
+  const sourceEvents = currentProfile.role === "teacher" ? teacherEvents : currentEvents;
+  openDayModal(dayKey, sourceEvents);
+
+  calendarEditEventId = event.id;
+  if (dayEventSubject) dayEventSubject.value = event.subject_id || dayEventSubject.value;
+  if (dayEventType) dayEventType.value = event.event_type || "other";
+  if (dayEventTitleInput) dayEventTitleInput.value = event.title || "";
+  if (dayEventDescriptionInput) dayEventDescriptionInput.value = event.description || "";
+  if (dayEventTimeInput) {
+    const d = new Date(event.starts_at);
+    dayEventTimeInput.value = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  }
+  setDayEventFormMode(true);
+}
+
+async function updateCalendarEventForCurrentUser({ eventId, subjectId, eventType, title, description, startsAt, messageElement }) {
+  const event = findCalendarEventById(eventId);
+
+  if (!event || !canManageCalendarEvent(event)) {
+    showMessage(messageElement, t("cannotEditEvent"), "warning");
+    return false;
+  }
+
+  const updates = {
+    subject_id: subjectId,
+    title,
+    description,
+    starts_at: startsAt
+  };
+
+  if (currentProfile.role === "teacher") {
+    updates.event_type = eventType;
+  }
+
+  const { error } = await supabaseClient
+    .from("calendar_events")
+    .update(updates)
+    .eq("id", eventId)
+    .eq("created_by", currentUserId);
+
+  if (error) {
+    console.error(error);
+    showMessage(messageElement, "No se pudo actualizar el evento.", "warning");
+    return false;
+  }
+
+  return true;
+}
+
+async function deleteCalendarEvent(eventId) {
+  const event = findCalendarEventById(eventId);
+
+  if (!event || !canManageCalendarEvent(event)) {
+    showMessage(dayEventMessage, t("cannotEditEvent"), "warning");
+    return;
+  }
+
+  const confirmed = window.confirm(t("deleteEvent"));
+  if (!confirmed) {
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("calendar_events")
+    .delete()
+    .eq("id", eventId)
+    .eq("created_by", currentUserId);
+
+  if (error) {
+    console.error(error);
+    showMessage(dayEventMessage, "No se pudo eliminar el evento.", "warning");
+    return;
+  }
+
+  await reloadCalendarData();
+  const sourceEvents = currentProfile.role === "teacher" ? teacherEvents : currentEvents;
+  if (selectedCalendarDay) {
+    openDayModal(selectedCalendarDay, sourceEvents);
+  }
+  showMessage(dayEventMessage, t("eventDeleted"), "success");
 }
 
 studentPrevMonth.addEventListener("click", function () {
@@ -2838,9 +3478,11 @@ studentEventForm.addEventListener("submit", async function (event) {
     return;
   }
 
+  const createdTitle = studentEventTitle.value.trim();
+  const createdSubjectId = studentEventSubject.value;
   studentEventForm.reset();
   await reloadCalendarData();
-  await recordActivityEvent("calendar_event", { subjectId: studentEventSubject.value, metadata: { title: studentEventTitle.value.trim() } });
+  await recordActivityEvent("calendar_event", { subjectId: createdSubjectId, metadata: { title: createdTitle } });
   await registerLearningAction("calendar_event");
   showMessage(studentEventMessage, "Evento personal añadido.", "success");
 });
@@ -2860,19 +3502,26 @@ if (dayEventForm) {
     }
 
     const startsAt = new Date(`${selectedCalendarDay}T${dayEventTimeInput.value || "18:00"}:00`).toISOString();
-    const ok = await createCalendarEventForCurrentUser({
+    const eventPayload = {
       subjectId: dayEventSubject.value,
       eventType: dayEventType.value,
       title: dayEventTitleInput.value.trim(),
       description: dayEventDescriptionInput.value.trim(),
       startsAt,
       messageElement: dayEventMessage
-    });
+    };
+
+    const ok = calendarEditEventId
+      ? await updateCalendarEventForCurrentUser({ eventId: calendarEditEventId, ...eventPayload })
+      : await createCalendarEventForCurrentUser(eventPayload);
 
     if (!ok) {
       return;
     }
 
+    const wasEditing = Boolean(calendarEditEventId);
+    calendarEditEventId = "";
+    setDayEventFormMode(false);
     await reloadCalendarData();
     if (currentProfile && currentProfile.role !== "teacher") {
       await recordActivityEvent("calendar_event", { subjectId: dayEventSubject.value, metadata: { title: dayEventTitleInput.value.trim() } });
@@ -2880,9 +3529,111 @@ if (dayEventForm) {
     const sourceEvents = currentProfile && currentProfile.role === "teacher" ? teacherEvents : currentEvents;
     openDayModal(selectedCalendarDay, sourceEvents);
     await registerLearningAction("calendar_event");
-    showMessage(dayEventMessage, "Evento añadido.", "success");
+    showMessage(dayEventMessage, wasEditing ? t("eventUpdated") : "Evento añadido.", "success");
   });
 }
+async function addDifficultSubjectForCurrentStudent() {
+  if (!currentProfile || currentProfile.role === "teacher") {
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("student_difficult_subjects")
+    .insert({
+      profile_id: currentUserId,
+      subject_id: difficultSubjectSelect.value,
+      note: difficultSubjectNote.value.trim()
+    });
+
+  if (error) {
+    console.error(error);
+    showMessage(difficultSubjectMessage, "No se pudo guardar la materia.", "warning");
+    return;
+  }
+
+  difficultSubjectForm.reset();
+  currentDifficultSubjects = await fetchStudentDifficultSubjects(currentUserId);
+  renderStudentSummaryCards();
+  renderDifficultSubjectsPanel();
+  showMessage(difficultSubjectMessage, t("difficultSubjectSaved"), "success");
+}
+
+async function deleteDifficultSubject(id) {
+  const { error } = await supabaseClient
+    .from("student_difficult_subjects")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  currentDifficultSubjects = await fetchStudentDifficultSubjects(currentUserId);
+  renderStudentSummaryCards();
+  renderDifficultSubjectsPanel();
+  showMessage(difficultSubjectMessage, t("difficultSubjectDeleted"), "success");
+}
+
+async function addGradeRecordForCurrentStudent() {
+  if (!currentProfile || currentProfile.role === "teacher") {
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("student_grade_records")
+    .insert({
+      profile_id: currentUserId,
+      subject_id: gradeSubjectSelect.value,
+      grade_type: gradeTypeSelect.value,
+      other_type: gradeOtherTypeInput.value.trim(),
+      grade_value: gradeValueInput.value.trim(),
+      grade_date: gradeDateInput.value || null,
+      note: gradeNoteInput.value.trim()
+    });
+
+  if (error) {
+    console.error(error);
+    showMessage(gradeRecordMessage, "No se pudo guardar la calificación.", "warning");
+    return;
+  }
+
+  gradeRecordForm.reset();
+  currentGradeRecords = await fetchStudentGradeRecords(currentUserId);
+  renderStudentSummaryCards();
+  renderGradeRecordsPanel();
+  showMessage(gradeRecordMessage, t("gradeSaved"), "success");
+}
+
+async function deleteGradeRecord(id) {
+  const { error } = await supabaseClient
+    .from("student_grade_records")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  currentGradeRecords = await fetchStudentGradeRecords(currentUserId);
+  renderStudentSummaryCards();
+  renderGradeRecordsPanel();
+  showMessage(gradeRecordMessage, t("gradeDeleted"), "success");
+}
+
+function readableGradeType(type) {
+  const labels = {
+    exam: t("gradeExam"),
+    assignment: t("gradeAssignment"),
+    presentation: t("gradePresentation"),
+    reading_exam: t("gradeReadingExam"),
+    other: t("gradeOther")
+  };
+
+  return labels[type] || type || t("gradeOther");
+}
+
 function renderTeacherSubjects() {
   const options = teacherSubjects.map(function (subject) {
     return `<option value="${subject.id}">${escapeHtml(subject.icon || "📘")} ${escapeHtml(subject.name)}</option>`;
@@ -2967,6 +3718,27 @@ async function resolveTeacherUnitId() {
   return data.id;
 }
 
+if (toggleTeacherCompactButton) {
+  toggleTeacherCompactButton.addEventListener("click", function () {
+    document.body.classList.toggle("teacher-compact-mode");
+    toggleTeacherCompactButton.textContent = document.body.classList.contains("teacher-compact-mode")
+      ? t("expandTeacherView")
+      : t("compactTeacherView");
+  });
+}
+
+if (teacherStudentFocusSelect) {
+  teacherStudentFocusSelect.addEventListener("change", renderTeacherStudentHub);
+}
+
+if (openTeacherMessagesButton) {
+  openTeacherMessagesButton.addEventListener("click", handlePanelLinkClick);
+}
+
+if (openTeacherCalendarButton) {
+  openTeacherCalendarButton.addEventListener("click", handlePanelLinkClick);
+}
+
 if (teacherSubject) {
   teacherSubject.addEventListener("change", updateTeacherUnitControls);
 }
@@ -2984,6 +3756,13 @@ function renderTeacherStudents() {
     const courseName = student.courses ? student.courses.name : "Curso sin asignar";
     return `<option value="${student.id}">${escapeHtml(student.nickname || student.display_name)} · ${escapeHtml(courseName)}</option>`;
   }).join("");
+
+  if (teacherStudentFocusSelect) {
+    teacherStudentFocusSelect.innerHTML = teacherStudents.map(function (student) {
+      const courseName = student.courses ? student.courses.name : "Curso sin asignar";
+      return `<option value="${student.id}">${escapeHtml(student.nickname || student.display_name)} · ${escapeHtml(courseName)}</option>`;
+    }).join("");
+  }
 }
 
 function createStudentCheckboxes(students) {
@@ -3063,6 +3842,84 @@ function renderTeacherOverview() {
   if (teacherMetricUnread) teacherMetricUnread.textContent = String(messages.filter(message => message.message_type === "mail" && message.recipient_id === currentUserId && !message.is_read).length);
 }
 
+function renderTeacherStudentHub() {
+  if (!teacherStudentFocusSelect || !teacherStudentFocusBody || !currentProfile || currentProfile.role !== "teacher") {
+    return;
+  }
+
+  const selectedId = teacherStudentFocusSelect.value || (teacherStudents[0] && teacherStudents[0].id) || "";
+
+  if (!selectedId) {
+    teacherStudentFocusBody.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noRelatedItems"))}</p></div>`;
+    return;
+  }
+
+  teacherStudentFocusSelect.value = selectedId;
+  const student = teacherStudents.find(item => item.id === selectedId);
+
+  if (!student) {
+    teacherStudentFocusBody.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noRelatedItems"))}</p></div>`;
+    return;
+  }
+
+  const courseName = student.courses ? student.courses.name : "Curso sin asignar";
+  const assignedPostIds = new Set(teacherPostAssignments.filter(item => item.profile_id === selectedId).map(item => item.post_id));
+  const assignedEventIds = new Set(teacherEventAssignments.filter(item => item.profile_id === selectedId).map(item => item.event_id));
+
+  const posts = teacherPosts.filter(post => assignedPostIds.has(post.id)).slice(0, 6);
+  const events = teacherEvents.filter(event => event.created_by === selectedId || assignedEventIds.has(event.id)).slice(0, 6);
+  const relatedMessages = messages
+    .filter(message => message.sender_id === selectedId || message.recipient_id === selectedId)
+    .slice(0, 6);
+  const studentNeeds = teacherDifficultSubjects.filter(item => item.profile_id === selectedId).slice(0, 6);
+  const studentGrades = teacherGradeRecords.filter(item => item.profile_id === selectedId).slice(0, 8);
+
+  teacherStudentFocusBody.innerHTML = `
+    <div class="student-focus-head">
+      <div>
+        <h3>${escapeHtml(student.nickname || student.display_name)}</h3>
+        <p class="activity-meta">${escapeHtml(courseName)} · ${escapeHtml(student.username)}</p>
+      </div>
+      <button type="button" class="secondary-button" id="focusOpenChatButton">${escapeHtml(t("openChatWithStudent"))}</button>
+    </div>
+    <div class="student-focus-grid">
+      <article class="student-focus-card">
+        <h4>${escapeHtml(t("assignedWork"))}</h4>
+        ${posts.length ? posts.map(post => `<p><strong>${escapeHtml(post.title)}</strong><br><small>${escapeHtml(post.subjects ? post.subjects.name : t("subject"))}</small></p>`).join("") : `<p>${escapeHtml(t("noRelatedItems"))}</p>`}
+      </article>
+      <article class="student-focus-card">
+        <h4>${escapeHtml(t("relatedEvents"))}</h4>
+        ${events.length ? events.map(event => `<p><strong>${escapeHtml(event.title)}</strong><br><small>${escapeHtml(formatDateTime(event.starts_at))}</small></p>`).join("") : `<p>${escapeHtml(t("noRelatedItems"))}</p>`}
+      </article>
+      <article class="student-focus-card">
+        <h4>${escapeHtml(t("relatedMessages"))}</h4>
+        ${relatedMessages.length ? relatedMessages.map(message => `<p><strong>${escapeHtml(getProfileName(message.sender_id))}</strong>: ${escapeHtml(shorten(message.body || message.subject, 70))}<br><small>${escapeHtml(formatDateTime(message.created_at))}</small></p>`).join("") : `<p>${escapeHtml(t("noRelatedItems"))}</p>`}
+      </article>
+      <article class="student-focus-card">
+        <h4>${escapeHtml(t("teacherStudentNeeds"))}</h4>
+        ${studentNeeds.length ? studentNeeds.map(item => `<p><strong>${escapeHtml(item.subjects ? item.subjects.name : t("subject"))}</strong><br><small>${escapeHtml(item.note || "")}</small></p>`).join("") : `<p>${escapeHtml(t("noStudentNeeds"))}</p>`}
+      </article>
+      <article class="student-focus-card">
+        <h4>${escapeHtml(t("teacherStudentGrades"))}</h4>
+        ${studentGrades.length ? studentGrades.map(item => `<p><strong>${escapeHtml(item.subjects ? item.subjects.name : t("subject"))}</strong>: ${escapeHtml(item.grade_value)}<br><small>${escapeHtml(readableGradeType(item.grade_type))} · ${escapeHtml(item.grade_date || formatDateKey(new Date(item.created_at)))}</small></p>`).join("") : `<p>${escapeHtml(t("noStudentGrades"))}</p>`}
+      </article>
+    </div>
+  `;
+
+  const focusOpenChatButton = document.getElementById("focusOpenChatButton");
+  if (focusOpenChatButton) {
+    focusOpenChatButton.addEventListener("click", function () {
+      if (!openChatIds.includes(selectedId)) {
+        openChatIds.push(selectedId);
+      }
+      activeChatId = selectedId;
+      renderChatTabs();
+      renderChat();
+      openFloatingPanelWindow("messages");
+    });
+  }
+}
+
 function renderRecentActivity() {
   if (!recentActivityList) {
     return;
@@ -3118,6 +3975,7 @@ function renderTeacherChatOverview() {
       <article class="chat-overview-card">
         <h3><span class="status-dot ${presenceClass(conversation.otherId)}"></span>${escapeHtml(getProfileName(conversation.otherId))}</h3>
         <p class="chat-meta">${escapeHtml(t("lastMessage"))}: ${escapeHtml(formatDateTime(latest.created_at))}</p>
+        <button type="button" class="secondary-button open-supervised-chat-button" data-contact-id="${conversation.otherId}">${escapeHtml(t("openChatWithStudent"))}</button>
         <div class="chat-overview-messages">
           ${conversation.messages.slice(0, 6).reverse().map(function (message) {
             return `
@@ -3131,6 +3989,19 @@ function renderTeacherChatOverview() {
       </article>
     `;
   }).join("");
+
+  teacherChatOverview.querySelectorAll(".open-supervised-chat-button").forEach(function (button) {
+    button.addEventListener("click", function () {
+      const id = button.dataset.contactId;
+      if (!openChatIds.includes(id)) {
+        openChatIds.push(id);
+      }
+      activeChatId = id;
+      renderChatTabs();
+      renderChat();
+      openFloatingPanelWindow("messages");
+    });
+  });
 }
 
 function readableActivityType(type) {
@@ -3784,6 +4655,7 @@ function renderMessages() {
   ` : "";
 
   messageList.innerHTML = `
+    <p class="message-privacy-note">${escapeHtml(t("inboxPrivacy"))}</p>
     <div class="gmail-topbar">
       <div>
         <strong>${escapeHtml(viewTitle)}</strong>
@@ -4033,7 +4905,7 @@ function renderChat() {
     return;
   }
 
-  chatMessages.innerHTML = chat.map(function (message) {
+  chatMessages.innerHTML = `<p class="chat-live-note">${escapeHtml(t("realtimeActive"))}</p>` + chat.map(function (message) {
     const mine = message.sender_id === currentUserId;
     const reply = message.reply_to ? chat.find(item => item.id === message.reply_to) : null;
 
@@ -4354,22 +5226,39 @@ function setupRealtimeSubscriptions() {
         renderTeacherChatOverview();
       }
     })
+    .on("postgres_changes", { event: "*", schema: "public", table: "calendar_events" }, async function () {
+      await reloadCalendarData();
+      if (currentProfile && currentProfile.role === "teacher") {
+        teacherEventAssignments = await fetchCalendarEventAssignments();
+        renderTeacherStudentHub();
+      }
+    })
+    .on("postgres_changes", { event: "*", schema: "public", table: "calendar_event_assignments" }, async function () {
+      await reloadCalendarData();
+      if (currentProfile && currentProfile.role === "teacher") {
+        teacherEventAssignments = await fetchCalendarEventAssignments();
+        renderTeacherStudentHub();
+      }
+    })
     .subscribe();
 }
 
 function startRefreshTimer() {
   clearInterval(refreshTimer);
+  clearInterval(chatFastRefreshTimer);
+
   if (realtimeChannel) {
     supabaseClient.removeChannel(realtimeChannel);
     realtimeChannel = null;
   }
 
-  refreshTimer = setInterval(async function () {
+  setupRealtimeSubscriptions();
+
+  chatFastRefreshTimer = setInterval(async function () {
     if (!currentUserId) {
       return;
     }
 
-    await updatePresence(currentPresenceStatus);
     const newMessages = await fetchMessages();
     const newPresence = await fetchPresence();
     detectNewChatActivity(newMessages, newPresence);
@@ -4382,10 +5271,23 @@ function startRefreshTimer() {
     renderChat();
     updateUnreadBadges();
     if (currentProfile && currentProfile.role === "teacher") {
+      renderTeacherChatOverview();
+    }
+  }, 1000);
+
+  refreshTimer = setInterval(async function () {
+    if (!currentUserId) {
+      return;
+    }
+
+    await updatePresence(currentPresenceStatus);
+    await reloadCalendarData();
+    if (currentProfile && currentProfile.role === "teacher") {
       recentActivity = await fetchRecentActivity();
+      teacherEventAssignments = await fetchCalendarEventAssignments();
       renderTeacherOverview();
       renderRecentActivity();
-      renderTeacherChatOverview();
+      renderTeacherStudentHub();
     }
   }, 30000);
 }
@@ -4403,6 +5305,20 @@ function detectNewChatActivity(newMessages, newPresence) {
     && !previousChatMessageIds.has(message.id)
   );
 
+  if (incoming.length > 0) {
+    incoming.forEach(function (message) {
+      const otherId = message.sender_id === currentUserId ? message.recipient_id : message.sender_id;
+      if (otherId && !openChatIds.includes(otherId)) {
+        openChatIds.push(otherId);
+      }
+      if (!activeChatId) {
+        activeChatId = otherId;
+      }
+    });
+    renderChatTabs();
+    renderChat();
+  }
+
   if (incoming.some(message => message.message_type === "nudge")) {
     playNotificationTone("nudge");
   } else if (incoming.length > 0) {
@@ -4411,9 +5327,14 @@ function detectNewChatActivity(newMessages, newPresence) {
 
   const newOnlineIds = new Set(newPresence.filter(item => isPresenceActive(item)).map(item => item.profile_id));
   const someoneNewOnline = [...newOnlineIds].some(id => id !== currentUserId && !previousOnlineIds.has(id));
+  const someoneWentOffline = [...previousOnlineIds].some(id => id !== currentUserId && !newOnlineIds.has(id));
 
   if (someoneNewOnline) {
-    playNotificationTone("presence");
+    playNotificationTone("presenceOn");
+  }
+
+  if (someoneWentOffline) {
+    playNotificationTone("presenceOff");
   }
 
   previousChatMessageIds = new Set(newMessages.map(message => message.id));
@@ -4434,7 +5355,11 @@ function playNotificationTone(type) {
     const frequencies = {
       chat: 660,
       nudge: 880,
-      presence: 520
+      presence: 520,
+      presenceOn: 560,
+      presenceOff: 330,
+      login: 740,
+      logout: 260
     };
 
     oscillator.type = "sine";
@@ -4730,6 +5655,15 @@ function sortSubjects(a, b) {
   return a.name.localeCompare(b.name, localeMap[state.lang] || "es-ES");
 }
 
+function formatFullTodayDate() {
+  return new Intl.DateTimeFormat(localeMap[state.lang] || "es-ES", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(new Date());
+}
+
 function formatDate(value) {
   if (!value) {
     return "";
@@ -4983,6 +5917,84 @@ function applyDyslexiaMode(mode) {
 }
 
 
+function openTeacherPanelWindow(panelId, titleKey) {
+  if (!panelWindowModal || !panelWindowBody || !panelWindowTitle) {
+    return;
+  }
+
+  const panel = document.getElementById(panelId);
+  if (!panel) {
+    return;
+  }
+
+  closeFloatingPanelWindow(true);
+  closeTeacherPanelWindow(true);
+
+  openedTeacherPanel = panel;
+  openedTeacherPanelPlaceholder = document.createComment(`placeholder-${panelId}`);
+  panel.parentNode.insertBefore(openedTeacherPanelPlaceholder, panel);
+  panel.classList.remove("hidden");
+  panel.classList.add("panel-in-window", "teacher-panel-in-window");
+  panelWindowBody.appendChild(panel);
+  panelWindowTitle.textContent = t(titleKey || "teacherTools");
+  panelWindowModal.classList.remove("hidden");
+
+  if (panelId === "teacherActivityPanel") {
+    renderRecentActivity();
+  }
+  if (panelId === "teacherChatsPanel") {
+    renderTeacherChatOverview();
+  }
+  if (panelId === "teacherGroupsPanel") {
+    renderTeacherGroups();
+  }
+
+  applyI18n();
+}
+
+function closeTeacherPanelWindow(addHidden = true) {
+  if (!openedTeacherPanel) {
+    return;
+  }
+
+  openedTeacherPanel.classList.remove("panel-in-window", "teacher-panel-in-window");
+  if (addHidden) {
+    openedTeacherPanel.classList.add("hidden");
+  }
+
+  if (openedTeacherPanelPlaceholder && openedTeacherPanelPlaceholder.parentNode) {
+    openedTeacherPanelPlaceholder.parentNode.insertBefore(openedTeacherPanel, openedTeacherPanelPlaceholder);
+    openedTeacherPanelPlaceholder.remove();
+  }
+
+  openedTeacherPanel = null;
+  openedTeacherPanelPlaceholder = null;
+}
+
+function openGenericPanelWindow(panel, title, onOpen) {
+  if (!panel || !panelWindowModal || !panelWindowBody || !panelWindowTitle) {
+    return;
+  }
+
+  closeFloatingPanelWindow(true);
+  closeTeacherPanelWindow(true);
+
+  openedFloatingPanel = panel;
+  openedFloatingPanelPlaceholder = document.createComment(`placeholder-${panel.id}`);
+  panel.parentNode.insertBefore(openedFloatingPanelPlaceholder, panel);
+  panel.classList.remove("hidden");
+  panel.classList.add("panel-in-window");
+  panelWindowBody.appendChild(panel);
+  panelWindowTitle.textContent = title;
+  panelWindowModal.classList.remove("hidden");
+
+  if (typeof onOpen === "function") {
+    onOpen();
+  }
+
+  applyI18n();
+}
+
 function openFloatingPanelWindow(panelKey) {
   if (!panelWindowModal || !panelWindowBody || !panelWindowTitle) {
     return;
@@ -5038,6 +6050,8 @@ function openFloatingPanelWindow(panelKey) {
 }
 
 function closeFloatingPanelWindow(addHidden = true) {
+  closeTeacherPanelWindow(addHidden);
+
   if (!openedFloatingPanel) {
     if (panelWindowModal) {
       panelWindowModal.classList.add("hidden");
@@ -5073,6 +6087,12 @@ function handlePanelLinkClick(event) {
   openFloatingPanelWindow(target);
 }
 
+teacherPanelButtons.forEach(function (button) {
+  button.addEventListener("click", function () {
+    openTeacherPanelWindow(button.dataset.teacherPanel, button.dataset.teacherTitleKey);
+  });
+});
+
 [quickCalendarLink, quickUpcomingLink, quickMessagesLink].forEach(function (link) {
   if (link) {
     link.addEventListener("click", handlePanelLinkClick);
@@ -5090,6 +6110,49 @@ if (panelWindowModal) {
     if (event.target === panelWindowModal) {
       closeFloatingPanelWindow(true);
     }
+  });
+}
+
+function makeKeyboardClickable(element, handler) {
+  if (!element) {
+    return;
+  }
+
+  element.addEventListener("click", handler);
+  element.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handler();
+    }
+  });
+}
+
+makeKeyboardClickable(studentBadgesCard, function () {
+  openGenericPanelWindow(studentBadgesPanel, t("myBadges"), renderStudentBadgesDetail);
+});
+
+makeKeyboardClickable(studentDifficultSubjectsCard, function () {
+  openGenericPanelWindow(studentDifficultSubjectsPanel, t("myDifficultSubjects"), renderDifficultSubjectsPanel);
+});
+
+makeKeyboardClickable(studentGradesCard, function () {
+  if (gradeDateInput && !gradeDateInput.value) {
+    gradeDateInput.value = formatDateKey(new Date());
+  }
+  openGenericPanelWindow(studentGradesPanel, t("myGrades"), renderGradeRecordsPanel);
+});
+
+if (difficultSubjectForm) {
+  difficultSubjectForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    await addDifficultSubjectForCurrentStudent();
+  });
+}
+
+if (gradeRecordForm) {
+  gradeRecordForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    await addGradeRecordForCurrentStudent();
   });
 }
 

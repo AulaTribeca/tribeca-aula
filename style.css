@@ -2088,3 +2088,414 @@ button {
     padding: 0.8rem;
   }
 }
+
+
+/* Optimización docente, calendario editable y chat más ágil */
+.teacher-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+}
+
+body.teacher-compact-mode #teacherDashboardSection .teacher-collapsible {
+  padding: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+body.teacher-compact-mode #teacherDashboardSection .teacher-collapsible > p.form-help,
+body.teacher-compact-mode #teacherDashboardSection .teacher-collapsible > .form-help,
+body.teacher-compact-mode #teacherDashboardSection .teacher-collapsible .chat-overview-messages,
+body.teacher-compact-mode #teacherDashboardSection .teacher-collapsible .activity-meta + p {
+  display: none;
+}
+
+body.teacher-compact-mode #teacherDashboardSection .teacher-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+body.teacher-compact-mode #teacherDashboardSection .teacher-form textarea {
+  min-height: 72px;
+}
+
+body.teacher-compact-mode #teacherDashboardSection .teacher-dashboard-cards {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.teacher-student-hub select {
+  max-width: 28rem;
+}
+
+.student-focus-body {
+  margin-top: 1rem;
+}
+
+.student-focus-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-2);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.student-focus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.student-focus-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  padding: 1rem;
+  max-height: 18rem;
+  overflow: auto;
+}
+
+.student-focus-card h4 {
+  margin: 0 0 0.75rem;
+}
+
+.student-focus-card p {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.55rem;
+  margin-bottom: 0.55rem;
+}
+
+.student-focus-card p:last-child {
+  border-bottom: 0;
+}
+
+.calendar-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+}
+
+.calendar-card-actions .secondary-button:last-child {
+  color: var(--error);
+}
+
+.message-privacy-note,
+.chat-live-note {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-2);
+  color: var(--muted);
+  padding: 0.65rem 0.8rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  background: linear-gradient(180deg, var(--surface-2), var(--surface-3));
+}
+
+.chat-message {
+  max-width: 88%;
+  width: fit-content;
+  min-width: 45%;
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+
+.chat-message.mine {
+  margin-left: auto;
+  background: rgba(75, 96, 67, 0.12);
+  border-left: 0;
+  border-right: 5px solid var(--primary);
+}
+
+.chat-message:not(.mine) {
+  margin-right: auto;
+}
+
+.chat-message-actions {
+  opacity: 0.72;
+}
+
+.chat-message:hover .chat-message-actions {
+  opacity: 1;
+}
+
+.open-supervised-chat-button {
+  margin: 0.35rem 0 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .student-focus-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.teacher-compact-mode #teacherDashboardSection .teacher-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Actualización: panel docente compacto, calendario fusionado con notificaciones y chat más usable */
+.quick-nav #quickCalendarLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.teacher-launch-panel {
+  padding: clamp(1rem, 2vw, 1.35rem);
+  margin-bottom: 1rem;
+}
+
+.teacher-launch-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.teacher-launch-card {
+  text-align: left;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 0.95rem;
+  min-height: 7.25rem;
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+  box-shadow: none;
+}
+
+.teacher-launch-card strong {
+  font-size: 0.98rem;
+  line-height: 1.25;
+}
+
+.teacher-launch-card span {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.35;
+  font-weight: 650;
+}
+
+.teacher-launch-card:hover,
+.teacher-launch-card:focus-visible {
+  background: var(--surface);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(31, 41, 51, 0.12);
+}
+
+#teacherDashboardSection .teacher-window-source:not(.panel-in-window) {
+  display: none;
+}
+
+.teacher-window-source-group {
+  display: block;
+  margin: 0;
+}
+
+.teacher-panel-in-window {
+  display: block !important;
+  width: 100%;
+}
+
+.panel-window-overlay .teacher-panel-in-window {
+  max-height: 76vh;
+  overflow: auto;
+}
+
+.chat-tabs {
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+}
+
+.chat-tab {
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 0.42rem 0.7rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.chat-tab.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.chat-box {
+  min-height: 18rem;
+  max-height: 34vh;
+  overflow-y: auto;
+  background: linear-gradient(180deg, var(--surface-3), var(--surface));
+  border: 1px solid var(--border);
+}
+
+.chat-message {
+  max-width: 82%;
+  border-radius: 18px 18px 18px 4px;
+}
+
+.chat-message.mine {
+  margin-left: auto;
+  border-radius: 18px 18px 4px 18px;
+}
+
+.chat-form {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.45rem;
+}
+
+@media (max-width: 1180px) {
+  .teacher-launch-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .teacher-launch-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ajustes de panel de alumno, calendario y seguimiento */
+.student-date-line {
+  margin: 0.15rem 0 0.25rem;
+  color: var(--muted);
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.student-summary-compact {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.summary-card {
+  min-height: 0;
+  padding: 1rem;
+}
+
+.clickable-card {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.clickable-card:hover,
+.clickable-card:focus {
+  transform: translateY(-2px);
+}
+
+.card-hint,
+.compact-card-text {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.card-hint {
+  font-weight: 900;
+  margin-top: 0.5rem;
+}
+
+.month-day.is-today {
+  background: rgba(242, 200, 75, 0.35);
+  border-color: #d89f00;
+  box-shadow: inset 0 0 0 2px rgba(216, 159, 0, 0.55);
+}
+
+.month-day.is-today .month-number {
+  color: #4a3100;
+}
+
+.today-label {
+  display: inline-flex;
+  margin-left: 0.25rem;
+  padding: 0.08rem 0.35rem;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #5d3d00;
+  font-size: 0.7rem;
+  font-weight: 950;
+  border: 1px solid rgba(93, 61, 0, 0.25);
+}
+
+.month-grid.mini .today-label {
+  display: block;
+  width: fit-content;
+  margin: 0.1rem 0 0;
+  font-size: 0.62rem;
+  padding: 0.02rem 0.25rem;
+}
+
+.subject-progress {
+  margin: 0.75rem 0;
+}
+
+.subject-progress-text {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--muted);
+}
+
+.progress-bar.small {
+  min-height: 10px;
+  margin-top: 0.25rem;
+}
+
+.progress-bar.small .progress-fill {
+  height: 10px;
+}
+
+.detail-list {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.detail-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-2);
+  padding: 1rem;
+}
+
+.detail-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.5rem;
+}
+
+.detail-card p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 980px) {
+  .student-summary-compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .student-summary-compact {
+    grid-template-columns: 1fr;
+  }
+}
