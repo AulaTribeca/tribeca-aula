@@ -1581,7 +1581,41 @@ const tribecaInterfaceLabels = {
     openBadgesHint: "Ver insignias",
     openDifficultSubjectsHint: "Ver o actualizar",
     openGradesHint: "Ver calificaciones",
-    openSchoolProfileHint: "Ver o modificar centro, etapa y curso"
+    openSchoolProfileHint: "Ver o modificar centro, etapa y curso",
+    saveProfileChanges: "Guardar cambios del perfil",
+    profileUnsavedChanges: "Hay cambios sin guardar.",
+    closeProfile: "Cerrar perfil",
+    openSection: "Abrir apartado",
+    profileSectionWindow: "Detalle del perfil",
+    changePasswordAction: "Cambiar contraseña",
+    passwordChangeConfirm: "¿Seguro que quieres cambiar la contraseña?",
+    passwordChangedCorrectly: "Contraseña cambiada correctamente.",
+    passwordChangeEmpty: "Escribe y repite la nueva contraseña.",
+    completedThisWeek: "Actividades completadas esta semana",
+    pendingTasks: "Tareas pendientes",
+    nextEvents: "Próximos eventos",
+    noEvents: "Sin eventos",
+    streak: "Racha de estudio",
+    currentLevel: "Nivel actual",
+    accumulatedPoints: "Puntos acumulados",
+    latestMovements: "Últimos movimientos",
+    studentDetail: "Ficha del alumno/a",
+    schoolAndCourse: "Centro y curso",
+    noPasswordRequests: "No hay solicitudes pendientes.",
+    pendingPassword: "Solicitud de recuperación de contraseña pendiente.",
+    markResolved: "Marcar como resuelta",
+    newDidacticUnit: "Nueva unidad didáctica",
+    addToExistingUnit: "Añadir a unidad existente",
+    noTemplate: "Sin plantilla",
+    quickMessageMovedHelp: "También puedes enviar un mensaje rápido desde este apartado.",
+    quickNeedTypeDuda: "Tengo una duda",
+    quickNeedTypeExplicacion: "No entendí la última explicación",
+    quickNeedTypeRepaso: "Necesito repasar este tema",
+    quickNeedTypeOrganizacion: "Me cuesta organizarme",
+    quickNeedTypeEjercicios: "Quiero más ejercicios",
+    quickNeedTypeInicio: "No sé por dónde empezar",
+    quickNeedTypeComentario: "Quiero comentar algo con la profesora",
+
 };
 Object.keys(i18n).forEach(function (lang) {
   i18n[lang] = Object.assign({}, tribecaInterfaceLabels, i18n[lang]);
@@ -1589,6 +1623,59 @@ Object.keys(i18n).forEach(function (lang) {
     i18n[lang] = Object.assign({}, i18n[lang], tribecaInterfaceLabels);
   }
 });
+
+const tribecaFinalCleanLabels = {
+  manageStudentsTitle: "Gestionar alumnado",
+  manageStudentsHelpShort: "Añadir, archivar o editar centro, curso y horario.",
+  manageStudentsHelp: "Alta básica, archivo y edición de centro, etapa, curso y horario de asistencia a Tribeca Aula.",
+  addStudentTitle: "Añadir alumno/a",
+  addStudentHelp: "Crea una cuenta básica con usuario y contraseña inicial. El alumno/a deberá cambiarla al entrar.",
+  initialPassword: "Contraseña inicial",
+  createStudentAccount: "Crear alumno/a",
+  bulkStudentActions: "Acciones sobre alumnado",
+  bulkStudentHelp: "Selecciona alumnado para archivarlo. La cuenta deja de aparecer en el aula, pero se conservan los datos históricos.",
+  archiveSelectedStudents: "Archivar seleccionados",
+  archiveStudent: "Archivar alumno/a",
+  archiveStudentConfirm: "¿Seguro que quieres archivar este alumno o alumna? Dejará de aparecer en el aula.",
+  archiveStudentsConfirm: "¿Seguro que quieres archivar el alumnado seleccionado?",
+  studentsArchived: "Alumnado archivado correctamente.",
+  archiveStudentError: "No se pudo archivar el alumnado seleccionado.",
+  selectStudentsFirst: "Selecciona al menos un alumno o alumna.",
+  completeRequiredFields: "Completa los campos obligatorios.",
+  studentCreated: "Alumno/a creado correctamente. Entrará con el usuario y la contraseña inicial indicados.",
+  studentCreateAuthError: "No se pudo crear la cuenta de acceso. Revisa que el usuario no exista ya y que Supabase permita altas con email local.",
+  studentCreateProfileError: "La cuenta se creó, pero no se pudo completar el perfil. Revisa la migración SQL.",
+  tribecaSchedule: "Horario en Tribeca Aula",
+  schedulePlaceholder: "Ej.: lunes y miércoles, 17:00-18:00",
+  noTribecaSchedule: "Sin horario de asistencia indicado",
+  studentSchoolReadonly: "Estos datos los gestiona la profesora desde el panel docente.",
+  schoolProfileIntro: "Estos datos los actualiza la profesora para que publicaciones, avisos y materiales lleguen correctamente.",
+  saveStudentSchoolData: "Guardar centro, curso y horario",
+  schoolProfileSaved: "Datos escolares guardados correctamente.",
+  targetBySchoolHelp: "Elige centro educativo y curso. Después puedes quitar o añadir alumnado de forma manual.",
+  openChatWithStudent: "Abrir chat",
+  relatedMessages: "Mensajes relacionados",
+  noActivity: "Sin actividad reciente",
+  completedThisWeek: "Actividades completadas esta semana",
+  pendingTasks: "Tareas pendientes",
+  nextEvents: "Próximos eventos",
+  noEvents: "Sin eventos",
+  currentLevel: "Nivel actual",
+  accumulatedPoints: "Puntos acumulados",
+  visibleNickname: "Nombre visible",
+  preloadedAvatar: "Icono de perfil",
+  latestFeedPosts: "Feed de noticias y anuncios",
+  teacherFeed: "Feed docente",
+  teacherFeedTitle: "Feed de noticias y anuncios",
+  postTypeNotes: "Material o recurso",
+  postTypeAnnouncement: "Anuncio",
+  postTypeNews: "Noticia",
+  postTypeNotice: "Aviso"
+};
+Object.keys(i18n).forEach(function (lang) {
+  i18n[lang] = Object.assign({}, i18n[lang], tribecaFinalCleanLabels);
+});
+
 
 const loginForm = document.getElementById("loginForm");
 const loginButton = document.getElementById("loginButton");
@@ -1608,6 +1695,11 @@ const languageSelect = document.getElementById("languageSelect");
 
 const profilePanel = document.getElementById("profilePanel");
 const profileForm = document.getElementById("profileForm");
+const closeProfilePanelButton = document.getElementById("closeProfilePanelButton");
+const profileUnsavedMessage = document.getElementById("profileUnsavedMessage");
+const passwordChangeForm = document.getElementById("passwordChangeForm");
+const quickNeedCard = document.getElementById("quickNeedCard");
+const quickNeedMessagesSlot = document.getElementById("quickNeedMessagesSlot");
 const profileNickname = document.getElementById("profileNickname");
 const profileNewPassword = document.getElementById("profileNewPassword");
 const profileRepeatPassword = document.getElementById("profileRepeatPassword");
@@ -2067,12 +2159,19 @@ authButton.addEventListener("click", async function () {
 });
 
 profileButton.addEventListener("click", function () {
-  profilePanel.classList.toggle("hidden");
-
-  if (!profilePanel.classList.contains("hidden")) {
-    profilePanel.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  openGenericPanelWindow(profilePanel, t("userProfile"), function () {
+    renderProfilePanel();
+  moveQuickNeedCardToMessages();
+    prepareProfileCards();
+    moveQuickNeedCardToMessages();
+  });
 });
+
+if (closeProfilePanelButton) {
+  closeProfilePanelButton.addEventListener("click", function () {
+    closeFloatingPanelWindow(true);
+  });
+}
 
 async function logout() {
   if (currentUserId) {
@@ -2160,6 +2259,9 @@ async function loadUserData(userId) {
     renderTeacherStudentHub();
   }
   await recordActivityEvent("login", {});
+  if (currentProfile && currentProfile.role !== "teacher") {
+    await registerLearningAction("login");
+  }
   communicationSection.classList.add("hidden");
   startRefreshTimer();
   applyI18n();
@@ -2802,8 +2904,11 @@ function openNotificationTarget(target) {
     return;
   }
   if (target === "profile") {
-    profilePanel.classList.remove("hidden");
-    profilePanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    openGenericPanelWindow(profilePanel, t("userProfile"), function () {
+      renderProfilePanel();
+      prepareProfileCards();
+      moveQuickNeedCardToMessages();
+    });
     return;
   }
   const section = document.getElementById(NOTIFICATION_SECTION_MAP[target] || "studentWallPanel");
@@ -2847,7 +2952,7 @@ function renderTeacherRecoveryRequests() {
     }),
     ...quick.map(function (item) {
       const name = item.profiles ? (item.profiles.nickname || item.profiles.display_name || item.profiles.username) : t("student");
-      return `<article class="detail-card quick-need-open"><h3>${escapeHtml(name)} · ${escapeHtml(t("quickMessageTeacher"))}</h3><p class="activity-meta">${escapeHtml(formatDateTime(item.created_at))}</p><p><strong>${escapeHtml(item.need_type || "")}</strong></p><p>${escapeHtml(item.body || "")}</p></article>`;
+      return `<article class="detail-card quick-need-open"><h3>${escapeHtml(name)} · ${escapeHtml(t("quickMessageTeacher"))}</h3><p class="activity-meta">${escapeHtml(formatDateTime(item.created_at))}</p><p><strong>${escapeHtml(readableQuickNeedType(item.need_type))}</strong></p><p>${escapeHtml(item.body || "")}</p></article>`;
     })
   ].join("");
   teacherRecoveryList.querySelectorAll(".resolve-password-request-button").forEach(function(button){
@@ -3537,7 +3642,6 @@ async function openPost(post) {
       subjectId: post.subject_id,
       metadata: { title: post.title, post_type: post.post_type }
     });
-    await registerLearningAction("post_view");
   }
 }
 
@@ -3562,7 +3666,6 @@ async function completePostForCurrentStudent(postId) {
     subjectId: post ? post.subject_id : null,
     metadata: { title: post ? post.title : "" }
   });
-  await registerLearningAction("post_completed");
   currentBadgeAwards = await fetchStudentBadgeAwards(currentProfile.id);
   currentPostCompletions = await fetchPostCompletions(currentProfile.id);
   renderBadges();
@@ -4123,7 +4226,6 @@ studentEventForm.addEventListener("submit", async function (event) {
   studentEventForm.reset();
   await reloadCalendarData();
   await recordActivityEvent("calendar_event", { subjectId: createdSubjectId, metadata: { title: createdTitle } });
-  await registerLearningAction("calendar_event");
   showMessage(studentEventMessage, "Evento personal añadido.", "success");
 });
 
@@ -4168,7 +4270,6 @@ if (dayEventForm) {
     }
     const sourceEvents = currentProfile && currentProfile.role === "teacher" ? teacherEvents : currentEvents;
     openDayModal(selectedCalendarDay, sourceEvents);
-    await registerLearningAction("calendar_event");
     showMessage(dayEventMessage, wasEditing ? t("eventUpdated") : "Evento añadido.", "success");
   });
 }
@@ -4299,6 +4400,13 @@ function initSchoolStaticSelectors() {
   fillBasicSelect(studentStudyTypeSelect, STUDY_TYPES, false);
   fillBasicSelect(studentEducationalStageSelect, EDUCATIONAL_STAGES, false);
   fillBasicSelect(studentAcademicCourseSelect, ACADEMIC_COURSES, false);
+  initTeacherStudentAdminSelectors();
+}
+
+function initTeacherStudentAdminSelectors() {
+  fillSchoolSelect(newStudentCenter, false);
+  fillBasicSelect(newStudentStage, EDUCATIONAL_STAGES, false);
+  fillBasicSelect(newStudentCourse, ACADEMIC_COURSES, false);
 }
 
 function fillSchoolSelect(select, includeAll) {
@@ -4336,26 +4444,13 @@ function renderStudentSchoolPanel() {
   if (studentStudyTypeSelect) studentStudyTypeSelect.value = currentProfile.studyType || currentProfile.educationalStage || currentProfile.level || "";
   studentEducationalStageSelect.value = currentProfile.educationalStage || currentProfile.level || currentProfile.studyType || "";
   studentAcademicCourseSelect.value = currentProfile.academicCourse || currentProfile.course || "";
+  if (studentTribecaSchedule) {
+    studentTribecaSchedule.value = currentProfile.classSchedule || t("unassigned");
+  }
 }
 
 async function saveCurrentStudentSchoolProfile() {
-  if (!currentProfile || currentProfile.role === "teacher") {
-    return;
-  }
-  const { error } = await supabaseClient.rpc("update_own_school_profile", {
-    p_school_center: studentSchoolCenterSelect.value,
-    p_educational_stage: studentEducationalStageSelect.value,
-    p_academic_course: studentAcademicCourseSelect.value,
-    p_study_type: studentEducationalStageSelect.value
-  });
-  if (error) {
-    console.error(error);
-    showMessage(studentSchoolMessage, "No se pudo guardar el perfil escolar. Ejecuta la migración SQL.", "warning");
-    return;
-  }
-  currentProfile = await fetchProfile(currentUserId);
-  renderStudentDashboard();
-  showMessage(studentSchoolMessage, t("schoolProfileSaved"), "success");
+  showMessage(studentSchoolMessage, t("studentSchoolReadonly"), "warning");
 }
 
 function renderTeacherTargetFilters() {
@@ -4461,6 +4556,112 @@ function parseGradeNumber(value) {
   }
   const num = Number(raw[0]);
   return Number.isFinite(num) ? num : null;
+}
+
+
+function renderTeacherStudentAdminList() {
+  if (!teacherBulkStudentList) return;
+  if (!teacherStudents || teacherStudents.length === 0) {
+    teacherBulkStudentList.innerHTML = `<div class="empty-panel"><p>${escapeHtml(t("noRelatedItems"))}</p></div>`;
+    return;
+  }
+  teacherBulkStudentList.innerHTML = teacherStudents.map(function (student) {
+    return `
+      <label class="student-admin-row">
+        <input type="checkbox" value="${escapeAttribute(student.id)}" />
+        <span>
+          <strong>${escapeHtml(student.nickname || student.display_name || student.username)}</strong>
+          <small>${escapeHtml(student.username || "")} · ${escapeHtml(formatStudentSchoolLine(student))}</small>
+          <small class="profile-inline-schedule">${escapeHtml(student.class_schedule || t("noTribecaSchedule"))}</small>
+        </span>
+      </label>
+    `;
+  }).join("");
+}
+
+function getAdminSelectedStudentIds() {
+  if (!teacherBulkStudentList) return [];
+  return Array.from(teacherBulkStudentList.querySelectorAll("input[type='checkbox']:checked")).map(input => input.value);
+}
+
+async function archiveStudents(ids, messageTarget) {
+  if (!ids || ids.length === 0) {
+    showMessage(messageTarget || teacherArchiveMessage, t("selectStudentsFirst"), "warning");
+    return;
+  }
+  const { error } = await supabaseClient.rpc("teacher_archive_students", { p_profile_ids: ids });
+  if (error) {
+    console.error(error);
+    showMessage(messageTarget || teacherArchiveMessage, t("archiveStudentError"), "warning");
+    return;
+  }
+  teacherStudents = await fetchAllStudents();
+  renderTeacherStudents();
+  await preloadTeacherStudentAvatars();
+  renderTeacherStudentHub();
+  renderTeacherStudentAdminList();
+  showMessage(messageTarget || teacherArchiveMessage, t("studentsArchived"), "success");
+}
+
+async function createStudentFromTeacher() {
+  if (!teacherAddStudentForm) return;
+  const displayName = newStudentName.value.trim();
+  const username = normalizeUsername(newStudentUsername.value.trim());
+  const password = newStudentPassword.value.trim();
+  if (!displayName || !username || !password) {
+    showMessage(teacherAddStudentMessage, t("completeRequiredFields"), "warning");
+    return;
+  }
+  if (password.length < 6) {
+    showMessage(teacherAddStudentMessage, t("passwordTooShort"), "warning");
+    return;
+  }
+
+  const email = `${username}@tribeca-aula.local`;
+  const creationClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+  });
+  const { data, error } = await creationClient.auth.signUp({
+    email,
+    password,
+    options: { data: { username, display_name: displayName, role: "student" } }
+  });
+  if (error || !data || !data.user) {
+    console.error(error);
+    showMessage(teacherAddStudentMessage, t("studentCreateAuthError"), "warning");
+    return;
+  }
+  lastCreatedStudentAuthId = data.user.id;
+  const { error: profileError } = await supabaseClient.rpc("teacher_upsert_student_profile", {
+    p_profile_id: data.user.id,
+    p_username: username,
+    p_display_name: displayName,
+    p_school_center: newStudentCenter.value,
+    p_educational_stage: newStudentStage.value,
+    p_academic_course: newStudentCourse.value,
+    p_class_schedule: newStudentSchedule.value.trim()
+  });
+  if (profileError) {
+    console.error(profileError);
+    showMessage(teacherAddStudentMessage, t("studentCreateProfileError"), "warning");
+    return;
+  }
+  teacherAddStudentForm.reset();
+  initTeacherStudentAdminSelectors();
+  teacherStudents = await fetchAllStudents();
+  renderTeacherStudents();
+  await preloadTeacherStudentAvatars();
+  renderTeacherStudentHub();
+  renderTeacherStudentAdminList();
+  showMessage(teacherAddStudentMessage, t("studentCreated"), "success");
+}
+
+function normalizeUsername(value) {
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9._-]+/g, "_")
+    .replace(/^_+|_+$/g, "");
 }
 
 async function promoteAllStudentsOneCourse() {
@@ -5098,6 +5299,40 @@ if (studentSchoolForm) {
   studentSchoolForm.addEventListener("submit", async function (event) {
     event.preventDefault();
     await saveCurrentStudentSchoolProfile();
+  });
+}
+
+
+if (teacherAddStudentForm) {
+  teacherAddStudentForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    await createStudentFromTeacher();
+  });
+}
+
+if (selectAllAdminStudentsButton) {
+  selectAllAdminStudentsButton.addEventListener("click", function () {
+    if (!teacherBulkStudentList) return;
+    teacherBulkStudentList.querySelectorAll("input[type='checkbox']").forEach(input => input.checked = true);
+  });
+}
+
+if (clearAdminStudentsButton) {
+  clearAdminStudentsButton.addEventListener("click", function () {
+    if (!teacherBulkStudentList) return;
+    teacherBulkStudentList.querySelectorAll("input[type='checkbox']").forEach(input => input.checked = false);
+  });
+}
+
+if (archiveSelectedStudentsButton) {
+  archiveSelectedStudentsButton.addEventListener("click", async function () {
+    const ids = getAdminSelectedStudentIds();
+    if (!ids.length) {
+      showMessage(teacherArchiveMessage, t("selectStudentsFirst"), "warning");
+      return;
+    }
+    if (!confirm(t("archiveStudentsConfirm"))) return;
+    await archiveStudents(ids, teacherArchiveMessage);
   });
 }
 
@@ -6459,26 +6694,139 @@ function getProfileName(profileId) {
 
   return "Usuario";
 }
+
+function readableQuickNeedType(type) {
+  const map = {
+    duda: t("quickNeedTypeDuda"),
+    explicacion: t("quickNeedTypeExplicacion"),
+    repaso: t("quickNeedTypeRepaso"),
+    organizacion: t("quickNeedTypeOrganizacion"),
+    ejercicios: t("quickNeedTypeEjercicios"),
+    inicio: t("quickNeedTypeInicio"),
+    comentario: t("quickNeedTypeComentario")
+  };
+  return map[type] || type || t("message");
+}
+
+function moveQuickNeedCardToMessages() {
+  if (!quickNeedCard || !quickNeedMessagesSlot) return;
+  if (currentProfile && currentProfile.role === "teacher") {
+    quickNeedCard.classList.add("hidden");
+    return;
+  }
+  quickNeedCard.classList.remove("hidden", "profile-extra-card", "student-only-profile-card");
+  quickNeedCard.classList.add("quick-need-message-card");
+  quickNeedMessagesSlot.appendChild(quickNeedCard);
+}
+
+let openedProfileCard = null;
+let openedProfileCardPlaceholder = null;
+let profileCardOverlay = null;
+
+function closeProfileCardWindow() {
+  if (!openedProfileCard) return;
+  openedProfileCard.classList.remove("profile-card-in-window");
+  if (openedProfileCardPlaceholder && openedProfileCardPlaceholder.parentNode) {
+    openedProfileCardPlaceholder.parentNode.insertBefore(openedProfileCard, openedProfileCardPlaceholder);
+    openedProfileCardPlaceholder.remove();
+  }
+  if (profileCardOverlay) {
+    profileCardOverlay.remove();
+  }
+  openedProfileCard = null;
+  openedProfileCardPlaceholder = null;
+  profileCardOverlay = null;
+}
+
+function openProfileCardWindow(card) {
+  if (!card || card.classList.contains("profile-card-in-window") || card.classList.contains("quick-need-message-card")) return;
+  closeProfileCardWindow();
+  openedProfileCard = card;
+  openedProfileCardPlaceholder = document.createComment("profile-card-placeholder");
+  card.parentNode.insertBefore(openedProfileCardPlaceholder, card);
+  profileCardOverlay = document.createElement("div");
+  profileCardOverlay.className = "profile-card-window-overlay";
+  const title = card.querySelector("h3") ? card.querySelector("h3").textContent : t("profileSectionWindow");
+  profileCardOverlay.innerHTML = `<div class="profile-card-window" role="dialog" aria-modal="true"><div class="section-heading-row"><h2>${escapeHtml(title)}</h2><button type="button" class="secondary-button profile-card-close">×</button></div><div class="profile-card-window-body"></div></div>`;
+  document.body.appendChild(profileCardOverlay);
+  card.classList.add("profile-card-in-window");
+  profileCardOverlay.querySelector(".profile-card-window-body").appendChild(card);
+  profileCardOverlay.querySelector(".profile-card-close").addEventListener("click", closeProfileCardWindow);
+  profileCardOverlay.addEventListener("click", function (event) {
+    if (event.target === profileCardOverlay) closeProfileCardWindow();
+  });
+}
+
+function prepareProfileCards() {
+  const cards = Array.from(document.querySelectorAll("#profileExtraGrid .profile-extra-card"));
+  cards.forEach(function (card) {
+    if (card.dataset.compactReady === "true") return;
+    card.dataset.compactReady = "true";
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "button");
+    card.addEventListener("click", function (event) {
+      if (card.classList.contains("profile-card-in-window")) return;
+      event.preventDefault();
+      openProfileCardWindow(card);
+    });
+    card.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openProfileCardWindow(card);
+      }
+    });
+  });
+}
+
+if (profileForm) {
+  [profileNickname, profileAvatarFile].forEach(function (element) {
+    if (!element) return;
+    element.addEventListener("input", function () {
+      if (profileUnsavedMessage) profileUnsavedMessage.classList.remove("hidden");
+    });
+    element.addEventListener("change", function () {
+      if (profileUnsavedMessage) profileUnsavedMessage.classList.remove("hidden");
+    });
+  });
+}
+
+if (passwordChangeForm) {
+  passwordChangeForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const newPassword = profileNewPassword.value.trim();
+    const repeatedPassword = profileRepeatPassword.value.trim();
+    if (!newPassword || !repeatedPassword) {
+      showMessage(passwordHelpMessage, t("passwordChangeEmpty"), "warning");
+      return;
+    }
+    if (newPassword !== repeatedPassword) {
+      showMessage(passwordHelpMessage, t("passwordsDoNotMatch"), "warning");
+      return;
+    }
+    if (newPassword.length < 6) {
+      showMessage(passwordHelpMessage, t("passwordTooShort"), "warning");
+      return;
+    }
+    if (!confirm(t("passwordChangeConfirm"))) {
+      return;
+    }
+    const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
+    if (error) {
+      console.error(error);
+      showMessage(passwordHelpMessage, t("passwordUpdateError"), "warning");
+      return;
+    }
+    profileNewPassword.value = "";
+    profileRepeatPassword.value = "";
+    showMessage(passwordHelpMessage, t("passwordChangedCorrectly"), "success");
+  });
+}
+
 profileForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
   let avatarFilePath = selectedAvatarFilePath;
   const file = profileAvatarFile.files[0] || null;
-  const newPassword = profileNewPassword.value.trim();
-  const repeatedPassword = profileRepeatPassword.value.trim();
-
-  if (newPassword || repeatedPassword) {
-    if (newPassword !== repeatedPassword) {
-      showMessage(profileMessage, t("passwordsDoNotMatch"), "warning");
-      return;
-    }
-
-    if (newPassword.length < 6) {
-      showMessage(profileMessage, t("passwordTooShort"), "warning");
-      return;
-    }
-  }
-
   if (file) {
     if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
       showMessage(profileMessage, t("profilePhotoInvalidType"), "warning");
@@ -6525,21 +6873,6 @@ profileForm.addEventListener("submit", async function (event) {
     return;
   }
 
-  if (newPassword) {
-    const { error: passwordError } = await supabaseClient.auth.updateUser({
-      password: newPassword
-    });
-
-    if (passwordError) {
-      console.error(passwordError);
-      showMessage(profileMessage, t("passwordUpdateError"), "warning");
-      return;
-    }
-
-    profileNewPassword.value = "";
-    profileRepeatPassword.value = "";
-  }
-
   currentProfile = await fetchProfile(currentUserId);
   renderProfilePanel();
 
@@ -6547,6 +6880,7 @@ profileForm.addEventListener("submit", async function (event) {
     renderStudentDashboard();
   }
 
+  if (profileUnsavedMessage) profileUnsavedMessage.classList.add("hidden");
   showMessage(profileMessage, file ? t("profilePhotoUploaded") : t("savedProfile"), "success");
 });
 
@@ -7160,6 +7494,12 @@ function openFloatingPanelWindow(panelKey) {
     title = t("notificationCenter");
   }
 
+  if (panelKey === "profile") {
+    panelId = "profilePanel";
+    title = t("userProfile");
+    renderProfilePanel();
+  }
+
   if (!panelId) {
     return;
   }
@@ -7201,10 +7541,16 @@ function openFloatingPanelWindow(panelKey) {
     renderNotifications();
   }
 
+  if (panelKey === "profile") {
+    prepareProfileCards();
+    moveQuickNeedCardToMessages();
+  }
+
   applyI18n();
 }
 
 function closeFloatingPanelWindow(addHidden = true) {
+  closeProfileCardWindow();
   closeTeacherPanelWindow(addHidden);
 
   if (!openedFloatingPanel) {
@@ -7400,7 +7746,7 @@ if (quickNeedForm) {
     }
     const teacher = contacts.find(item => item.role === "teacher") || contacts[0];
     if (teacher) {
-      await createInternalNotification(teacher.id, t("quickMessageTeacher"), `${currentProfile.name}: ${quickNeedText.value.trim() || quickNeedType.value}`, "quick_need", "messages");
+      await createInternalNotification(teacher.id, t("quickMessageTeacher"), `${currentProfile.name}: ${quickNeedText.value.trim() || readableQuickNeedType(quickNeedType.value)}`, "quick_need", "messages");
     }
     quickNeedForm.reset();
     quickNeedCounter.textContent = "0/300";

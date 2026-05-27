@@ -2821,3 +2821,200 @@ body.dark-mode .notification-card {
 }
 .today-label { display: none !important; }
 .avatar-choice-list { max-height: 13rem; overflow: auto; padding-right: 0.25rem; }
+
+
+/* Perfil más compacto y en ventanas de trabajo */
+#profilePanel.panel-in-window {
+  max-height: 76vh;
+  overflow: auto;
+}
+
+.profile-heading-row {
+  margin-bottom: 1rem;
+}
+
+.profile-extra-grid {
+  align-items: stretch;
+}
+
+.profile-extra-card:not(.profile-card-in-window) {
+  min-height: 5.8rem;
+  max-height: 6.8rem;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.profile-extra-card:not(.profile-card-in-window):hover,
+.profile-extra-card:not(.profile-card-in-window):focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(31, 41, 51, .10);
+}
+
+.profile-extra-card:not(.profile-card-in-window) form,
+.profile-extra-card:not(.profile-card-in-window) .profile-info-list,
+.profile-extra-card:not(.profile-card-in-window) fieldset,
+.profile-extra-card:not(.profile-card-in-window) button,
+.profile-extra-card:not(.profile-card-in-window) .feedback {
+  display: none !important;
+}
+
+.profile-extra-card:not(.profile-card-in-window)::after {
+  content: "Abrir apartado";
+  display: inline-block;
+  margin-top: .45rem;
+  padding: .25rem .65rem;
+  border-radius: 999px;
+  background: var(--surface, #f4eadb);
+  border: 1px solid var(--border, #d7cfc4);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.profile-card-window-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 20, 24, .42);
+  padding: 1rem;
+}
+
+.profile-card-window {
+  width: min(780px, 94vw);
+  max-height: 82vh;
+  overflow: auto;
+  background: var(--surface, #fffaf2);
+  border: 1px solid var(--border, #d7cfc4);
+  border-radius: 22px;
+  box-shadow: 0 24px 70px rgba(15, 20, 24, .28);
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.profile-card-in-window {
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  cursor: default !important;
+  box-shadow: none !important;
+}
+
+.profile-card-in-window::after {
+  content: none !important;
+}
+
+.profile-card-in-window form,
+.profile-card-in-window .profile-info-list,
+.profile-card-in-window fieldset,
+.profile-card-in-window button,
+.profile-card-in-window .feedback {
+  display: revert !important;
+}
+
+.quick-need-message-card {
+  margin: 0 0 1rem 0;
+  border: 1px solid var(--border, #d7cfc4);
+  border-radius: 18px;
+  padding: 1rem;
+  background: var(--surface-soft, #fffaf2);
+}
+
+.quick-need-message-card::after {
+  content: none !important;
+}
+
+.quick-need-message-card form,
+.quick-need-message-card fieldset,
+.quick-need-message-card button,
+.quick-need-message-card .feedback {
+  display: revert !important;
+}
+
+#profileUnsavedMessage:not(.hidden) {
+  color: #8a5b16;
+  font-weight: 800;
+}
+
+body.dark-mode .profile-card-window,
+body.dark-mode .quick-need-message-card {
+  background: var(--surface);
+}
+
+
+/* Ajustes finales: perfil compacto, alumnado y ventanas pequeñas */
+.profile-extra-grid {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: .65rem;
+}
+.profile-extra-card:not(.profile-card-in-window) {
+  min-height: 4.1rem !important;
+  max-height: 4.9rem !important;
+  padding: .72rem .85rem !important;
+}
+.profile-extra-card:not(.profile-card-in-window) h3 {
+  margin: 0 !important;
+  font-size: .98rem;
+}
+.profile-extra-card:not(.profile-card-in-window) .form-help,
+.profile-extra-card:not(.profile-card-in-window) p:not(.feedback),
+.profile-extra-card:not(.profile-card-in-window) small {
+  display: none !important;
+}
+.profile-extra-card:not(.profile-card-in-window)::after {
+  content: "Abrir";
+  margin-top: .35rem;
+  padding: .16rem .5rem;
+  font-size: .72rem;
+}
+.profile-card-window {
+  width: min(720px, 94vw);
+  max-height: 78vh;
+}
+.teacher-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.teacher-admin-block {
+  border: 1px solid var(--border, #d7cfc4);
+  border-radius: 18px;
+  padding: 1rem;
+  background: var(--surface-soft, #fffaf2);
+}
+.student-admin-list {
+  display: grid;
+  gap: .4rem;
+  max-height: 22rem;
+  overflow: auto;
+  padding-right: .25rem;
+}
+.student-admin-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .55rem;
+  align-items: start;
+  padding: .55rem;
+  border: 1px solid var(--border, #d7cfc4);
+  border-radius: 14px;
+  background: var(--surface, #fff);
+}
+.student-admin-row strong { display: block; }
+.student-admin-row small { color: var(--muted, #756b60); }
+.danger-button {
+  border-color: rgba(155, 55, 55, .45) !important;
+  color: #8a2727 !important;
+}
+.readonly-school-form select:disabled,
+.readonly-school-form textarea:disabled {
+  opacity: 1;
+  background: var(--surface-soft, #fffaf2);
+  color: var(--ink, #1d2733);
+}
+.student-detail-card .compact-school-form textarea {
+  min-height: 4.5rem;
+}
+.profile-inline-schedule {
+  white-space: pre-wrap;
+}

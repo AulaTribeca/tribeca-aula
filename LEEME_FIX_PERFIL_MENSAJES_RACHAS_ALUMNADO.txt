@@ -1,0 +1,34 @@
+ACTUALIZACIÓN: PERFIL, MENSAJES, RACHAS Y GESTIÓN DE ALUMNADO
+
+Archivos principales:
+- index.html
+- style.css
+- script.js
+
+SQL nuevo:
+- supabase_migracion_rachas_y_alumnado.sql
+
+Orden recomendado:
+1. Ejecutar en Supabase el SQL supabase_migracion_rachas_y_alumnado.sql.
+2. Sustituir index.html, style.css y script.js.
+3. Publicar en Netlify con una carpeta limpia que contenga solo index.html, style.css y script.js.
+4. Probar con perfil de profesora y perfil de alumno/a.
+5. Hacer commit cuando esté comprobado.
+
+Cambios incluidos:
+- El perfil se abre como ventana de trabajo y puede cerrarse.
+- Los recuadros del perfil son compactos y abren su contenido en una ventana pequeña, no en pantalla completa.
+- El mensaje rápido se traslada al apartado Mensajes.
+- El cambio de contraseña queda integrado en Seguridad, con confirmación previa y aviso de éxito.
+- La racha solo se activa por inicio de sesión.
+- La racha empieza al tercer día lectivo consecutivo con inicio de sesión.
+- Sábados y domingos no rompen la racha y se suman si la racha ya estaba activa.
+- Se añaden más etiquetas para evitar nombres técnicos en pantalla.
+- El alumnado ya no puede modificar centro, etapa ni curso.
+- La profesora puede editar centro, etapa, curso y horario de asistencia a Tribeca Aula desde la ficha del alumno/a.
+- Se añade una herramienta docente para gestionar alumnado.
+- La profesora puede crear una cuenta básica de alumno/a con usuario y contraseña inicial.
+- La profesora puede archivar alumnado individualmente o en bloque para que deje de aparecer en el aula sin destruir historial.
+
+Nota importante:
+El archivado se usa como eliminación segura dentro del aula. No borra físicamente el usuario de Supabase Auth ni los datos históricos de aprendizaje. Es más prudente para evitar pérdidas accidentales. Si en una fase posterior quieres borrado definitivo, será mejor hacerlo con una función segura de servidor.

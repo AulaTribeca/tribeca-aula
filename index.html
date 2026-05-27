@@ -127,9 +127,14 @@
         </form>
       </section>
 
-      <section id="profilePanel" class="panel hidden" aria-labelledby="profileTitle">
-        <p class="eyebrow" data-i18n="myProfile">Mi perfil</p>
-        <h2 id="profileTitle" data-i18n="userProfile">Perfil de usuario</h2>
+      <section id="profilePanel" class="panel hidden floating-source-panel" aria-labelledby="profileTitle">
+        <div class="section-heading-row profile-heading-row">
+          <div>
+            <p class="eyebrow" data-i18n="myProfile">Mi perfil</p>
+            <h2 id="profileTitle" data-i18n="userProfile">Perfil de usuario</h2>
+          </div>
+          <button type="button" id="closeProfilePanelButton" class="secondary-button" data-i18n="closeProfile">Cerrar perfil</button>
+        </div>
 
         <div class="profile-layout">
           <div class="profile-preview">
@@ -150,19 +155,9 @@
             <p class="form-help" data-i18n="profilePhotoHelp">Formatos admitidos: PNG, JPG o WEBP. Tamaño máximo: 2 MB. La imagen debe ser clara y respetuosa.</p>
             <input type="file" id="profileAvatarFile" accept="image/png,image/jpeg,image/webp" />
             <button type="button" id="deleteProfilePhotoButton" class="secondary-button" data-i18n="deleteProfilePhoto">Eliminar foto de perfil</button>
+            <p id="profileUnsavedMessage" class="form-help hidden" data-i18n="profileUnsavedChanges">Hay cambios sin guardar.</p>
 
-            <fieldset class="password-box">
-              <legend data-i18n="changePassword">Cambiar contraseña</legend>
-              <p class="form-help" data-i18n="passwordChangeHelp">Déjalo en blanco si no quieres cambiarla ahora.</p>
-
-              <label for="profileNewPassword" data-i18n="newPassword">Nueva contraseña</label>
-              <input type="password" id="profileNewPassword" autocomplete="new-password" data-i18n-placeholder="newPasswordPlaceholder" placeholder="Nueva contraseña" />
-
-              <label for="profileRepeatPassword" data-i18n="repeatPassword">Repetir nueva contraseña</label>
-              <input type="password" id="profileRepeatPassword" autocomplete="new-password" data-i18n-placeholder="repeatPasswordPlaceholder" placeholder="Repite la nueva contraseña" />
-            </fieldset>
-
-            <button type="submit" class="primary-button" data-i18n="saveProfile">Guardar perfil</button>
+            <button type="submit" class="primary-button" data-i18n="saveProfileChanges">Guardar cambios del perfil</button>
             <p id="profileMessage" class="feedback" role="status" aria-live="polite"></p>
           </form>
         </div>
@@ -175,7 +170,14 @@
 
           <article class="profile-extra-card">
             <h3 data-i18n="security">Seguridad</h3>
-            <p class="form-help" data-i18n="securityHelp">Gestiona el acceso a tu cuenta y pide ayuda si necesitas una nueva contraseña.</p>
+            <p class="form-help" data-i18n="securityHelp">Gestiona el acceso a tu cuenta y cambia la contraseña cuando lo necesites.</p>
+            <form id="passwordChangeForm" class="teacher-form compact-settings-form">
+              <label for="profileNewPassword" data-i18n="newPassword">Nueva contraseña</label>
+              <input type="password" id="profileNewPassword" autocomplete="new-password" data-i18n-placeholder="newPasswordPlaceholder" placeholder="Nueva contraseña" />
+              <label for="profileRepeatPassword" data-i18n="repeatPassword">Repetir nueva contraseña</label>
+              <input type="password" id="profileRepeatPassword" autocomplete="new-password" data-i18n-placeholder="repeatPasswordPlaceholder" placeholder="Repite la nueva contraseña" />
+              <button type="submit" class="secondary-button" data-i18n="changePasswordAction">Cambiar contraseña</button>
+            </form>
             <button type="button" id="requestPasswordHelpButton" class="secondary-button" data-i18n="requestPasswordHelp">Solicitar ayuda para recuperar contraseña</button>
             <p id="passwordHelpMessage" class="feedback" role="status" aria-live="polite"></p>
           </article>
@@ -216,7 +218,7 @@
             <div id="studentActivitySummary" class="profile-info-list"></div>
           </article>
 
-          <article class="profile-extra-card student-only-profile-card">
+          <article id="quickNeedCard" class="profile-extra-card student-only-profile-card quick-need-card">
             <h3 data-i18n="quickMessageTeacher">Mensaje rápido a la profesora</h3>
             <p class="form-help" data-i18n="quickMessageHelp">Elige una necesidad y añade, si quieres, una explicación breve.</p>
             <form id="quickNeedForm" class="teacher-form compact-settings-form">
@@ -396,6 +398,10 @@
               <strong data-i18n="passwordHelpRequests">Recuperación de contraseñas</strong>
               <span data-i18n="passwordHelpRequestsShort">Solicitudes de ayuda del alumnado.</span>
             </button>
+            <button type="button" class="teacher-launch-card" data-teacher-panel="teacherStudentAdminPanel" data-teacher-title-key="manageStudentsTitle">
+              <strong data-i18n="manageStudentsTitle">Gestionar alumnado</strong>
+              <span data-i18n="manageStudentsHelpShort">Añadir, archivar o editar centro, curso y horario.</span>
+            </button>
           </div>
         </section>
 
@@ -420,6 +426,49 @@
           <div id="teacherRecoveryList" class="detail-list"></div>
         </article>
 
+        <article id="teacherStudentAdminPanel" class="panel teacher-window-source hidden" aria-labelledby="teacherStudentAdminTitle">
+          <p class="eyebrow" data-i18n="studentProfiles">Perfiles del alumnado</p>
+          <h2 id="teacherStudentAdminTitle" data-i18n="manageStudentsTitle">Gestionar alumnado</h2>
+          <p class="form-help" data-i18n="manageStudentsHelp">Alta básica, archivo y edición de centro, etapa, curso y horario de asistencia a Tribeca Aula.</p>
+
+          <div class="teacher-admin-grid">
+            <section class="teacher-admin-block">
+              <h3 data-i18n="addStudentTitle">Añadir alumno/a</h3>
+              <p class="form-help" data-i18n="addStudentHelp">Crea una cuenta básica con usuario y contraseña inicial. El alumno/a deberá cambiarla al entrar.</p>
+              <form id="teacherAddStudentForm" class="teacher-form compact-settings-form">
+                <label for="newStudentName" data-i18n="officialName">Nombre y apellidos</label>
+                <input type="text" id="newStudentName" required placeholder="Nombre y apellidos" />
+                <label for="newStudentUsername" data-i18n="username">Nombre de usuario</label>
+                <input type="text" id="newStudentUsername" required placeholder="nombre_apellido" />
+                <label for="newStudentPassword" data-i18n="initialPassword">Contraseña inicial</label>
+                <input type="text" id="newStudentPassword" required placeholder="Contraseña temporal" />
+                <label for="newStudentCenter" data-i18n="schoolCenter">Centro educativo</label>
+                <select id="newStudentCenter"></select>
+                <label for="newStudentStage" data-i18n="educationalStage">Etapa educativa</label>
+                <select id="newStudentStage"></select>
+                <label for="newStudentCourse" data-i18n="academicCourse">Curso</label>
+                <select id="newStudentCourse"></select>
+                <label for="newStudentSchedule" data-i18n="tribecaSchedule">Horario en Tribeca Aula</label>
+                <textarea id="newStudentSchedule" rows="2" placeholder="Ej.: lunes y miércoles, 17:00-18:00"></textarea>
+                <button type="submit" class="primary-button" data-i18n="createStudentAccount">Crear alumno/a</button>
+                <p id="teacherAddStudentMessage" class="feedback" role="status" aria-live="polite"></p>
+              </form>
+            </section>
+
+            <section class="teacher-admin-block">
+              <h3 data-i18n="bulkStudentActions">Acciones sobre alumnado</h3>
+              <p class="form-help" data-i18n="bulkStudentHelp">Selecciona uno o varios alumnos/as para archivarlos. No se borran sus datos históricos de trabajo.</p>
+              <div id="teacherBulkStudentList" class="student-admin-list"></div>
+              <div class="assignment-actions">
+                <button type="button" id="selectAllAdminStudentsButton" class="secondary-button" data-i18n="selectAll">Seleccionar todo</button>
+                <button type="button" id="clearAdminStudentsButton" class="secondary-button" data-i18n="clearSelection">Limpiar selección</button>
+                <button type="button" id="archiveSelectedStudentsButton" class="secondary-button danger-button" data-i18n="archiveSelectedStudents">Archivar seleccionados</button>
+              </div>
+              <p id="teacherArchiveMessage" class="feedback" role="status" aria-live="polite"></p>
+            </section>
+          </div>
+        </article>
+
         <section class="teacher-grid teacher-collapsible teacher-window-source-group">
           <article id="teacherPostToolPanel" class="panel classroom-composer teacher-window-source" aria-labelledby="createPostTitle">
             <p class="eyebrow" data-i18n="publish">Publicar</p>
@@ -440,7 +489,7 @@
 
               <fieldset class="student-picker teacher-targeting-box">
                 <legend data-i18n="targetBySchool">Destinatarios por centro y curso</legend>
-                <p class="form-help" data-i18n="targetBySchoolHelp">Elige centro educativo, tipo de estudios y curso. Después puedes quitar o añadir alumnado de forma manual.</p>
+                <p class="form-help" data-i18n="targetBySchoolHelp">Elige centro educativo y curso. Después puedes quitar o añadir alumnado de forma manual.</p>
                 <div class="filter-grid">
                   <label for="teacherFilterCenter"><span data-i18n="schoolCenter">Centro educativo</span><select id="teacherFilterCenter"></select></label>
                   <label for="teacherFilterAcademicCourse"><span data-i18n="academicCourse">Curso</span><select id="teacherFilterAcademicCourse"></select></label>
@@ -674,6 +723,7 @@
           <span id="messageUnreadBadge" class="notification-badge hidden">0</span>
         </h2>
         <p class="message-helper" data-i18n="inboxPrivacy">Buzón privado del aula: los mensajes solo son visibles entre la profesora y el alumno o alumna correspondiente.</p>
+        <div id="quickNeedMessagesSlot" class="quick-need-messages-slot"></div>
         <p id="messageUnreadNotice" class="message-alert hidden"></p>
         <div class="message-actions-row gmail-actions-top">
           <button type="button" id="openUnreadMessagesButton" class="secondary-button hidden" data-i18n="openUnreadMessages">Abrir mensajes nuevos</button>
@@ -774,15 +824,16 @@
   <section id="studentSchoolPanel" class="panel hidden floating-source-panel" aria-labelledby="studentSchoolPanelTitle">
     <p class="eyebrow" data-i18n="schoolProfile">Perfil escolar</p>
     <h2 id="studentSchoolPanelTitle" data-i18n="schoolProfileTitle">Centro, etapa y curso</h2>
-    <p class="form-help" data-i18n="schoolProfileIntro">Mantén actualizados estos datos para que las publicaciones y avisos lleguen bien.</p>
-    <form id="studentSchoolForm" class="teacher-form">
+    <p class="form-help" data-i18n="schoolProfileIntro">Estos datos los actualiza la profesora para que las publicaciones, avisos y materiales lleguen correctamente.</p>
+    <form id="studentSchoolForm" class="teacher-form readonly-school-form">
       <label for="studentSchoolCenterSelect" data-i18n="schoolCenter">Centro educativo</label>
-      <select id="studentSchoolCenterSelect" required></select>
+      <select id="studentSchoolCenterSelect" required disabled></select>
       <label for="studentEducationalStageSelect" data-i18n="educationalStage">Etapa educativa</label>
-      <select id="studentEducationalStageSelect" required></select>
+      <select id="studentEducationalStageSelect" required disabled></select>
       <label for="studentAcademicCourseSelect" data-i18n="academicCourse">Curso</label>
-      <select id="studentAcademicCourseSelect" required></select>
-      <button type="submit" class="primary-button" data-i18n="saveSchoolProfile">Guardar perfil escolar</button>
+      <select id="studentAcademicCourseSelect" required disabled></select>
+      <label for="studentTribecaSchedule" data-i18n="tribecaSchedule">Horario en Tribeca Aula</label>
+      <textarea id="studentTribecaSchedule" rows="3" disabled></textarea>
       <p id="studentSchoolMessage" class="feedback" role="status" aria-live="polite"></p>
     </form>
   </section>
